@@ -1,0 +1,16 @@
+image: docker
+services:
+  - docker:dind
+variables:
+  DOCKER_TLS_CERTDIR: ""
+stages:
+  - stage
+deploy-stage:
+  stage: stage
+  only:
+    - stage
+  script:
+    - docker build -t nvstr .
+    - docker run -d -p 4444:4444 --rm --name nvstr-front nvstr
+  tags:
+    - build_docker
