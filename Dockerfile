@@ -4,10 +4,6 @@ FROM node:14
 RUN mkdir -p /usr/src/nvstr-app
 WORKDIR /usr/src/nvstr-app
 
-# update and install dependency
-RUN apk update && apk upgrade
-RUN apk add git
-
 # copy the app, note .dockerignore
 COPY . /usr/src/nvstr-app/
 RUN yarn
