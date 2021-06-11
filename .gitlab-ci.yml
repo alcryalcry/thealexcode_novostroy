@@ -11,6 +11,6 @@ deploy-stage:
     - stage
   script:
     - docker build -t nvstr .
-    - docker run -it -p 4444:4444 nvstr
+    - docker run -d -p 4444:4444 --rm --name nvstr-front nvstr
   tags:
     - build_docker
