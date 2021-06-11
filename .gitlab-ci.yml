@@ -3,8 +3,10 @@ services:
   - docker:dind
 stages:
   - stage
-step-deploy-prod:
+deploy-stage:
   stage: stage
+  only:
+    - stage
   script:
     - docker build -t nvstr .
     - docker run -it -p 4444:4444 nvstr
