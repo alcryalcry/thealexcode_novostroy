@@ -4,15 +4,19 @@ export default {
   store: false,
   head,
   css: [
-    '~assets/scss/app.scss'
+    '~assets/styles/app.scss'
   ],
   styleResources: {
     scss: [
-      'assets/scss/global/mixins.scss',
-      'assets/scss/global/vars.scss'
+      'assets/styles/global/vars.scss',
+      'assets/styles/global/mixins.scss'
     ]
   },
   plugins: [
+    {
+      src: '~plugins/utils.js',
+      ssr: false
+    },
     {
       src: '~plugins/vBodyScrollLock.js',
       ssr: false

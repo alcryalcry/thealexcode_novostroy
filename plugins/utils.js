@@ -1,4 +1,6 @@
-// import Vue from 'vue'
-// import Preloader from '~/components/utils/Preloader.vue'
+import Vue from 'vue'
+import Section from '~/components/global/Section.vue'
+import Container from '~/components/global/Container.vue'
 
-// Vue.component('Preloader', Preloader)
+Vue.component('Section', Section)
+Vue.component('Container', Container)
