@@ -1,0 +1,124 @@
+$containerWidthDesktop: $CONTAINER_WIDTH_DESKTOP + $COL_GAP_DESKTOP / 2;
+$colCountDesktop: $COL_COUNT_DESKTOP;
+$colGapDesktop: ($COL_GAP_DESKTOP / 2);
+$containerWidthTablet: $CONTAINER_WIDTH_TABLET;
+$colCountTablet: $COL_COUNT_TABLET;
+$colGapTablet: ($COL_GAP_TABLET / 2);
+$containerWidthMobile: $CONTAINER_WIDTH_MOBILE;
+$colCountMobile: $COL_COUNT_MOBILE;
+$colGapMobile: ($COL_GAP_MOBILE / 2);
+
+.col {
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 100%;
+
+  @for $colNum from 1 to ($colCountDesktop + 1) {
+    &.col-#{$colNum} {
+      position: relative;
+      flex: 0 0 to-fixed(($colNum / $colCountDesktop) * 100%, 5);
+      min-height: 1px;
+      max-width: to-fixed(($colNum / $colCountDesktop) * 100%, 5);
+    }
+  }
+
+  &.col-auto {
+    flex: 1 1 (100% / $colCountDesktop);
+    max-width: none;
+    width: auto;
+  }
+
+  &.no-grow {
+    flex-grow: 0 !important;
+  }
+
+  &.as-c {
+    align-self: center;
+  }
+
+  &.as-s {
+    align-self: stretch;
+  }
+
+  &.as-b {
+    align-self: baseline;
+  }
+
+  &.as-fs {
+    align-self: flex-start;
+  }
+
+  &.as-fe {
+    align-self: flex-end;
+  }
+
+  .no-gap & {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .is-debug {
+    .row.no-gap & {
+      box-shadow: inset 0 0 0 1px rgba(96, 125, 139, 0.4) !important;
+    }
+  }
+}
+
+@include desktop {
+  .is-debug .col {
+    box-shadow: 'inset 0 0 0 1px rgba(96,125,139,0.4), inset #{($colGapDesktop $colGapDesktop)} 0 0 0 rgba(128,203,196 ,0.2), inset -#{($colGapDesktop $colGapDesktop)} 0 0 0 rgba(128,203,196 ,0.2)';
+  }
+
+  .col {
+    padding: $colGapDesktop;
+
+    @for $colNum from 1 to ($colCountDesktop + 1) {
+      &.col-lg-#{$colNum} {
+        flex: 0 0 to-fixed(($colNum / $colCountDesktop) * 100%, 5);
+        max-width: to-fixed(($colNum / $colCountDesktop) * 100%, 5);
+      }
+    }
+
+    &-lg-hide {
+      display: none;
+    }
+  }
+}
+
+@include tablet {
+  .col {
+    padding: $colGapTablet;
+
+    @for $colNum from 1 to ($colCountTablet + 1) {
+      &.col-md-#{$colNum} {
+        flex: 0 0 to-fixed(($colNum / $colCountTablet) * 100%, 5);
+        max-width: to-fixed(($colNum / $colCountTablet) * 100%, 5);
+      }
+    }
+
+    &-md-hide {
+      display: none;
+    }
+  }
+}
+
+@include mobile {
+  .is-debug .col {
+    box-shadow: 'inset 0 0 0 1px rgba(96,125,139,0.4), inset #{($colGapMobile $colGapMobile)} 0 0 0 rgba(128,203,196 ,0.2), inset -#{($colGapMobile $colGapMobile)} 0 0 0 rgba(128,203,196 ,0.2)';
+  }
+
+  .col {
+    padding: $colGapMobile;
+
+    @for $colNum from 1 to ($colCountMobile + 1) {
+      &.col-sm-#{$colNum} {
+        flex: 0 0 to-fixed(($colNum / $colCountMobile) * 100%, 5);
+        max-width: to-fixed(($colNum / $colCountMobile) * 100%, 5);
+      }
+    }
+
+    &-sm-hide {
+      display: none;
+    }
+  }
+}

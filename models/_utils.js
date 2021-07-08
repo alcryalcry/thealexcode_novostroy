@@ -1,4 +1,4 @@
-export const rawObject = raw => typeof raw === 'object' && raw !== undefined ? raw : {}
+export const rawObject = raw => typeof raw === 'object' && raw !== null ? raw : {}
 
 export const rawArray = raw => Array.isArray(raw) ? raw : []
 
