@@ -24,9 +24,9 @@
         <div class="ui-element ui-bg-0">
           <FormInput :placeholder="'Ваш имя?'" :name="'name'" :error="'Текст ошибки'" />
         </div>
-        <!-- <div class="ui-element">
-          <FormSelect />
-        </div> -->
+        <div class="ui-element">
+          <FormSelect :options="[{id: 'this is id', label: 'this is label'}, '2020', '2019', 'Максимально возможный текст, который не влезает', '111', '22222222', '4234234']" />
+        </div>
         <div class="ui-element">
           <Link :label="'linkLabel'" :url="'/'" />
         </div>
@@ -67,17 +67,17 @@
 </template>
 
 <script>
-import Link from '~/components/Link'
-import WrapperTitle from '~/components/WrapperTitle'
-import FormInput from '~/components/FormInput'
-// import FormSelect from '~/components/FormSelect'
+import Link from '@/components/Link'
+import WrapperTitle from '@/components/WrapperTitle'
+import FormInput from '@/components/controls/FormInput'
+import FormSelect from '@/components/controls/FormSelect'
 
 export default {
   components: {
     Link,
     WrapperTitle,
-    FormInput
-    // FormSelect
+    FormInput,
+    FormSelect
   },
   data () {
     return {

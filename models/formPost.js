@@ -1,6 +1,6 @@
 import { rawObject, AppModel } from './_utils'
 
-export default class AppFormPost extends AppModel {
+export default class AppModelFormPost extends AppModel {
   static createFromRaw (raw) {
     const {
       name = '',
@@ -8,7 +8,7 @@ export default class AppFormPost extends AppModel {
       email = ''
     } = rawObject(raw)
 
-    return Object.assign(new AppFormPost(), {
+    return Object.assign(new AppModelFormPost(), {
       name,
       email,
       phone

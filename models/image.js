@@ -1,6 +1,6 @@
 import { rawObject } from './_utils'
 
-export default class AppImage {
+export default class AppModelImage {
   static createFromRaw (raw) {
     const {
       id = null,
@@ -21,7 +21,7 @@ export default class AppImage {
       thumbnail = {}
     } = rawObject(formats)
 
-    return Object.assign(new AppImage(), {
+    return Object.assign(new AppModelImage(), {
       id,
       name,
       alternativeText,
@@ -33,7 +33,7 @@ export default class AppImage {
       mime,
       url,
       previewUrl,
-      thumbnail: thumbnail.url ? AppImage.createFromRaw(thumbnail) : {}
+      thumbnail: thumbnail.url ? AppModelImage.createFromRaw(thumbnail) : {}
     })
   }
 }

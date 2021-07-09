@@ -1,7 +1,7 @@
-import { AppImage } from '@/models'
+import { AppModelImage } from '@/models'
 import { rawArray, rawObject, AppModel } from './_utils'
 
-export default class AppProject extends AppModel {
+export default class AppModelProject extends AppModel {
   static createFromRaw (raw) {
     const {
       id = null,
@@ -22,18 +22,18 @@ export default class AppProject extends AppModel {
       } = rawObject(slide)
 
       return {
-        slideImage: AppImage.createFromRaw(slideImage),
+        slideImage: AppModelImage.createFromRaw(slideImage),
         caption
       }
     })
 
-    return Object.assign(new AppProject(), {
+    return Object.assign(new AppModelProject(), {
       id,
       title,
       subtitle,
       year,
       location,
-      img: AppImage.createFromRaw(img),
+      img: AppModelImage.createFromRaw(img),
       inProgress,
       sort,
       slides: mappedSlides

@@ -1,7 +1,7 @@
-import { AppImage } from '@/models'
+import { AppModelImage } from '@/models'
 import { rawObject, rawArray, AppModel } from './_utils'
 
-export default class AppSettings extends AppModel {
+export default class AppModelSettings extends AppModel {
   static createFromRaw (raw) {
     const {
       title = '',
@@ -40,7 +40,7 @@ export default class AppSettings extends AppModel {
       }
     })
 
-    return Object.assign(new AppSettings(), {
+    return Object.assign(new AppModelSettings(), {
       title,
       phone,
       copyright,
@@ -52,7 +52,7 @@ export default class AppSettings extends AppModel {
       seoMainDescription,
       seoProjectsTitle,
       seoProjectsDescription,
-      seoImage: AppImage.createFromRaw(seoImage)
+      seoImage: AppModelImage.createFromRaw(seoImage)
     })
   }
 }

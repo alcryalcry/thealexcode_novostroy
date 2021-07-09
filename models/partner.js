@@ -1,7 +1,7 @@
-import { AppImage } from '@/models'
+import { AppModelImage } from '@/models'
 import { rawObject, rawArray, AppModel } from './_utils'
 
-export default class AppPartners extends AppModel {
+export default class AppModelPartners extends AppModel {
   static createFromRaw (raw) {
     const {
       title = '',
@@ -9,9 +9,9 @@ export default class AppPartners extends AppModel {
       imgs = []
     } = rawObject(raw)
 
-    const mappedImgs = rawArray(imgs).map(item => AppImage.createFromRaw(item))
+    const mappedImgs = rawArray(imgs).map(item => AppModelImage.createFromRaw(item))
 
-    return Object.assign(new AppPartners(), {
+    return Object.assign(new AppModelPartners(), {
       title,
       body,
       imgs: mappedImgs

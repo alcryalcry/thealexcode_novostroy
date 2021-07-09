@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import IconArrow from '~/assets/svg/arrow.svg'
+import IconArrow from '@/assets/svg/arrow.svg'
 
 export default {
   name: 'Link',
