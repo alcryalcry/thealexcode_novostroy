@@ -4,6 +4,7 @@ $COLOR_LIGHT_GRAY: #F0F1F5;
 $COLOR_GRAY: #CCD0DC;
 $COLOR_DARK_GRAY: #82868E;
 $COLOR_GREEN: #7C8D66;
+$COLOR_RED: #9C4E4E;
 
 :root {
   --color-white: #{$COLOR_WHITE};
@@ -12,6 +13,7 @@ $COLOR_GREEN: #7C8D66;
   --color-gray: #{$COLOR_GRAY};
   --color-dark-gray: #{$COLOR_DARK_GRAY};
   --color-green: #{$COLOR_GREEN};
+  --color-red: #{$COLOR_RED};
 }
 
 

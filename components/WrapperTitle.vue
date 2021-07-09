@@ -2,8 +2,17 @@
   <div class="wrapper-title">
     <div class="row">
       <div class="col col-4 col-md-8 col-sm-4">
-        <div class="title--h1">
-          {{ title }}
+        <div class="row no-gap ai-sb">
+          <div class="col col-6 col-md-8 col-sm-4">
+            <div v-if="title" class="title--h1">
+              {{ title }}
+            </div>
+          </div>
+          <div class="col col-6 col-md-8 col-sm-4">
+            <div v-if="description" class="text--t3">
+              {{ description }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="col col-8 col-md-8 col-sm-4">
@@ -18,6 +27,10 @@ export default {
   name: 'WrapperTItle',
   props: {
     title: {
+      type: String,
+      default: ''
+    },
+    description: {
       type: String,
       default: ''
     }

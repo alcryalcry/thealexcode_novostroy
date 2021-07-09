@@ -20,6 +20,10 @@ export default {
     {
       src: '~plugins/vBodyScrollLock.js',
       ssr: false
+    },
+    {
+      src: '~plugins/vueMultiselect',
+      ssr: false
     }
   ],
   components: true,
