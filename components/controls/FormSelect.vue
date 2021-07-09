@@ -6,7 +6,6 @@
       v-bind="computedSettings"
       :options="mappedOptions"
       @select="onSelect"
-      v-on="$listeners"
     >
       <template #placeholder>
         <span class="multiselect__placeholder">
@@ -73,11 +72,17 @@ export default {
     }
   },
   mounted () {
-    this.$set(this, 'value', this.mappedOptions[0])
+    this.setSelectValue(this.mappedOptions[0])
   },
   methods: {
+    setSelectValue (val) {
+      this.$set(this, 'value', val)
+    },
     onSelect (e) {
-      this.value = e
+      this.setSelectValue(e)
+
+      this.$emit('select', e)
+
       if (e.id === DEFAULT_ID) {
         this.$emit('clear-select')
       }
