@@ -1,7 +1,8 @@
-import { rawArray, rawObject, rawImage } from './_utils'
+import { AppImage } from '@/models'
+import { rawArray, rawObject, AppModel } from './_utils'
 
-export default function (raw = []) {
-  return rawArray(raw).map((item) => {
+export default class AppProject extends AppModel {
+  static createFromRaw (raw) {
     const {
       id = null,
       title = '',
@@ -12,29 +13,30 @@ export default function (raw = []) {
       inProgress = false,
       sort = null,
       slides = []
-    } = rawObject(item)
+    } = rawObject(raw)
 
     const mappedSlides = rawArray(slides).map((slide) => {
       const {
         img: slideImage = {},
         caption = ''
       } = rawObject(slide)
+
       return {
-        slideImage: rawImage(slideImage),
+        slideImage: AppImage.createFromRaw(slideImage),
         caption
       }
     })
 
-    return {
+    return Object.assign(new AppProject(), {
       id,
       title,
       subtitle,
       year,
       location,
-      img: rawImage(img),
+      img: AppImage.createFromRaw(img),
       inProgress,
       sort,
       slides: mappedSlides
-    }
-  })
+    })
+  }
 }

@@ -1,0 +1,7 @@
+export { default as AppAbout } from '@/models/about'
+export { default as AppFormPost } from '@/models/formPost'
+export { default as AppImage } from '@/models/image'
+export { default as AppPartner } from '@/models/partner'
+export { default as AppProject } from '@/models/project'
+export { default as AppSettings } from '@/models/settings'
+export { default as AppTeam } from '@/models/team'

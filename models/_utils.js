@@ -4,38 +4,12 @@ export const rawArray = raw => Array.isArray(raw) ? raw : []
 
 export const rawArrayOfStrings = raw => Array.isArray(raw) ? raw.map(item => String(item)) : []
 
-export const rawImage = (raw = {}) => {
-  const {
-    id = null,
-    name = '',
-    alternativeText = '',
-    caption = '',
-    width = null,
-    height = null,
-    hash = '',
-    ext = '',
-    mime = '',
-    url = '',
-    previewUrl = '',
-    formats = {}
-  } = rawObject(raw)
+export class AppModel {
+  static createFromRaw () {
+    return Object.assign(new this(), {})
+  }
 
-  const {
-    thumbnail = {}
-  } = rawObject(formats)
-
-  return {
-    id,
-    name,
-    alternativeText,
-    caption,
-    width,
-    height,
-    hash,
-    ext,
-    mime,
-    url,
-    previewUrl,
-    thumbnail: thumbnail.url ? rawImage(thumbnail) : {}
+  static createListFromRaw (rawList) {
+    return rawArray(rawList).map(item => this.createFromRaw(item))
   }
 }
