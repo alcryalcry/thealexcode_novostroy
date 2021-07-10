@@ -8,6 +8,9 @@ WORKDIR /usr/src/nvstr-app
 COPY . /usr/src/nvstr-app/
 RUN yarn
 
+# env
+RUN echo "${APP_ENV}" >> /usr/src/nvstr-app/.env
+
 # build necessary, even if no static files are needed,
 # since it builds the server as well
 RUN yarn build
