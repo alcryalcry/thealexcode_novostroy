@@ -1,0 +1,55 @@
+$regular: $FW_REGULAR;
+$semiBold: $FW_SEMI_BOLD;
+
+
+.title--h1 {
+  @include font(1.5rem, 1.33, $semiBold);
+}
+
+
+.text--t1 {
+  @include font(3.2rem, 1.25, $regular);
+  &.indent {
+    text-indent: 4.5rem;
+  }
+}
+.text--t2 {
+  @include font(2rem, 1.5, $regular);
+}
+.text--t3 {
+  @include font(1.5rem, 1.33, $regular);
+}
+
+
+@include mobile {
+  .text--t1 {
+    @include font(2.8rem, 1.28, $regular);
+  }
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+picture {
+  position: relative;
+  max-width: 100%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+svg {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+[v-cloak] {
+  display: none !important;
+}

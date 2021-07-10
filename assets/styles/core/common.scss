@@ -1,0 +1,59 @@
+$black: var(--color-black);
+$white: var(--color-white);
+
+$fontFamily: $FONT_FAMILY;
+
+html {
+  display: block !important;
+  height: 100%;
+  color: $black;
+  background: $white;
+  font-family: $fontFamily;
+  font-size: 10px;
+  line-height: 1.4;
+  font-smooth: never;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // FLUID FONT
+  // font-size: calc( Fmin + (Fmax - Fmin) * (100vw - Vmin)/(Vmax - Vmin) );
+  @media screen and (max-width: 767px) {
+    font-size: calc(10px + 13 * (100vw - 375px) / 447);
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    font-size: calc(10px + 4 * (100vw - 768px) / 256);
+  }
+
+  @media (min-width: 1025px) and (max-width: 1360px) {
+    font-size: calc(8px + 2 * (100vw - 1024px) / 335);
+  }
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  overflow-x: hidden;
+  min-height: 100%;
+}
+
+#__nuxt #__layout main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
