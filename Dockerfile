@@ -1,5 +1,8 @@
 FROM node:14
 
+#args
+ARG APP_ENV=$APP_ENV
+
 # create destination directory
 RUN mkdir -p /usr/src/nvstr-app
 WORKDIR /usr/src/nvstr-app
@@ -9,7 +12,7 @@ COPY . /usr/src/nvstr-app/
 RUN yarn
 
 # env
-RUN echo "${APP_ENV}" >> /usr/src/nvstr-app/.env
+RUN echo $APP_ENV > .env
 
 # build necessary, even if no static files are needed,
 # since it builds the server as well
