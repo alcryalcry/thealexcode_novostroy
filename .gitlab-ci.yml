@@ -3,6 +3,7 @@ services:
   - docker:dind
 variables:
   DOCKER_TLS_CERTDIR: ""
+  APP_ENV: $APP_ENV
 stages:
   - stage
 deploy-stage:
@@ -11,6 +12,6 @@ deploy-stage:
     - stage
   script:
     - docker build -t nvstr .
-    - docker run -d -p 4444:4444 --rm --name nvstr-front nvstr
+    - docker run -d -p 4444:4444 --rm --name nvstr-front-${CI_JOB_ID} nvstr
   tags:
     - build_docker
