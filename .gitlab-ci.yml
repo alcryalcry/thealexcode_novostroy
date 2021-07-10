@@ -3,6 +3,7 @@ services:
   - docker:dind
 variables:
   DOCKER_TLS_CERTDIR: ""
+  APP_ENV: $APP_ENV
 stages:
   - stage
 deploy-stage:
