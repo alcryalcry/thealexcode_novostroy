@@ -3,6 +3,8 @@ FROM node:14
 #args
 ARG APP_ENV
 
+RUN echo $APP_ENV
+
 # create destination directory
 RUN mkdir -p /usr/src/nvstr-app
 WORKDIR /usr/src/nvstr-app
