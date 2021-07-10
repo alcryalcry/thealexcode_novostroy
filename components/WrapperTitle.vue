@@ -1,22 +1,15 @@
 <template>
   <div class="wrapper-title">
-    <div class="row">
-      <div class="col col-4 col-md-8 col-sm-4">
-        <div class="row no-gap ai-sb">
-          <div class="col col-6 col-md-8 col-sm-4">
-            <div v-if="title" class="title--h1">
-              {{ title }}
-            </div>
-          </div>
-          <div class="col col-6 col-md-8 col-sm-4">
-            <div v-if="description" class="text--t3">
-              {{ description }}
-            </div>
-          </div>
+    <div class="row no-gap ai-sb">
+      <div class="col col-6 col-md-8 col-sm-4">
+        <div v-if="title" class="title--h1">
+          {{ title }}
         </div>
       </div>
-      <div class="col col-8 col-md-8 col-sm-4">
-        <slot />
+      <div v-if="body" class="col col-6 col-md-8 col-sm-4">
+        <div class="text--t3">
+          {{ body }}
+        </div>
       </div>
     </div>
   </div>
@@ -30,7 +23,7 @@ export default {
       type: String,
       default: ''
     },
-    description: {
+    body: {
       type: String,
       default: ''
     }
@@ -39,10 +32,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$mobile: $MOBILE;
-$tablet: $TABLET;
-$desktop: $DESKTOP;
-
 .wrapper-title {
 
 }

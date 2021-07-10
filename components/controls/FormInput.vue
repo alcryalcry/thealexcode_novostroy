@@ -48,9 +48,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$colorDefault: $COLOR_DARK_GRAY;
-$colorFilled: $COLOR_WHITE;
-$colorInvalid: $COLOR_RED;
+$colorDefault: var(--color-light-gray);
+$colorFilled: var(--color-white);
+$colorInvalid: var(--color-red);
 
 .form-input-provider {
   position: relative;

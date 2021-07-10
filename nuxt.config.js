@@ -14,8 +14,12 @@ export default {
   },
   plugins: [
     {
-      src: '~plugins/utils.js',
-      ssr: false
+      src: '~plugins/globalComponents.js',
+      ssr: true
+    },
+    {
+      src: '~plugins/localePlugin.js',
+      ssr: true
     },
     {
       src: '~plugins/vBodyScrollLock.js',

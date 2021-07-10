@@ -94,8 +94,8 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style lang="scss" scoped>
-$colorDefault: $COLOR_BLACK;
-$colorHighlight: $COLOR_LIGHT_GRAY;
+$colorDefault: var(--color-black);
+$colorHighlight: var(--color-light-gray);
 $selectMinHeight: 5rem;
 $selectMaxWidth: 28rem;
 

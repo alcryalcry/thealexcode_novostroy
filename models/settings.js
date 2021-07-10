@@ -1,5 +1,5 @@
-import { AppModelImage } from '@/models'
-import { rawObject, rawArray, AppModel } from './_utils'
+import { AppModel, AppModelImage } from '@/models'
+import { rawObject, rawArray } from '@/utils'
 
 export default class AppModelSettings extends AppModel {
   static createFromRaw (raw) {
@@ -9,8 +9,8 @@ export default class AppModelSettings extends AppModel {
       copyright = '',
       contactName = '',
       addressName = '',
-      contactsList = [],
-      addressesList = [],
+      contactList = [],
+      addressList = [],
       seoMainTitle = '',
       seoMainDescription = '',
       seoProjectsTitle = '',
@@ -18,7 +18,7 @@ export default class AppModelSettings extends AppModel {
       seoImage = {}
     } = rawObject(raw)
 
-    const mappedContactsList = rawArray(contactsList).map((item) => {
+    const mappedContactList = rawArray(contactList).map((item) => {
       const {
         id = '',
         text = ''
@@ -29,7 +29,7 @@ export default class AppModelSettings extends AppModel {
       }
     })
 
-    const mappedAddressesList = rawArray(addressesList).map((item) => {
+    const mappedAddressList = rawArray(addressList).map((item) => {
       const {
         id = '',
         text = ''
@@ -46,8 +46,8 @@ export default class AppModelSettings extends AppModel {
       copyright,
       contactName,
       addressName,
-      contactsList: mappedContactsList,
-      addressesList: mappedAddressesList,
+      contactList: mappedContactList,
+      addressList: mappedAddressList,
       seoMainTitle,
       seoMainDescription,
       seoProjectsTitle,

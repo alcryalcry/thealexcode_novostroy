@@ -1,4 +1,5 @@
-import { rawObject } from './_utils'
+import { getAbsolutePath } from '@/config/constants'
+import { rawObject } from '@/utils'
 
 export default class AppModelImage {
   static createFromRaw (raw) {
@@ -31,7 +32,7 @@ export default class AppModelImage {
       hash,
       ext,
       mime,
-      url,
+      url: getAbsolutePath(url),
       previewUrl,
       thumbnail: thumbnail.url ? AppModelImage.createFromRaw(thumbnail) : {}
     })

@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$colorDisabled: $COLOR_DARK_GRAY;
+$colorDisabled: var(--color-light-gray);
 
 .link {
   position: relative;

@@ -1,4 +1,5 @@
-import { rawObject, AppModel } from './_utils'
+import { AppModel } from '@/models'
+import { rawObject } from '@/utils'
 
 export default class AppModelFormPost extends AppModel {
   static createFromRaw (raw) {

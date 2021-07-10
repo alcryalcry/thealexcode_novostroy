@@ -1,5 +1,5 @@
-import { AppModelImage } from '@/models'
-import { rawObject, rawArray, AppModel } from './_utils'
+import { AppModel, AppModelImage } from '@/models'
+import { rawObject, rawArray } from '@/utils'
 
 export default class AppModelPartners extends AppModel {
   static createFromRaw (raw) {

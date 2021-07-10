@@ -1,4 +1,5 @@
-import { rawObject, rawArray, AppModel } from './_utils'
+import { AppModel } from '@/models'
+import { rawObject, rawArray } from '@/utils'
 
 export default class AppModelSelect extends AppModel {
   static createFromRaw (raw, index) {

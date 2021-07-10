@@ -11,12 +11,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$mobile: $MOBILE;
-$mobile_tablet: $MOBILE_TABLET;
-$tablet: $TABLET;
-$tablet_desktop: $TABLET_DESKTOP;
-$desktop: $DESKTOP;
-$desktop_large: $DESKTOP_LARGE;
 $containerWidthDesktop: $CONTAINER_WIDTH_DESKTOP;
 $containerWidthTablet: $CONTAINER_WIDTH_TABLET;
 $containerWidthMobile: $CONTAINER_WIDTH_MOBILE;
