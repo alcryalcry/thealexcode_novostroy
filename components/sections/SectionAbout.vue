@@ -39,7 +39,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$borderColor: var(--color-gray);
+
 .section-about {
+  border-bottom: 1px solid $borderColor;
 }
 
 @include mobile {
@@ -49,5 +52,8 @@ export default {
 }
 
 @include desktop {
+  .section-about {
+    border: none;
+  }
 }
 </style>

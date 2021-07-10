@@ -39,13 +39,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$colorDefault: var(--color-green);
 $colorDisabled: var(--color-light-gray);
+$colorFromDark: var(--color-white);
 
 .link {
   position: relative;
   display: inline-flex;
   align-items: center;
   overflow: hidden;
+  color: $colorDefault;
 
   &.is-disabled {
     pointer-events: none;
