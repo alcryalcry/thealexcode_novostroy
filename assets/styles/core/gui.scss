@@ -9,6 +9,9 @@ $semiBold: $FW_SEMI_BOLD;
 
 .text--t1 {
   @include font(3.2rem, 1.25, $regular);
+  &.indent {
+    text-indent: 4.5rem;
+  }
 }
 .text--t2 {
   @include font(2rem, 1.5, $regular);

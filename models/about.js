@@ -1,17 +1,20 @@
-import { rawImage, rawObject } from './_utils'
+import { AppModel, AppModelImage } from '@/models'
+import { rawObject } from '@/utils'
 
-export default function (raw = {}) {
-  const {
-    title = '',
-    body = '',
-    alterImg = {},
-    alterBody = ''
-  } = rawObject(raw)
+export default class AppModelAbout extends AppModel {
+  static createFromRaw (raw) {
+    const {
+      title = '',
+      body = '',
+      alterImg = {},
+      alterBody = ''
+    } = rawObject(raw)
 
-  return {
-    title,
-    body,
-    alterImg: rawImage(alterImg),
-    alterBody
+    return Object.assign(new AppModelAbout(), {
+      title,
+      body,
+      alterImg: AppModelImage.createFromRaw(alterImg),
+      alterBody
+    })
   }
 }

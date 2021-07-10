@@ -1,55 +1,58 @@
-import { rawObject, rawArray, rawImage } from './_utils'
+import { AppModel, AppModelImage } from '@/models'
+import { rawObject, rawArray } from '@/utils'
 
-export default function (raw = {}) {
-  const {
-    title = '',
-    phone = '',
-    copyright = '',
-    contactName = '',
-    addressName = '',
-    contactsList = [],
-    addressesList = [],
-    seoMainTitle = '',
-    seoMainDescription = '',
-    seoProjectsTitle = '',
-    seoProjectsDescription = '',
-    seoImage = {}
-  } = rawObject(raw)
-
-  const mappedContactsList = rawArray(contactsList).map((item) => {
+export default class AppModelSettings extends AppModel {
+  static createFromRaw (raw) {
     const {
-      id = '',
-      text = ''
-    } = rawObject(item)
-    return {
-      id,
-      text
-    }
-  })
+      title = '',
+      phone = '',
+      copyright = '',
+      contactName = '',
+      addressName = '',
+      contactList = [],
+      addressList = [],
+      seoMainTitle = '',
+      seoMainDescription = '',
+      seoProjectsTitle = '',
+      seoProjectsDescription = '',
+      seoImage = {}
+    } = rawObject(raw)
 
-  const mappedAddressesList = rawArray(addressesList).map((item) => {
-    const {
-      id = '',
-      text = ''
-    } = rawObject(item)
-    return {
-      id,
-      text
-    }
-  })
+    const mappedContactList = rawArray(contactList).map((item) => {
+      const {
+        id = '',
+        text = ''
+      } = rawObject(item)
+      return {
+        id,
+        text
+      }
+    })
 
-  return {
-    title,
-    phone,
-    copyright,
-    contactName,
-    addressName,
-    contactsList: mappedContactsList,
-    addressesList: mappedAddressesList,
-    seoMainTitle,
-    seoMainDescription,
-    seoProjectsTitle,
-    seoProjectsDescription,
-    seoImage: rawImage(seoImage)
+    const mappedAddressList = rawArray(addressList).map((item) => {
+      const {
+        id = '',
+        text = ''
+      } = rawObject(item)
+      return {
+        id,
+        text
+      }
+    })
+
+    return Object.assign(new AppModelSettings(), {
+      title,
+      phone,
+      copyright,
+      contactName,
+      addressName,
+      contactList: mappedContactList,
+      addressList: mappedAddressList,
+      seoMainTitle,
+      seoMainDescription,
+      seoProjectsTitle,
+      seoProjectsDescription,
+      seoImage: AppModelImage.createFromRaw(seoImage)
+    })
   }
 }

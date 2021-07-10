@@ -1,15 +1,18 @@
-import { rawObject } from './_utils'
+import { AppModel } from '@/models'
+import { rawObject } from '@/utils'
 
-export default function (raw = {}) {
-  const {
-    name = '',
-    phone = '',
-    email = ''
-  } = rawObject(raw)
+export default class AppModelFormPost extends AppModel {
+  static createFromRaw (raw) {
+    const {
+      name = '',
+      phone = '',
+      email = ''
+    } = rawObject(raw)
 
-  return {
-    name,
-    email,
-    phone
+    return Object.assign(new AppModelFormPost(), {
+      name,
+      email,
+      phone
+    })
   }
 }
