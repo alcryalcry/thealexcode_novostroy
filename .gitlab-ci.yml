@@ -10,7 +10,7 @@ deploy-stage:
   only:
     - stage
   script:
-    - docker build -t nvstr .
-    - docker run -d -p 4444:4444 --rm --name nvstr-front-${CI_JOB_ID} nvstr --build-arg APP_ENV=${APP_ENV}
+    - docker build -t nvstr --build-arg APP_ENV=${APP_ENV} .
+    - docker run -d -p 4444:4444 --rm --name nvstr-front-${CI_JOB_ID} nvstr
   tags:
     - build_docker
