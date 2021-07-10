@@ -1,7 +1,7 @@
 FROM node:14
 
 #args
-ARG APP_ENV=$APP_ENV
+ARG APP_ENV
 
 # create destination directory
 RUN mkdir -p /usr/src/nvstr-app
