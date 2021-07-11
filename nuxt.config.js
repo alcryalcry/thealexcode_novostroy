@@ -1,7 +1,7 @@
 import { head } from './config'
 
 export default {
-  store: false,
+  store: true,
   head,
   css: [
     '~assets/styles/app.scss'
@@ -19,6 +19,10 @@ export default {
     },
     {
       src: '~plugins/localePlugin.js',
+      ssr: true
+    },
+    {
+      src: '~plugins/vueMarkdown.js',
       ssr: true
     },
     {

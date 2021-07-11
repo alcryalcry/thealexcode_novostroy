@@ -7,9 +7,7 @@
       <Section class="popup-hover-content">
         <Container v-if="body">
           <div class="popup-hover-content-body">
-            <div class="text--t1">
-              {{ body }}
-            </div>
+            <vue-markdown v-if="body" :source="body" class="text--t1" />
           </div>
         </Container>
       </Section>

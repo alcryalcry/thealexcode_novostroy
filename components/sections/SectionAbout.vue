@@ -1,11 +1,11 @@
 <template>
   <Section class="section-about">
     <Container>
-      <div class="row">
-        <div class="col col-4 col-md-8 col-sm-4">
+      <div class="grid">
+        <div class="grid-col-title">
           <WrapperTitle :title="currentData.title" />
         </div>
-        <div class="col col-8 col-md-8 col-sm-4">
+        <div class="grid-col-body">
           <About :alter-img="currentData.alterImg" :body="currentData.body" :alter-body="currentData.alterBody" />
         </div>
       </div>
