@@ -1,14 +1,12 @@
 <template>
   <div class="wrapper-title">
     <div class="wrapper-title-text">
-      <div v-if="title" class="title--h1">
+      <h3 v-if="title" class="title--h1">
         {{ title }}
-      </div>
+      </h3>
     </div>
     <div class="wrapper-title-body">
-      <div v-if="body" class="text--t3">
-        {{ body }}
-      </div>
+      <vue-markdown v-if="body" :source="body" class="text--t3" />
     </div>
   </div>
 </template>
@@ -30,6 +28,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$colGapDesktop: $COL_GAP_DESKTOP;
+
 .wrapper-title {
   display: grid;
   grid-row-gap: 2rem;
@@ -38,7 +38,7 @@ export default {
 @include desktop {
   .wrapper-title {
     grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 3.5rem;
+    grid-column-gap: $colGapDesktop;
   }
 }
 </style>

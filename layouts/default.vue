@@ -6,13 +6,9 @@
 
 <script>
 import { debounce } from 'throttle-debounce'
+import { mapMutations } from 'vuex'
 
 export default {
-  data () {
-    return {
-      mediaSize: 'desktop'
-    }
-  },
   mounted () {
     window.addEventListener('resize', debounce(250, () => {
       this.handleResize()
@@ -23,16 +19,19 @@ export default {
     window.removeEventListener('resize', this.handleResize, false)
   },
   methods: {
+    ...mapMutations({
+      setMediaSize: 'setMediaSize'
+    }),
     handleResize () {
       const m = 768
       const t = 1024
       const d = Infinity
       if (window.innerWidth < m) {
-        this.mediaSize = 'mobile'
+        this.setMediaSize('mobile')
       } else if (window.innerWidth >= m && window.innerWidth < t) {
-        this.mediaSize = 'tablet'
+        this.setMediaSize('tablet')
       } else if (window.innerWidth >= t && window.innerWidth < d) {
-        this.mediaSize = 'desktop'
+        this.setMediaSize('desktop')
       }
     }
   }

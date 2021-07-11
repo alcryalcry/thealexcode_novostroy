@@ -1,9 +1,7 @@
 <template>
   <div class="about">
     <div class="about-body">
-      <div class="text--t1 indent">
-        {{ body }}
-      </div>
+      <vue-markdown v-if="body" :source="body" class="text--t1 indent" />
     </div>
     <div class="about-link">
       <Link :label="$locale.about.allProjects" :url="url" />

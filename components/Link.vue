@@ -1,12 +1,12 @@
 <template>
-  <component :is="disabled ? 'div' : 'n-link'" :to="!disabled ? url : false" class="link" :class="{ 'is-big': isBig, 'is-disabled': disabled }">
+  <n-link :to="url" class="link" :class="{ 'is-big': isBig, 'is-gray': isGray, 'is-white': isWhite }">
     <span class="link-label" :label="label" :class="isBig ? 'text--t1' : 'text--t3'">
       {{ label }}
     </span>
     <i class="link-icon">
       <IconArrow />
     </i>
-  </component>
+  </n-link>
 </template>
 
 <script>
@@ -22,10 +22,6 @@ export default {
       type: Boolean,
       default: false
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
     label: {
       type: String,
       default: ''
@@ -33,6 +29,14 @@ export default {
     url: {
       type: String,
       default: ''
+    },
+    isWhite: {
+      type: Boolean,
+      default: false
+    },
+    isGray: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -40,8 +44,8 @@ export default {
 
 <style lang="scss" scoped>
 $colorDefault: var(--color-green);
-$colorDisabled: var(--color-light-gray);
-$colorFromDark: var(--color-white);
+$colorWhite: var(--color-white);
+$colorGray: var(--color-light-gray);
 
 .link {
   position: relative;
@@ -50,9 +54,12 @@ $colorFromDark: var(--color-white);
   overflow: hidden;
   color: $colorDefault;
 
-  &.is-disabled {
-    pointer-events: none;
-    color: $colorDisabled;
+  &.is-white {
+    color: $colorWhite;
+  }
+
+  &.is-gray {
+    color: $colorGray;
   }
 
   &.is-big {

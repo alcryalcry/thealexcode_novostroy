@@ -1,19 +1,17 @@
 <template>
   <div class="team">
     <div class="team-title">
-      <div v-if="title" class="title--h1">
+      <h3 v-if="title" class="title--h1">
         {{ title }}
-      </div>
+      </h3>
     </div>
     <div class="team-subtitle">
-      <div v-if="subtitle" class="text--t3">
+      <p v-if="subtitle" class="text--t3">
         {{ subtitle }}
-      </div>
+      </p>
     </div>
     <div class="team-body">
-      <div v-if="body" class="text text--t3">
-        {{ body }}
-      </div>
+      <vue-markdown v-if="body" :source="body" class="text text--t3" />
       <div v-if="alterImg || alterBody" class="team-popup-hover">
         <PopupHover :img="alterImg" :body="alterBody" :type="popupHoverTypes.team" />
       </div>
@@ -73,6 +71,7 @@ export default {
 
 <style lang="scss" scoped>
 $colorDarkGray: var(--color-dark-gray);
+$colGapDesktop: $COL_GAP_DESKTOP;
 
 .team {
   display: grid;
@@ -122,7 +121,7 @@ $colorDarkGray: var(--color-dark-gray);
 @include desktop {
   .team {
     grid-template-columns: 2fr 2fr 3fr 5fr;
-    grid-column-gap: 3.5rem;
+    grid-column-gap: $colGapDesktop;
   }
   .team-title {
     grid-column: 1;
