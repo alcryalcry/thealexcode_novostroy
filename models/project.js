@@ -17,12 +17,12 @@ export default class AppModelProject extends AppModel {
 
     const mappedSlides = rawArray(slides).map((slide) => {
       const {
-        img: slideImage = {},
+        img: slideImg = {},
         caption = ''
       } = rawObject(slide)
 
       return {
-        slideImage: AppModelImage.createFromRaw(slideImage),
+        slideImg: AppModelImage.createFromRaw(slideImg),
         caption
       }
     })

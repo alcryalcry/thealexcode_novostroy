@@ -1,0 +1,140 @@
+<template>
+  <div class="team">
+    <div class="team-title">
+      <div v-if="title" class="title--h1">
+        {{ title }}
+      </div>
+    </div>
+    <div class="team-subtitle">
+      <div v-if="subtitle" class="text--t3">
+        {{ subtitle }}
+      </div>
+    </div>
+    <div class="team-body">
+      <div v-if="body" class="text text--t3">
+        {{ body }}
+      </div>
+      <div v-if="alterImg || alterBody" class="team-popup-hover">
+        <PopupHover :img="alterImg" :body="alterBody" :type="popupHoverTypes.team" />
+      </div>
+    </div>
+    <div class="team-image">
+      <img v-if="img.url" :src="img.url" :alt="img.alternativeText">
+    </div>
+  </div>
+</template>
+
+<script>
+import { AppModelPopupHover } from '@/models'
+import PopupHover from '@/components/PopupHover.vue'
+
+export default {
+  name: 'Team',
+  components: {
+    PopupHover
+  },
+  props: {
+    img: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    alterImg: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    subtitle: {
+      type: String,
+      default: ''
+    },
+    body: {
+      type: String,
+      default: ''
+    },
+    alterBody: {
+      type: String,
+      default: ''
+    }
+  },
+  computed: {
+    popupHoverTypes () {
+      return AppModelPopupHover.types
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+$colorDarkGray: var(--color-dark-gray);
+
+.team {
+  display: grid;
+  grid-row-gap: 2rem;
+}
+
+.team-body {
+  .text {
+    color: $colorDarkGray;
+  }
+}
+
+.team-popup-hover {
+  display: flex;
+  margin-top: 2rem;
+}
+
+@include mobile {
+  .team-image {
+    margin-top: 2rem;
+  }
+}
+
+@include tablet {
+  .team {
+    grid-column-gap: 4rem;
+    grid-template-columns: 1fr 33rem;
+    grid-template-areas: "title image"
+                        "subtitle image"
+                        "body image"
+                        "bottom image";
+  }
+  .team-title {
+    grid-area: title;
+  }
+  .team-subtitle {
+    grid-area: subtitle;
+  }
+  .team-body {
+    grid-area: body;
+  }
+  .team-image {
+    grid-area: image;
+  }
+}
+
+@include desktop {
+  .team {
+    grid-template-columns: 2fr 2fr 3fr 5fr;
+    grid-column-gap: 3.5rem;
+  }
+  .team-title {
+    grid-column: 1;
+  }
+  .team-subtitle {
+    grid-column: 2;
+  }
+  .team-body {
+    grid-column: 3;
+  }
+  .team-image {
+    grid-column: 4;
+  }
+}
+</style>

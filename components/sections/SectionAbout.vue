@@ -6,7 +6,7 @@
           <WrapperTitle :title="currentData.title" />
         </div>
         <div class="col col-8 col-md-8 col-sm-4">
-          <About :alter-image="currentData.alterImg" :body="currentData.body" :alter-body="currentData.alterBody" />
+          <About :alter-img="currentData.alterImg" :body="currentData.body" :alter-body="currentData.alterBody" />
         </div>
       </div>
     </Container>
@@ -43,12 +43,6 @@ $borderColor: var(--color-gray);
 
 .section-about {
   border-bottom: 1px solid $borderColor;
-}
-
-@include mobile {
-}
-
-@include tablet {
 }
 
 @include desktop {

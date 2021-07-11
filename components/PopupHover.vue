@@ -2,9 +2,9 @@
   <div class="popup-hover" :class="{ 'is-open': isOpen }">
     <div v-bsl:reserveScrollBarGap="isOpen" class="popup-hover-wrapper">
       <div class="popup-hover-background">
-        <img v-if="image.url" :src="image.url" :alt="image.caption">
+        <img v-if="img.url" :src="img.url" :alt="img.alternativeText">
       </div>
-      <div class="popup-hover-content">
+      <Section class="popup-hover-content">
         <Container v-if="body">
           <div class="popup-hover-content-body">
             <div class="text--t1">
@@ -12,7 +12,7 @@
             </div>
           </div>
         </Container>
-      </div>
+      </Section>
       <button type="button" class="popup-hover-close" @click.stop="closeModal">
         <IconClose />
       </button>
@@ -44,7 +44,7 @@ export default {
       type: String,
       default: AppModelPopupHover.types.about
     },
-    image: {
+    img: {
       type: Object,
       default () {
         return {}
@@ -81,12 +81,12 @@ $colorDefaultButton: var(--color-black);
 $colorActiveButton: var(--color-white);
 $colorContent: var(--color-white);
 $wrapperBg: var(--color-black);
+$easeAnimation: $EASE_IN_OUT_SINE;
+
 $zIndexButton: 10;
 $zIndexContent: 2;
 $zIndexMenuOpened: 3;
 $zIndexBurger: 4;
-
-$easeAnimation: $EASE_IN_OUT_SINE;
 
 .popup-hover {
   display: flex;
@@ -129,7 +129,15 @@ $easeAnimation: $EASE_IN_OUT_SINE;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.5;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 59.86%);
+  }
 }
 
 .popup-hover-content {
