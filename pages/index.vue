@@ -1,34 +1,41 @@
 <template>
   <div class="page-index">
     <SectionAbout :data="about" />
+    <SectionTeam :data="team" />
   </div>
 </template>
 
 <script>
 import SectionAbout from '@/components/sections/SectionAbout'
-import { fetchAbout, fetchSettings } from '@/config/api'
+import SectionTeam from '@/components/sections/SectionTeam'
+import { fetchAbout, fetchSettings, fetchTeam } from '@/config/api'
 
 export default {
   components: {
-    SectionAbout
+    SectionAbout,
+    SectionTeam
   },
   async asyncData () {
     const res = {
       settings: {},
-      about: {}
+      about: {},
+      team: {}
     }
 
     try {
       const [
         settings,
-        about
+        about,
+        team
       ] = await Promise.all([
         fetchSettings(),
-        fetchAbout()
+        fetchAbout(),
+        fetchTeam()
       ])
 
       res.settings = settings
       res.about = about
+      res.team = team
     } catch (e) {
       console.error(e)
     }

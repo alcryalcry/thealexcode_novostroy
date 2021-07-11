@@ -9,7 +9,7 @@
       <Link :label="$locale.about.allProjects" :url="url" />
     </div>
     <div class="about-popup-hover">
-      <PopupHover :image="alterImage" :body="alterBody" :type="popupHoverTypes.about" />
+      <PopupHover :img="alterImg" :body="alterBody" :type="popupHoverTypes.about" />
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
     PopupHover
   },
   props: {
-    alterImage: {
+    alterImg: {
       type: Object,
       default () {
         return {}
