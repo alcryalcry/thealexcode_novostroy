@@ -1,7 +1,13 @@
 <template>
   <div class="form-input-provider">
     <label class="form-input text--t3" :class="{ 'is-filled': isFilled, 'is-error': error }">
-      <input v-model="value" :type="type" :name="name" class="form-input-control" @input="onInput">
+      <input
+        v-model="value"
+        :type="type"
+        :name="name"
+        class="form-input-control"
+        @input="onInput"
+      >
       <p class="form-input-placeholder">{{ placeholder }}</p>
       <p v-if="error" class="form-input-error">{{ error }}</p>
     </label>
@@ -41,7 +47,7 @@ export default {
   },
   methods: {
     onInput () {
-      this.$emit(this.value)
+      this.$emit('input', this.value)
     }
   }
 }
@@ -55,11 +61,13 @@ $colorInvalid: var(--color-red);
 .form-input-provider {
   position: relative;
   display: inline-flex;
+  width: 100%;
 }
 
 .form-input {
   display: flex;
   margin: 2.5rem 0;
+  width: 100%;
   color: $colorDefault;
 
   &.is-filled {
@@ -74,6 +82,7 @@ $colorInvalid: var(--color-red);
 }
 
 .form-input-control {
+  width: 100%;
   padding: .5rem 0;
   background-color: transparent;
   color: currentColor;

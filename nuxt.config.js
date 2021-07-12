@@ -26,6 +26,14 @@ export default {
       ssr: true
     },
     {
+      src: '~plugins/vMask.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vuelidate.js',
+      ssr: false
+    },
+    {
       src: '~plugins/vBodyScrollLock.js',
       ssr: false
     },
