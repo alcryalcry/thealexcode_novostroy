@@ -1,12 +1,17 @@
 <template>
-  <n-link :to="url" class="link" :class="{ 'is-big': isBig, 'is-gray': isGray, 'is-white': isWhite }">
+  <component
+    :is="isButton ? 'button' : 'n-link'"
+    :to="isButton ? false : url"
+    class="link"
+    :class="{ 'is-big': isBig, 'is-gray': isGray, 'is-white': isWhite }"
+  >
     <span class="link-label" :label="label" :class="isBig ? 'text--t1' : 'text--t3'">
       {{ label }}
     </span>
     <i class="link-icon">
       <IconArrow />
     </i>
-  </n-link>
+  </component>
 </template>
 
 <script>
@@ -25,6 +30,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    isButton: {
+      type: Boolean,
+      default: false
     },
     url: {
       type: String,
@@ -45,7 +54,11 @@ export default {
 <style lang="scss" scoped>
 $colorDefault: var(--color-green);
 $colorWhite: var(--color-white);
-$colorGray: var(--color-light-gray);
+$colorGray: var(--color-dark-gray);
+
+button.link {
+  @include clear-btn();
+}
 
 .link {
   position: relative;

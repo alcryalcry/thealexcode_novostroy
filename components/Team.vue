@@ -120,20 +120,20 @@ $colGapDesktop: $COL_GAP_DESKTOP;
 
 @include desktop {
   .team {
-    grid-template-columns: 2fr 2fr 3fr 5fr;
     grid-column-gap: $colGapDesktop;
+    grid-template-columns: repeat(12, 1fr);
   }
   .team-title {
-    grid-column: 1;
+    grid-column: 1 / span 2;
   }
   .team-subtitle {
-    grid-column: 2;
+    grid-column: 3 / span 2;
   }
   .team-body {
-    grid-column: 3;
+    grid-column: 5 / span 3;
   }
   .team-image {
-    grid-column: 4;
+    grid-column: 8 / span 5;
   }
 }
 </style>

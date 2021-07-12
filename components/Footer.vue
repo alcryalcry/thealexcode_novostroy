@@ -7,9 +7,9 @@
             <WrapperTitle :title="$locale.footer.sendRequest" :body="$locale.footer.responseDelayDescription" />
           </div>
           <div class="grid-col-body">
-            form
+            <AppForm />
           </div>
-          <div class="grid-col-info">
+          <div class="grid-col-title grid-col-info">
             <div class="footer-info">
               <div class="footer-info-col">
                 <div class="footer-info-title text--h3">
@@ -54,11 +54,13 @@
 
 <script>
 import WrapperTitle from '@/components/WrapperTitle'
+import AppForm from '@/components/Form'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'Footer',
   components: {
+    AppForm,
     WrapperTitle
   },
   computed: {
@@ -130,16 +132,17 @@ $offsetGap: 10rem;
 @include desktop {
   .grid {
     grid-row-gap: $offsetGap;
+    grid-template-columns: repeat(12, 1fr);
   }
   .footer-info {
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: $colGapDesktop;
   }
-  .grid-col-info {
-    grid-column: 1 / span 2;
+  .grid-col-body {
+    grid-column: 7 / span 6;
   }
   .grid-col-bottom {
-    grid-column: 3 / span 2;
+    grid-column: 7 / span 6;
     grid-row: 3;
     grid-template-columns: repeat(2, 1fr) 8fr;
   }
