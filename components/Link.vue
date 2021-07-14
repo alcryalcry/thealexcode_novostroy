@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="isButton ? 'button' : 'n-link'"
+    :is="isButton ? 'button' : 'NuxtLink'"
     :to="isButton ? false : url"
     class="link"
     :class="{ 'is-big': isBig, 'is-gray': isGray, 'is-white': isWhite }"
