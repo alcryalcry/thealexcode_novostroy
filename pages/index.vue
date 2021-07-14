@@ -1,4 +1,5 @@
 <template>
+  <!-- <Layout class="page-index" is-white-header> -->
   <Layout class="page-index">
     <SectionAbout :data="about" />
     <SectionTeam :data="team" />

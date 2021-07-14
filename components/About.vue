@@ -15,7 +15,7 @@
 <script>
 import { AppModelPopupHover } from '@/models'
 import Link from '@/components/Link.vue'
-import { ROUTES } from '@/config/constants'
+import { RouteNames } from '@/config/constants'
 import PopupHover from '@/components/PopupHover.vue'
 
 export default {
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     url () {
-      return ROUTES.projects
+      return RouteNames.Projects
     },
     popupHoverTypes () {
       return AppModelPopupHover.types
@@ -60,12 +60,6 @@ export default {
 
 .about-link {
   margin-top: 4rem;
-}
-
-@include mobile {
-}
-
-@include tablet {
 }
 
 @include desktop {

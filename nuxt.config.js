@@ -30,6 +30,10 @@ export default {
       ssr: false
     },
     {
+      src: '~plugins/vueClickaway.js',
+      ssr: false
+    },
+    {
       src: '~plugins/vuelidate.js',
       ssr: false
     },

@@ -11,9 +11,7 @@
           </div>
         </Container>
       </Section>
-      <button type="button" class="popup-hover-close" @click.stop="closeModal">
-        <IconClose />
-      </button>
+      <BurgerButton class="popup-hover-close" :is-active="true" @click.stop="closeModal" />
     </div>
     <button ref="button" class="popup-hover-button" @mouseover="openModal" @mouseleave="closeModal">
       <i class="animate" :class="type">
@@ -25,15 +23,16 @@
 </template>
 
 <script>
+import BurgerButton from '@/components/BurgerButton'
+
 import { AppModelPopupHover } from '@/models'
-import IconClose from '@/assets/svg/close.svg'
 import IconAbout from '@/assets/svg/about.svg'
 import IconTeam from '@/assets/svg/team.svg'
 
 export default {
   name: 'PopupHover',
   components: {
-    IconClose,
+    BurgerButton,
     IconAbout,
     IconTeam
   },
@@ -77,19 +76,22 @@ export default {
 <style lang="scss" scoped>
 $colorDefaultButton: var(--color-black);
 $colorActiveButton: var(--color-white);
+$colorCloseButton: var(--color-dark-gray);
 $colorContent: var(--color-white);
 $wrapperBg: var(--color-black);
 $easeAnimation: $EASE_IN_OUT_SINE;
 
-$zIndexButton: 10;
+$zIndexOpened: $zLayerPopups;
+$zIndexButtonOpened: $zLayerTop;
 $zIndexContent: 2;
-$zIndexMenuOpened: 3;
-$zIndexBurger: 4;
+$zIndexWrapper: 3;
+$zIndexClose: 4;
 
 .popup-hover {
   display: flex;
 
   &.is-open {
+    z-index: $zIndexOpened;
     .animate {
       animation-play-state: paused;
     }
@@ -99,7 +101,7 @@ $zIndexBurger: 4;
     }
     .popup-hover-button {
       color: $colorActiveButton;
-      z-index: $zIndexButton;
+      z-index: $zIndexButtonOpened;
       transition-delay: 0.25s;
     }
   }
@@ -117,7 +119,7 @@ $zIndexBurger: 4;
   opacity: 0;
   pointer-events: none;
   will-change: opacity;
-  z-index: $zIndexMenuOpened;
+  z-index: $zIndexWrapper;
   transition: opacity 0.35s ease;
 }
 
@@ -154,15 +156,12 @@ $zIndexBurger: 4;
   @include clear-btn();
 
   position: absolute;
-  top: 1.6rem;
-  right: 1.6rem;
-  width: 3.2rem;
-  height: 3.2rem;
-  padding: .4rem;
-  color: $colorActiveButton;
-  transition: color 0.2s ease;
-  z-index: $zIndexBurger;
+  top: 3rem;
+  right: 4rem;
+  color: $colorCloseButton;
+  z-index: $zIndexClose;
 }
+
 .popup-hover-button {
   @include clear-btn();
 
@@ -186,6 +185,13 @@ $zIndexBurger: 4;
   &.team {
     transform-origin: left;
     animation: $easeAnimation iconRotate 2s infinite;
+  }
+}
+
+@include mobile {
+  .popup-hover-close {
+    top: 2rem;
+    right: 2rem;
   }
 }
 

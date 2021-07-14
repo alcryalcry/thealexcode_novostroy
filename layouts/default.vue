@@ -7,16 +7,19 @@
 <script>
 import { debounce } from 'throttle-debounce'
 import { mapMutations } from 'vuex'
+import { WindowBreakpoints, WindowEvents } from '@/config/constants'
 
 export default {
   mounted () {
-    window.addEventListener('resize', debounce(250, () => {
+    if (process.browser) {
+      window.addEventListener(WindowEvents.Resize, debounce(250, () => {
+        this.handleResize()
+      }), false)
       this.handleResize()
-    }), false)
-    this.handleResize()
+    }
   },
   beforeDestroy () {
-    window.removeEventListener('resize', this.handleResize, false)
+    window.removeEventListener(WindowEvents.Resize, this.handleResize, false)
   },
   methods: {
     ...mapMutations({
@@ -27,11 +30,11 @@ export default {
       const t = 1024
       const d = Infinity
       if (window.innerWidth < m) {
-        this.setMediaSize('mobile')
+        this.setMediaSize(WindowBreakpoints.Mobile)
       } else if (window.innerWidth >= m && window.innerWidth < t) {
-        this.setMediaSize('tablet')
+        this.setMediaSize(WindowBreakpoints.Tablet)
       } else if (window.innerWidth >= t && window.innerWidth < d) {
-        this.setMediaSize('desktop')
+        this.setMediaSize(WindowBreakpoints.Desktop)
       }
     }
   }

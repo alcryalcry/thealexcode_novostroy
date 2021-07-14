@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer id="form" class="footer">
     <Section is-black>
       <Container>
         <div class="grid">
@@ -10,32 +10,7 @@
             <AppForm />
           </div>
           <div class="grid-col-title grid-col-info">
-            <div class="footer-info">
-              <div class="footer-info-col">
-                <div class="footer-info-title text--h3">
-                  {{ $locale.footer.contacts }}
-                </div>
-                <div class="footer-info-body text--h3 gray">
-                  <vue-markdown
-                    v-for="item in getSettings.contactList"
-                    :key="item.id"
-                    :source="item.text"
-                  />
-                </div>
-              </div>
-              <div class="footer-info-col">
-                <div class="footer-info-title text--h3">
-                  {{ $locale.footer.adress }}
-                </div>
-                <div class="footer-info-body text--h3 gray">
-                  <vue-markdown
-                    v-for="item in getSettings.addressList"
-                    :key="item.id"
-                    :source="item.text"
-                  />
-                </div>
-              </div>
-            </div>
+            <ContactsInfo />
           </div>
           <div class="grid-col-bottom">
             <div class="footer-copyright gray text--t3">
@@ -55,13 +30,15 @@
 <script>
 import WrapperTitle from '@/components/WrapperTitle'
 import AppForm from '@/components/Form'
+import ContactsInfo from '@/components/ContactsInfo'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'Footer',
   components: {
     AppForm,
-    WrapperTitle
+    WrapperTitle,
+    ContactsInfo
   },
   computed: {
     ...mapGetters({
@@ -78,11 +55,6 @@ $offsetGapMobile: 4rem;
 $offsetGapTablet: 8rem;
 $offsetGap: 10rem;
 
-.footer-info {
-  display: grid;
-  grid-row-gap: 2rem;
-}
-
 .gray {
   color: $colorDarkGray;
 }
@@ -90,12 +62,6 @@ $offsetGap: 10rem;
 .grid-col-bottom {
   display: flex;
   justify-content: space-between;
-}
-
-.footer-info-body {
-  > * {
-    margin-top: 2rem;
-  }
 }
 
 @include mobile {
@@ -134,10 +100,6 @@ $offsetGap: 10rem;
     grid-row-gap: $offsetGap;
     grid-template-columns: repeat(12, 1fr);
   }
-  .footer-info {
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: $colGapDesktop;
-  }
   .grid-col-body {
     grid-column: 7 / span 6;
   }
@@ -145,6 +107,19 @@ $offsetGap: 10rem;
     grid-column: 7 / span 6;
     grid-row: 3;
     grid-template-columns: repeat(2, 1fr) 8fr;
+    min-height: 8rem;
+  }
+
+  .footer-copyright {
+    display: flex;
+    align-items: flex-end;
+  }
+  .footer-madeby {
+    display: flex;
+    align-items: flex-end;
+    .link {
+      margin-left: .5rem;
+    }
   }
 }
 </style>
