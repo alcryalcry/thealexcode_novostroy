@@ -12,6 +12,7 @@ import SectionTeam from '@/components/sections/SectionTeam'
 import { fetchAbout, fetchTeam } from '@/config/api'
 
 export default {
+  name: 'PageMain',
   components: {
     SectionAbout,
     SectionTeam

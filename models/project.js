@@ -1,5 +1,6 @@
 import { AppModel, AppModelImage } from '@/models'
 import { rawArray, rawObject } from '@/utils'
+import { RouteNames } from '@/config/constants'
 
 export default class AppModelProject extends AppModel {
   static createFromRaw (raw) {
@@ -34,6 +35,7 @@ export default class AppModelProject extends AppModel {
       year,
       location,
       img: AppModelImage.createFromRaw(img),
+      relativeUrl: `${RouteNames.Projects}/${id}`,
       inProgress,
       sort,
       slides: mappedSlides
