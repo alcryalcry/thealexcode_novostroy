@@ -8,7 +8,13 @@ export const THEME_COLOR = '#000000'
 
 export const API_ROOT = process.env.API_ROOT || ''
 
+export const SELECT_DEFAULT_ID = 'SELECT_DEFAULT_ID_PLACEHOLDER'
+
+export const PROJECTS_GROUP_KEY = 'inProgress'
+
 export const getAbsolutePath = url => String(API_ROOT).replace(/\/?$/, '/') + String(url).replace(/^\/|\/$/g, '')
+
+export const groupByKey = (list, key) => list.reduce((hash, obj) => ({ ...hash, [obj[key]]: (hash[obj[key]] || []).concat(obj) }), {})
 
 export const WindowEvents = {
   Resize: 'resize',

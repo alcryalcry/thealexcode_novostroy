@@ -16,4 +16,7 @@ $colGapDesktop: $COL_GAP_DESKTOP;
   .grid-col-body {
     grid-column: 5 / span 8;
   }
+  .grid-col-full {
+    grid-column: 1 / span 12;
+  }
 }

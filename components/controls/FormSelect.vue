@@ -22,8 +22,7 @@
 <script>
 import { AppModelSelect } from '@/models'
 import IconCaret from '@/assets/svg/caret.svg'
-
-const DEFAULT_ID = 'DEFAULT_PLACEHOLDER_ID'
+import { SELECT_DEFAULT_ID } from '@/config/constants'
 
 const DEFAULT_SETTINGS = {
   searchable: false,
@@ -66,13 +65,13 @@ export default {
     },
     mappedOptions () {
       return [
-        AppModelSelect.createFromRaw({ id: DEFAULT_ID, label: this.computedSettings.placeholder }),
+        AppModelSelect.createFromRaw({ id: SELECT_DEFAULT_ID, label: this.computedSettings.placeholder }),
         ...AppModelSelect.createListFromRaw(this.options)
       ]
     }
   },
   mounted () {
-    this.setSelectValue(this.mappedOptions[0])
+    this.onSelect(this.mappedOptions[0])
   },
   methods: {
     setSelectValue (val) {
@@ -81,11 +80,7 @@ export default {
     onSelect (e) {
       this.setSelectValue(e)
 
-      this.$emit('select', e)
-
-      if (e.id === DEFAULT_ID) {
-        this.$emit('clear-select')
-      }
+      this.$emit('input', e)
     }
   }
 }

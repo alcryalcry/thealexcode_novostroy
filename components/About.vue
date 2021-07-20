@@ -4,7 +4,7 @@
       <vue-markdown v-if="body" :source="body" class="text--t1 indent" />
     </div>
     <div class="about-link">
-      <Link :label="$locale.about.allProjects" :url="url" />
+      <Link :label="$locale.projects.all" :url="url" />
     </div>
     <div class="about-popup-hover">
       <PopupHover :img="alterImg" :body="alterBody" :type="popupHoverTypes.about" />

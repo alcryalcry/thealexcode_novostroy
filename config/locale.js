@@ -18,7 +18,20 @@ export default {
     errorPhone: 'Некорректный номер телефона',
     successMsg: 'Заявка отправлена, мы с вами свяжемся в течении 24&nbsp;часов'
   },
-  about: {
-    allProjects: 'Все проекты'
+  projects: {
+    all: 'Все проекты',
+    detail: 'Подробнее',
+    allYears: 'Все года',
+    allStatuses: 'Все этапы',
+    inProgress: {
+      false: {
+        id: false,
+        label: 'Завершённые'
+      },
+      true: {
+        id: true,
+        label: 'В процессе работы'
+      }
+    }
   }
 }

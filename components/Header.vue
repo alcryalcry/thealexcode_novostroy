@@ -73,12 +73,14 @@ $zIndex3: $zLayerOverlay;
   z-index: $zIndex;
   color: $colorBlack;
   transition: color $t, background-color $t;
+  pointer-events: none;
 
   &.is-white {
     color: $colorWhite;
   }
 
   &.is-menu-open {
+    pointer-events: auto;
     color: $colorWhite;
     .header-menu {
       pointer-events: auto;
@@ -113,6 +115,7 @@ $zIndex3: $zLayerOverlay;
   position: relative;
   overflow: hidden;
   z-index: $zIndex3;
+  pointer-events: auto;
 }
 
 @include mobile {

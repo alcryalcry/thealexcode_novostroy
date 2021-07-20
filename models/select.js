@@ -3,7 +3,7 @@ import { rawObject, rawArray } from '@/utils'
 
 export default class AppModelSelect extends AppModel {
   static createFromRaw (raw, index) {
-    const str = typeof raw === 'string' ? raw : index
+    const str = typeof raw === 'string' || typeof raw === 'number' ? raw : index
 
     const {
       id = str,
