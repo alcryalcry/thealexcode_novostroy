@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <Header :is-white="isWhiteHeader" />
+    <Header :is-white="isWhiteHeader" :is-sticky="isStickyHeader" />
 
     <main class="page-content">
       <slot />
@@ -42,6 +42,7 @@ export default {
   },
   data () {
     return {
+      isStickyHeader: false,
       footerPosition: null,
       fixedElPosition: null,
       currentColor: Colors.Black
@@ -67,10 +68,17 @@ export default {
         this.scrollEvent = throttle(150, () => this.changeColor())
         window.addEventListener(WindowEvents.Scroll, this.scrollEvent, false)
         this.changeColor()
+      } else {
+        this.scrollEvent = throttle(150, () => this.changeHeader())
+        window.addEventListener(WindowEvents.Scroll, this.scrollEvent, false)
       }
     },
     removeEvents () {
       if (this.scrollEvent) { window.removeEventListener(WindowEvents.Scroll, this.scrollEvent, false) }
+    },
+    changeHeader () {
+      console.warn(window.scrollTop)
+      this.isStickyHeader = window.pageYOffset > 15
     },
     changeColor () {
       this.footerPosition = this.$refs?.footer?.$el?.getBoundingClientRect()?.top

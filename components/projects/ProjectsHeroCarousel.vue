@@ -2,15 +2,17 @@
   <Section class="projects-hero-carousel">
     <Container>
       <div v-if="slidesLength" class="grid">
-        <div class="grid-col-title">
-          <div class="title--h1">
-            {{ currentProject.title }}
+        <transition name="list-fade" mode="out-in">
+          <div :key="currentProject.id" class="grid-col-title">
+            <h3 class="title--h1">
+              {{ currentProject.title }}
+            </h3>
+            <div class="project-item-tags text--t3">
+              <span :class="{ 'has-next': !!currentProject.year }">{{ currentProject.location }}</span>
+              <span>{{ currentProject.year }}</span>
+            </div>
           </div>
-          <div class="project-item-tags text--t3">
-            <span :class="{ 'has-next': !!currentProject.year }">{{ currentProject.location }}</span>
-            <span>{{ currentProject.year }}</span>
-          </div>
-        </div>
+        </transition>
         <div class="grid-col-body">
           <div class="carousel-wrapper">
             <client-only>
@@ -238,8 +240,6 @@ $zIndex3: 3;
 }
 .grid-col-title {
   display: grid;
-}
-.grid-col-title {
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: $colGapDesktop;
 }

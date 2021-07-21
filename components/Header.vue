@@ -2,7 +2,7 @@
   <header
     v-on-clickaway="closeMenu"
     class="header"
-    :class="{ 'is-menu-open': isMenuOpen, 'is-white': isWhite }"
+    :class="{ 'is-menu-open': isMenuOpen, 'is-white': isWhite, 'is-sticky': isSticky }"
   >
     <Section>
       <Container>
@@ -37,6 +37,10 @@ export default {
   mixins: [clickaway],
   props: {
     isWhite: {
+      type: Boolean,
+      default: false
+    },
+    isSticky: {
       type: Boolean,
       default: false
     }
@@ -99,6 +103,9 @@ $zIndex5: $zLayerPopups;
   &.is-menu-open {
     pointer-events: auto;
     color: $colorWhite;
+    .burger-button {
+      color: $colorWhite;
+    }
     &::before {
       opacity: 1;
     }
@@ -144,6 +151,21 @@ $zIndex5: $zLayerPopups;
 }
 
 @include mobile {
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: $colorWhite;
+    &.is-sticky {
+      &::v-deep {
+        >.section {
+          background-color: rgba(#fff, .8);
+          color: $colorBlack;
+        }
+      }
+    }
+  }
   .header-menu {
     position: fixed;
     bottom: 0;
@@ -153,6 +175,7 @@ $zIndex5: $zLayerPopups;
       >.section {
         padding-top: 1rem;
         padding-bottom: 1rem;
+        transition: background-color .2s ease, color .2s ease;
       }
     }
   }
