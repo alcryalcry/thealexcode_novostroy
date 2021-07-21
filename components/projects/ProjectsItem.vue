@@ -4,9 +4,9 @@
       <span>{{ data.location }}</span>
       <span>{{ data.year }}</span>
     </div>
-    <div class="project-item-img">
-      <img :src="data.img.url" :alt="data.img.alternativeText">
-    </div>
+    <picture class="project-item-img">
+      <img :src="data.img.absoluteUrl" :alt="data.img.alternativeText">
+    </picture>
     <div class="project-item-title text--t3">
       {{ data.title }}
     </div>
@@ -94,6 +94,11 @@ $rowGap: 2rem;
     padding: 4rem $offsetMobile;
     margin: 0 0 - $offsetMobile;
     border-bottom: 1px solid $colorGray;
+
+    &:last-of-type {
+      padding-bottom: 0;
+      border: none;
+    }
   }
 }
 

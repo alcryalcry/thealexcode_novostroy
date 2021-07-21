@@ -16,17 +16,7 @@ export default class AppModelProject extends AppModel {
       slides = []
     } = rawObject(raw)
 
-    const mappedSlides = rawArray(slides).map((slide) => {
-      const {
-        img: slideImg = {},
-        caption = ''
-      } = rawObject(slide)
-
-      return {
-        slideImg: AppModelImage.createFromRaw(slideImg),
-        caption
-      }
-    })
+    const mappedSlides = rawArray(slides).map((slide, index) => AppModelProject.createSlideFromRaw(slide, index))
 
     return Object.assign(new AppModelProject(), {
       id,
@@ -40,5 +30,18 @@ export default class AppModelProject extends AppModel {
       sort,
       slides: mappedSlides
     })
+  }
+
+  static createSlideFromRaw (raw, index = 1) {
+    const {
+      img: slideImg = {},
+      caption = ''
+    } = rawObject(raw)
+
+    return {
+      id: index,
+      img: AppModelImage.createFromRaw(slideImg),
+      caption
+    }
   }
 }
