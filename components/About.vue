@@ -1,15 +1,13 @@
 <template>
   <div class="about">
     <div class="about-body">
-      <div class="text--t1 indent">
-        {{ body }}
-      </div>
+      <vue-markdown v-if="body" :source="body" class="text--t1 indent" />
     </div>
     <div class="about-link">
-      <Link :label="$locale.about.allProjects" :url="url" />
+      <Link :label="$locale.projects.all" :url="url" />
     </div>
     <div class="about-popup-hover">
-      <PopupHover :image="alterImage" :body="alterBody" :type="popupHoverTypes.about" />
+      <PopupHover :img="alterImg" :body="alterBody" :type="popupHoverTypes.about" />
     </div>
   </div>
 </template>
@@ -17,7 +15,7 @@
 <script>
 import { AppModelPopupHover } from '@/models'
 import Link from '@/components/Link.vue'
-import { ROUTES } from '@/config/constants'
+import { RouteNames } from '@/config/constants'
 import PopupHover from '@/components/PopupHover.vue'
 
 export default {
@@ -27,7 +25,7 @@ export default {
     PopupHover
   },
   props: {
-    alterImage: {
+    alterImg: {
       type: Object,
       default () {
         return {}
@@ -44,7 +42,7 @@ export default {
   },
   computed: {
     url () {
-      return ROUTES.projects
+      return RouteNames.Projects
     },
     popupHoverTypes () {
       return AppModelPopupHover.types
@@ -62,12 +60,6 @@ export default {
 
 .about-link {
   margin-top: 4rem;
-}
-
-@include mobile {
-}
-
-@include tablet {
 }
 
 @include desktop {

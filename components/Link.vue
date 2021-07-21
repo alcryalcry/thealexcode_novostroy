@@ -1,5 +1,10 @@
 <template>
-  <component :is="disabled ? 'div' : 'n-link'" :to="!disabled ? url : false" class="link" :class="{ 'is-big': isBig, 'is-disabled': disabled }">
+  <component
+    :is="isButton ? 'button' : 'NuxtLink'"
+    :to="isButton ? false : url"
+    class="link"
+    :class="{ 'is-big': isBig, 'is-gray': isGray, 'is-white': isWhite }"
+  >
     <span class="link-label" :label="label" :class="isBig ? 'text--t1' : 'text--t3'">
       {{ label }}
     </span>
@@ -22,17 +27,25 @@ export default {
       type: Boolean,
       default: false
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
     label: {
       type: String,
       default: ''
     },
+    isButton: {
+      type: Boolean,
+      default: false
+    },
     url: {
       type: String,
       default: ''
+    },
+    isWhite: {
+      type: Boolean,
+      default: false
+    },
+    isGray: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -40,8 +53,12 @@ export default {
 
 <style lang="scss" scoped>
 $colorDefault: var(--color-green);
-$colorDisabled: var(--color-light-gray);
-$colorFromDark: var(--color-white);
+$colorWhite: var(--color-white);
+$colorGray: var(--color-dark-gray);
+
+button.link {
+  @include clear-btn();
+}
 
 .link {
   position: relative;
@@ -50,9 +67,12 @@ $colorFromDark: var(--color-white);
   overflow: hidden;
   color: $colorDefault;
 
-  &.is-disabled {
-    pointer-events: none;
-    color: $colorDisabled;
+  &.is-white {
+    color: $colorWhite;
+  }
+
+  &.is-gray {
+    color: $colorGray;
   }
 
   &.is-big {
@@ -85,10 +105,12 @@ $colorFromDark: var(--color-white);
   height: 1.6rem;
 }
 
-@include mobile {
-}
-
-@include tablet {
+.link {
+  .is-hovering & {
+    .link-label {
+      transform: translateY(1.5em);
+    }
+  }
 }
 
 @include desktop {
