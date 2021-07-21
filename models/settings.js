@@ -1,6 +1,6 @@
 import { AppModel, AppModelImage } from '@/models'
 import { rawObject, rawArray } from '@/utils'
-
+import { getYMapsUrl } from '@/config/constants'
 export default class AppModelSettings extends AppModel {
   static createFromRaw (raw) {
     const {
@@ -36,7 +36,8 @@ export default class AppModelSettings extends AppModel {
       } = rawObject(item)
       return {
         id,
-        text
+        text,
+        url: getYMapsUrl(text)
       }
     })
 

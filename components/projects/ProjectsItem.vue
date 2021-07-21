@@ -1,12 +1,22 @@
 <template>
-  <div class="project-item">
+  <div class="project-item" :class="{ 'is-hovering': isHovering }">
     <div class="project-item-tags">
       <span>{{ data.location }}</span>
       <span>{{ data.year }}</span>
     </div>
-    <picture class="project-item-img">
-      <img :src="data.img.absoluteUrl" :alt="data.img.alternativeText">
-    </picture>
+    <NuxtLink
+      class="project-item-img-wrapper"
+      :to="data.relativeUrl"
+      @mouseover.native="onMouseOver"
+      @mouseleave.native="onMouseLeave"
+    >
+      <img
+        v-if="data.img.url"
+        class="project-item-img"
+        :src="data.img.absoluteUrl"
+        :alt="data.img.alternativeText"
+      >
+    </NuxtLink>
     <div class="project-item-title text--t3">
       {{ data.title }}
     </div>
@@ -17,6 +27,8 @@
       <Link
         :label="$locale.projects.detail"
         :url="data.relativeUrl"
+        @mouseover.native="onMouseOver"
+        @mouseleave.native="onMouseLeave"
       />
     </div>
   </div>
@@ -29,6 +41,19 @@ export default {
     data: {
       type: Object,
       default: () => {}
+    }
+  },
+  data () {
+    return {
+      isHovering: false
+    }
+  },
+  methods: {
+    onMouseOver () {
+      this.isHovering = true
+    },
+    onMouseLeave () {
+      this.isHovering = false
     }
   }
 }
@@ -43,22 +68,6 @@ $rowGap: 2rem;
 
 .project-item {
   position: relative;
-}
-
-.project-item-link {
-  &::v-deep {
-    .link {
-      position: static;
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
-    }
-  }
 }
 
 .project-item-tags {
@@ -76,11 +85,22 @@ $rowGap: 2rem;
     }
   }
 }
-.project-item-img {
+.project-item-img-wrapper {
+  position: relative;
+  overflow: hidden;
   display: flex;
   width: 100%;
   height: 22rem;
   margin-bottom: $rowGap;
+}
+.project-item-img {
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform .5s ease;
+
+  .is-hovering & {
+    transform: scale(1.04) translate3d(0,0,0);
+  }
 }
 .project-item-title {
   color: $colorDarkGray;
@@ -109,7 +129,7 @@ $rowGap: 2rem;
   .project-item-subtitle {
     margin-bottom: $rowGapDesktop;
   }
-  .project-item-img {
+  .project-item-img-wrapper {
     height: 27rem;
     margin-bottom: $rowGapDesktop;
   }

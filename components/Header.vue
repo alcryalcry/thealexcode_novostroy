@@ -58,12 +58,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$colorBlackScss: $COLOR_BLACK;
 $colorBlack: var(--color-black);
 $colorWhite: var(--color-white);
 $t: .3s ease;
 $zIndex: $zLayerNav;
 $zIndex2: $zLayerSubNav;
 $zIndex3: $zLayerOverlay;
+$zIndex4: $zLayerSubInfo;
+$zIndex5: $zLayerPopups;
 
 .header {
   position: absolute;
@@ -75,6 +78,20 @@ $zIndex3: $zLayerOverlay;
   transition: color $t, background-color $t;
   pointer-events: none;
 
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba($colorBlackScss, .6);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s ease;
+    z-index: $zIndex4;
+  }
+
   &.is-white {
     color: $colorWhite;
   }
@@ -82,12 +99,20 @@ $zIndex3: $zLayerOverlay;
   &.is-menu-open {
     pointer-events: auto;
     color: $colorWhite;
+    &::before {
+      opacity: 1;
+    }
     .header-menu {
       pointer-events: auto;
       opacity: 1;
       transform: translateY(0);
+      transition: transform .6s cubic-bezier(0.535, 0, 0, 1), opacity .2s ease;
     }
   }
+}
+
+.header-row-info {
+  pointer-events: auto;
 }
 
 .header-menu {
@@ -101,8 +126,8 @@ $zIndex3: $zLayerOverlay;
   display: flex;
   flex-flow: column nowrap;
   min-height: 41rem;
-  z-index: $zIndex2;
-  transition: $t;
+  z-index: $zIndex3;
+  transition: transform .6s cubic-bezier(0.535, 0, 0, 1), opacity .2s ease .6s
 }
 
 .header-row {
@@ -114,7 +139,7 @@ $zIndex3: $zLayerOverlay;
 .header-row-burger {
   position: relative;
   overflow: hidden;
-  z-index: $zIndex3;
+  z-index: $zIndex5;
   pointer-events: auto;
 }
 

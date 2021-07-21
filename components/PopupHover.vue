@@ -2,7 +2,11 @@
   <div class="popup-hover" :class="{ 'is-open': isOpen }">
     <div v-bsl:reserveScrollBarGap="isOpen" class="popup-hover-wrapper">
       <picture class="popup-hover-background">
-        <img v-if="img.absoluteUrl" :src="img.absoluteUrl" :alt="img.alternativeText">
+        <img
+          v-if="img.url"
+          :src="img.absoluteUrl"
+          :alt="img.alternativeText"
+        >
       </picture>
       <Section class="popup-hover-content">
         <Container v-if="body">
@@ -168,6 +172,7 @@ $zIndexClose: 4;
   height: 10.6rem;
   padding: 1rem;
   color: $colorDefaultButton;
+  overflow: hidden;
   transition: color .2s ease;
   * {
     pointer-events: none;
@@ -181,8 +186,8 @@ $zIndexClose: 4;
     animation: $easeAnimation iconMove 3s infinite;
   }
   &.team {
-    transform-origin: left;
-    animation: $easeAnimation iconRotate 2s infinite;
+    transform-origin: center;
+    animation: $easeAnimation iconRotate 5s infinite;
   }
 }
 
@@ -213,13 +218,31 @@ $zIndexClose: 4;
 
 @keyframes iconRotate {
   0% {
+    transform: rotate(-45deg);
+  }
+  10% {
     transform: rotate(-5deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  35% {
+    transform: rotate(85deg);
   }
   50% {
-    transform: rotate(15deg);
+    transform: rotate(85deg);
+  }
+  65% {
+    transform: rotate(45deg);
+  }
+  75% {
+    transform: rotate(45deg);
+  }
+  85% {
+    transform: rotate(-45deg);
   }
   100% {
-    transform: rotate(-5deg);
+    transform: rotate(-45deg);
   }
 }
 </style>
