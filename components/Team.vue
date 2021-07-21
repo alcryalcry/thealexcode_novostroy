@@ -16,9 +16,9 @@
         <PopupHover :img="alterImg" :body="alterBody" :type="popupHoverTypes.team" />
       </div>
     </div>
-    <div class="team-image">
-      <img v-if="img.url" :src="img.url" :alt="img.alternativeText">
-    </div>
+    <picture class="team-image">
+      <img v-if="img.absoluteUrl" :src="img.absoluteUrl" :alt="img.alternativeText">
+    </picture>
   </div>
 </template>
 

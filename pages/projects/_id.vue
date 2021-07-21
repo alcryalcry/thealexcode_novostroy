@@ -1,20 +1,31 @@
 <template>
-  <Layout class="page-projects">
-    PROJECT ONE
-  </Layout>
+  <main>
+    <div class="page">
+      <div class="page-projects-one">
+        <ProjectsPageCarousel :id="projectId" />
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
-// import Projects from '@/components/projects/Projects.vue'
+import ProjectsPageCarousel from '@/components/projects/ProjectsPageCarousel'
 
 export default {
-  name: 'PageProjectsOne'
-  // components: {
-  //   Projects
-  // }
+  name: 'PageProjectsOne',
+  components: {
+    ProjectsPageCarousel
+  },
+  computed: {
+    projectId () {
+      return Number(this.$route?.params?.id)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.page-projects-one {
+  margin: auto 0;
+}
 </style>

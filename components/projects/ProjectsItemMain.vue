@@ -1,8 +1,8 @@
 <template>
   <div class="project-item grid">
-    <div class="project-item-img">
-      <img :src="data.img.url" :alt="data.img.alternativeText">
-    </div>
+    <picture class="project-item-img">
+      <img :src="data.img.absoluteUrl" :alt="data.img.alternativeText">
+    </picture>
     <div class="project-item-title text--t3">
       {{ data.title }}
     </div>
@@ -87,6 +87,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   position: relative;
   display: flex;
   width: 100%;
+  max-width: none;
 
   &::before {
     content: '';

@@ -1,9 +1,9 @@
 <template>
   <div class="popup-hover" :class="{ 'is-open': isOpen }">
     <div v-bsl:reserveScrollBarGap="isOpen" class="popup-hover-wrapper">
-      <div class="popup-hover-background">
-        <img v-if="img.url" :src="img.url" :alt="img.alternativeText">
-      </div>
+      <picture class="popup-hover-background">
+        <img v-if="img.absoluteUrl" :src="img.absoluteUrl" :alt="img.alternativeText">
+      </picture>
       <Section class="popup-hover-content">
         <Container v-if="body">
           <div class="popup-hover-content-body">
@@ -153,8 +153,6 @@ $zIndexClose: 4;
 }
 
 .popup-hover-close {
-  @include clear-btn();
-
   position: absolute;
   top: 3rem;
   right: 4rem;

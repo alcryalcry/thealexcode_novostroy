@@ -30,6 +30,10 @@ export default {
       ssr: false
     },
     {
+      src: '~plugins/vueCarousel.js',
+      ssr: false
+    },
+    {
       src: '~plugins/vueClickaway.js',
       ssr: false
     },
