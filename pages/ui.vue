@@ -42,7 +42,6 @@
     <div class="ui-title text--t1">
       SECTION/CONTAINER
     </div>
-
     <Section class="ui-bg-1">
       <div class="text--h2">
         section
@@ -53,30 +52,17 @@
         </div>
       </Container>
     </Section>
-
-    <div class="ui-title text--t1">
-      COMPONENTS
-    </div>
-    <Section>
-      <Container>
-        <WrapperTitle :title="'WrapperTitle'" :description="'Опытная команда, реализовавшая крупнейшие проекты в разных сегментах'">
-          Content of WrapperTitle
-        </WrapperTitle>
-      </Container>
-    </Section>
   </div>
 </template>
 
 <script>
 import Link from '@/components/Link'
-import WrapperTitle from '@/components/WrapperTitle'
 import FormInput from '@/components/controls/FormInput'
 import FormSelect from '@/components/controls/FormSelect'
 
 export default {
   components: {
     Link,
-    WrapperTitle,
     FormInput,
     FormSelect
   },

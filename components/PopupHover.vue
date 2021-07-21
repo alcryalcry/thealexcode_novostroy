@@ -1,21 +1,21 @@
 <template>
   <div class="popup-hover" :class="{ 'is-open': isOpen }">
     <div v-bsl:reserveScrollBarGap="isOpen" class="popup-hover-wrapper">
-      <div class="popup-hover-background">
-        <img v-if="image.url" :src="image.url" :alt="image.caption">
-      </div>
-      <div class="popup-hover-content">
+      <picture class="popup-hover-background">
+        <img
+          v-if="img.url"
+          :src="img.absoluteUrl"
+          :alt="img.alternativeText"
+        >
+      </picture>
+      <Section class="popup-hover-content">
         <Container v-if="body">
           <div class="popup-hover-content-body">
-            <div class="text--t1">
-              {{ body }}
-            </div>
+            <vue-markdown v-if="body" :source="body" class="text--t1" />
           </div>
         </Container>
-      </div>
-      <button type="button" class="popup-hover-close" @click.stop="closeModal">
-        <IconClose />
-      </button>
+      </Section>
+      <BurgerButton class="popup-hover-close" :is-active="true" @click.stop="closeModal" />
     </div>
     <button ref="button" class="popup-hover-button" @mouseover="openModal" @mouseleave="closeModal">
       <i class="animate" :class="type">
@@ -27,15 +27,16 @@
 </template>
 
 <script>
+import BurgerButton from '@/components/BurgerButton'
+
 import { AppModelPopupHover } from '@/models'
-import IconClose from '@/assets/svg/close.svg'
 import IconAbout from '@/assets/svg/about.svg'
 import IconTeam from '@/assets/svg/team.svg'
 
 export default {
   name: 'PopupHover',
   components: {
-    IconClose,
+    BurgerButton,
     IconAbout,
     IconTeam
   },
@@ -44,7 +45,7 @@ export default {
       type: String,
       default: AppModelPopupHover.types.about
     },
-    image: {
+    img: {
       type: Object,
       default () {
         return {}
@@ -79,19 +80,22 @@ export default {
 <style lang="scss" scoped>
 $colorDefaultButton: var(--color-black);
 $colorActiveButton: var(--color-white);
+$colorCloseButton: var(--color-dark-gray);
 $colorContent: var(--color-white);
 $wrapperBg: var(--color-black);
-$zIndexButton: 10;
-$zIndexContent: 2;
-$zIndexMenuOpened: 3;
-$zIndexBurger: 4;
-
 $easeAnimation: $EASE_IN_OUT_SINE;
+
+$zIndexOpened: $zLayerPopups;
+$zIndexButtonOpened: $zLayerTop;
+$zIndexContent: 2;
+$zIndexWrapper: 3;
+$zIndexClose: 4;
 
 .popup-hover {
   display: flex;
 
   &.is-open {
+    z-index: $zIndexOpened;
     .animate {
       animation-play-state: paused;
     }
@@ -101,7 +105,7 @@ $easeAnimation: $EASE_IN_OUT_SINE;
     }
     .popup-hover-button {
       color: $colorActiveButton;
-      z-index: $zIndexButton;
+      z-index: $zIndexButtonOpened;
       transition-delay: 0.25s;
     }
   }
@@ -119,7 +123,7 @@ $easeAnimation: $EASE_IN_OUT_SINE;
   opacity: 0;
   pointer-events: none;
   will-change: opacity;
-  z-index: $zIndexMenuOpened;
+  z-index: $zIndexWrapper;
   transition: opacity 0.35s ease;
 }
 
@@ -129,7 +133,15 @@ $easeAnimation: $EASE_IN_OUT_SINE;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.5;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 59.86%);
+  }
 }
 
 .popup-hover-content {
@@ -145,18 +157,13 @@ $easeAnimation: $EASE_IN_OUT_SINE;
 }
 
 .popup-hover-close {
-  @include clear-btn();
-
   position: absolute;
-  top: 1.6rem;
-  right: 1.6rem;
-  width: 3.2rem;
-  height: 3.2rem;
-  padding: .4rem;
-  color: $colorActiveButton;
-  transition: color 0.2s ease;
-  z-index: $zIndexBurger;
+  top: 3rem;
+  right: 4rem;
+  color: $colorCloseButton;
+  z-index: $zIndexClose;
 }
+
 .popup-hover-button {
   @include clear-btn();
 
@@ -165,6 +172,7 @@ $easeAnimation: $EASE_IN_OUT_SINE;
   height: 10.6rem;
   padding: 1rem;
   color: $colorDefaultButton;
+  overflow: hidden;
   transition: color .2s ease;
   * {
     pointer-events: none;
@@ -178,8 +186,15 @@ $easeAnimation: $EASE_IN_OUT_SINE;
     animation: $easeAnimation iconMove 3s infinite;
   }
   &.team {
-    transform-origin: left;
-    animation: $easeAnimation iconRotate 2s infinite;
+    transform-origin: center;
+    animation: $easeAnimation iconRotate 5s infinite;
+  }
+}
+
+@include mobile {
+  .popup-hover-close {
+    top: 2rem;
+    right: 2rem;
   }
 }
 
@@ -203,13 +218,31 @@ $easeAnimation: $EASE_IN_OUT_SINE;
 
 @keyframes iconRotate {
   0% {
+    transform: rotate(-45deg);
+  }
+  10% {
     transform: rotate(-5deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  35% {
+    transform: rotate(85deg);
   }
   50% {
-    transform: rotate(15deg);
+    transform: rotate(85deg);
+  }
+  65% {
+    transform: rotate(45deg);
+  }
+  75% {
+    transform: rotate(45deg);
+  }
+  85% {
+    transform: rotate(-45deg);
   }
   100% {
-    transform: rotate(-5deg);
+    transform: rotate(-45deg);
   }
 }
 </style>

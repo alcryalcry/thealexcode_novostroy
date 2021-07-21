@@ -1,7 +1,7 @@
 import { head } from './config'
 
 export default {
-  store: false,
+  store: true,
   head,
   css: [
     '~assets/styles/app.scss'
@@ -20,6 +20,26 @@ export default {
     {
       src: '~plugins/localePlugin.js',
       ssr: true
+    },
+    {
+      src: '~plugins/vueMarkdown.js',
+      ssr: true
+    },
+    {
+      src: '~plugins/vMask.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vueCarousel.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vueClickaway.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vuelidate.js',
+      ssr: false
     },
     {
       src: '~plugins/vBodyScrollLock.js',
@@ -50,5 +70,9 @@ export default {
         loader: 'vue-svg-loader'
       })
     }
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    apiRoot: process.env.API_ROOT || 'http://localhost:3000'
   }
 }

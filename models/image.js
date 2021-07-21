@@ -32,7 +32,8 @@ export default class AppModelImage {
       hash,
       ext,
       mime,
-      url: getAbsolutePath(url),
+      url,
+      absoluteUrl: getAbsolutePath(url),
       previewUrl,
       thumbnail: thumbnail.url ? AppModelImage.createFromRaw(thumbnail) : {}
     })

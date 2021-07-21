@@ -1,34 +1,47 @@
 <template>
-  <div class="page-index">
+  <Layout class="page-index" is-white-header>
+    <ProjectsHeroCarousel />
     <SectionAbout :data="about" />
-  </div>
+    <SectionTeam :data="team" />
+    <SectionPartners :data="partners" />
+  </Layout>
 </template>
 
 <script>
+import ProjectsHeroCarousel from '@/components/projects/ProjectsHeroCarousel'
 import SectionAbout from '@/components/sections/SectionAbout'
-import { fetchAbout, fetchSettings } from '@/config/api'
+import SectionTeam from '@/components/sections/SectionTeam'
+import SectionPartners from '@/components/sections/SectionPartners'
+import { fetchAbout, fetchPartners, fetchTeam } from '@/config/api'
 
 export default {
+  name: 'PageMain',
   components: {
-    SectionAbout
+    ProjectsHeroCarousel,
+    SectionAbout,
+    SectionTeam,
+    SectionPartners
   },
   async asyncData () {
     const res = {
-      settings: {},
-      about: {}
+      about: {},
+      team: {}
     }
 
     try {
       const [
-        settings,
-        about
+        about,
+        team,
+        partners
       ] = await Promise.all([
-        fetchSettings(),
-        fetchAbout()
+        fetchAbout(),
+        fetchTeam(),
+        fetchPartners()
       ])
 
-      res.settings = settings
       res.about = about
+      res.team = team
+      res.partners = partners
     } catch (e) {
       console.error(e)
     }

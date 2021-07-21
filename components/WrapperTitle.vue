@@ -1,16 +1,12 @@
 <template>
   <div class="wrapper-title">
-    <div class="row no-gap ai-sb">
-      <div class="col col-6 col-md-8 col-sm-4">
-        <div v-if="title" class="title--h1">
-          {{ title }}
-        </div>
-      </div>
-      <div v-if="body" class="col col-6 col-md-8 col-sm-4">
-        <div class="text--t3">
-          {{ body }}
-        </div>
-      </div>
+    <div class="wrapper-title-text">
+      <h3 v-if="title" class="title--h1">
+        {{ title }}
+      </h3>
+    </div>
+    <div class="wrapper-title-body">
+      <vue-markdown v-if="body" :source="body" class="text--t3" />
     </div>
   </div>
 </template>
@@ -32,16 +28,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$colGapDesktop: $COL_GAP_DESKTOP;
+
 .wrapper-title {
-
-}
-
-@include mobile {
-}
-
-@include tablet {
+  display: grid;
+  grid-row-gap: 2rem;
 }
 
 @include desktop {
+  .wrapper-title {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: $colGapDesktop;
+  }
 }
 </style>
