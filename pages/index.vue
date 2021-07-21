@@ -3,6 +3,7 @@
     <ProjectsHeroCarousel />
     <SectionAbout :data="about" />
     <SectionTeam :data="team" />
+    <SectionPartners :data="partners" />
   </Layout>
 </template>
 
@@ -10,14 +11,16 @@
 import ProjectsHeroCarousel from '@/components/projects/ProjectsHeroCarousel'
 import SectionAbout from '@/components/sections/SectionAbout'
 import SectionTeam from '@/components/sections/SectionTeam'
-import { fetchAbout, fetchTeam } from '@/config/api'
+import SectionPartners from '@/components/sections/SectionPartners'
+import { fetchAbout, fetchPartners, fetchTeam } from '@/config/api'
 
 export default {
   name: 'PageMain',
   components: {
     ProjectsHeroCarousel,
     SectionAbout,
-    SectionTeam
+    SectionTeam,
+    SectionPartners
   },
   async asyncData () {
     const res = {
@@ -28,14 +31,17 @@ export default {
     try {
       const [
         about,
-        team
+        team,
+        partners
       ] = await Promise.all([
         fetchAbout(),
-        fetchTeam()
+        fetchTeam(),
+        fetchPartners()
       ])
 
       res.about = about
       res.team = team
+      res.partners = partners
     } catch (e) {
       console.error(e)
     }

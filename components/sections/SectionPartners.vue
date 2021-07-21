@@ -1,19 +1,19 @@
 <template>
   <Section class="section-team">
     <Container>
-      <Team v-bind="currentData" />
+      <Partners v-bind="currentData" />
     </Container>
   </Section>
 </template>
 
 <script>
-import { AppModelTeam } from '@/models'
-import Team from '@/components/Team.vue'
+import { AppModelPartners } from '@/models'
+import Partners from '@/components/Partners.vue'
 
 export default {
-  name: 'SectionTeam',
+  name: 'SectionPartners',
   components: {
-    Team
+    Partners
   },
   props: {
     data: {
@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     currentData () {
-      return AppModelTeam.createFromRaw(this.data)
+      return AppModelPartners.createFromRaw(this.data)
     }
   }
 }

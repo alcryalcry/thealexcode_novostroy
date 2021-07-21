@@ -66,7 +66,7 @@ $burgerSize: 32px;
     width: 100%;
     height: 2px;
     background: currentColor;
-    transition: max-width .2s ease, top .2s ease, right .2s ease, transform .2s ease;
+    transition: max-width .2s ease, top .2s ease, right .2s ease, transform .2s ease, color .2s ease;
   }
   &::after {
     content: '';
@@ -77,7 +77,7 @@ $burgerSize: 32px;
     max-width: 100%;
     height: 2px;
     background: currentColor;
-    transition: top .2s ease, right .2s ease, transform .2s ease;
+    transition: top .2s ease, right .2s ease, transform .2s ease, color .2s ease;
   }
 }
 </style>
