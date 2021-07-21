@@ -26,3 +26,8 @@ export async function fetchTeam () {
   const res = await axios.get(ApiRoutes.Team)
   return rawObject(res).data
 }
+
+export async function sendFeedback (data) {
+  const res = await axios.post(ApiRoutes.Feedback, data)
+  return rawObject(res)
+}

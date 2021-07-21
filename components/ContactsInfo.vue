@@ -5,11 +5,12 @@
         {{ $locale.footer.contacts }}
       </div>
       <div class="contacts-info-body text--h3 gray">
-        <vue-markdown
+        <div
           v-for="item in getSettings.contactList"
           :key="item.id"
-          :source="item.text"
-        />
+        >
+          <vue-markdown :source="item.text" />
+        </div>
       </div>
     </div>
     <div class="contacts-info-col">
@@ -17,11 +18,18 @@
         {{ $locale.footer.adress }}
       </div>
       <div class="contacts-info-body text--h3 gray">
-        <vue-markdown
+        <div
           v-for="item in getSettings.addressList"
           :key="item.id"
-          :source="item.text"
-        />
+          class="contacts-info-item"
+        >
+          <a :href="item.url" target="_blank" class="contacts-info-link">
+            <vue-markdown
+              :linkify="false"
+              :source="item.text"
+            />
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +50,7 @@ export default {
 
 <style lang="scss" scoped>
 $colGapDesktop: $COL_GAP_DESKTOP;
+$colorWhite: var(--color-white);
 $colorDarkGray: var(--color-dark-gray);
 
 .gray {
@@ -59,10 +68,22 @@ $colorDarkGray: var(--color-dark-gray);
   }
 }
 
+.contacts-info-link {
+  transition: color .2s ease;
+  &:active {
+    color: $colorWhite;
+  }
+}
+
 @include desktop {
   .contacts-info {
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: $colGapDesktop;
+  }
+  .contacts-info-link {
+    &:hover {
+      color: $colorWhite;
+    }
   }
 }
 </style>

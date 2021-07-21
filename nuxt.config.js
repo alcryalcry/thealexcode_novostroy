@@ -70,5 +70,9 @@ export default {
         loader: 'vue-svg-loader'
       })
     }
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    apiRoot: process.env.API_ROOT || 'http://localhost:3000'
   }
 }

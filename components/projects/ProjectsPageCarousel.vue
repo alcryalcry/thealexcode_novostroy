@@ -16,6 +16,7 @@
               <div class="slide-wrapper">
                 <picture class="slide-image">
                   <img
+                    v-if="slide.img.url"
                     :style="{ aspectRatio: `${slide.img.width} / ${slide.img.height}` }"
                     :src="slide.img.absoluteUrl"
                     :alt="slide.img.alternativeText"
@@ -206,7 +207,7 @@ $zIndexClose: 2;
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 30rem;
+  width: 12rem;
   display: flex;
   align-items: center;
   color: $colorDarkGray;
@@ -221,8 +222,8 @@ $zIndexClose: 2;
   &.prev {
     left: 0;
     justify-content: flex-start;
-    margin-left: 4rem;
     .icon {
+      margin-left: 4rem;
       transform: rotate(180deg);
     }
   }
@@ -230,7 +231,9 @@ $zIndexClose: 2;
   &.next {
     right: 0;
     justify-content: flex-end;
-    margin-right: 4rem;
+    .icon {
+      margin-right: 4rem;
+    }
   }
 }
 

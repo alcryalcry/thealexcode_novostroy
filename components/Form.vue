@@ -10,26 +10,29 @@
         <div class="form-control">
           <FormInput
             v-model="formModel.name"
-            :error="errors.name"
+            :error="errors.name || serverErrors.name"
             name="name"
             :placeholder="$locale.form.labelName"
+            @input="clearServerError('name')"
           />
         </div>
         <div class="form-control">
           <FormInput
             v-model="formModel.email"
-            :error="errors.email"
+            :error="errors.email || serverErrors.email"
             name="email"
             :placeholder="$locale.form.labelEmail"
+            @input="clearServerError('email')"
           />
         </div>
         <div class="form-control">
           <FormInput
             v-model="formModel.phone"
             v-mask="'+7 (###) ###-##-##'"
-            :error="errors.phone"
+            :error="errors.phone || serverErrors.phone"
             name="phone"
             :placeholder="$locale.form.labelPhone"
+            @input="clearServerError('phone')"
           />
         </div>
         <div class="form-control-submit">
@@ -52,6 +55,8 @@
 import FormInput from '@/components/controls/FormInput.vue'
 import Link from '@/components/Link.vue'
 import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
+import { sendFeedback } from '@/config/api'
+import { AppModelFormPost } from '@/models'
 
 export default {
   name: 'AppForm',
@@ -61,6 +66,11 @@ export default {
   },
   data () {
     return {
+      serverErrors: {
+        name: '',
+        email: '',
+        phone: ''
+      },
       isLoading: false,
       canValidate: false,
       isFormSubmited: false,
@@ -84,6 +94,9 @@ export default {
           ? this.$locale.form.errorPhone
           : ''
       }
+    },
+    hasErrors () {
+      return Object.values(this.errors).some(item => !!item) || Object.values(this.serverErrors).some(item => !!item)
     }
   },
   validations: {
@@ -103,21 +116,29 @@ export default {
     }
   },
   methods: {
-
+    clearServerError (key) {
+      this.serverErrors[key] = ''
+    },
     onSubmit () {
       this.canValidate = true
 
-      if (this.isLoading || this.isFormSubmited || Object.values(this.errors).some(item => !!item)) {
+      if (this.isLoading || this.isFormSubmited || this.hasErrors) {
         return
       }
 
       this.isLoading = true
 
-      // TODO: доделать отправку формы
-      setTimeout(() => {
-        this.isFormSubmited = true
-        this.isLoading = false
-      }, 1000)
+      sendFeedback(this.formModel)
+        .then(() => {
+          this.isFormSubmited = true
+        })
+        .catch((e) => {
+          this.serverErrors = AppModelFormPost.createErrorsFromRaw(e)
+          console.error(e)
+        })
+        .finally(() => {
+          this.isLoading = false
+        })
     }
   }
 }
@@ -153,11 +174,5 @@ $rowGap: 6rem;
   .form-control-submit {
     margin-top: $rowGapMobile;
   }
-}
-
-@include tablet {
-}
-
-@include desktop {
 }
 </style>

@@ -105,10 +105,12 @@ button.link {
   height: 1.6rem;
 }
 
-@include mobile {
-}
-
-@include tablet {
+.link {
+  .is-hovering & {
+    .link-label {
+      transform: translateY(1.5em);
+    }
+  }
 }
 
 @include desktop {

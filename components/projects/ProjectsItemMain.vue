@@ -1,8 +1,18 @@
 <template>
-  <div class="project-item grid">
-    <picture class="project-item-img">
-      <img :src="data.img.absoluteUrl" :alt="data.img.alternativeText">
-    </picture>
+  <div class="project-item grid" :class="{ 'is-hovering': isHovering }">
+    <NuxtLink
+      class="project-item-img-wrapper"
+      :to="data.relativeUrl"
+      @mouseover.native="onMouseOver"
+      @mouseleave.native="onMouseLeave"
+    >
+      <img
+        v-if="data.img.url"
+        class="project-item-img"
+        :src="data.img.absoluteUrl"
+        :alt="data.img.alternativeText"
+      >
+    </NuxtLink>
     <div class="project-item-title text--t3">
       {{ data.title }}
     </div>
@@ -18,6 +28,8 @@
         <Link
           :label="$locale.projects.detail"
           :url="data.relativeUrl"
+          @mouseover.native="onMouseOver"
+          @mouseleave.native="onMouseLeave"
         />
       </div>
     </div>
@@ -31,6 +43,19 @@ export default {
     data: {
       type: Object,
       default: () => {}
+    }
+  },
+  data () {
+    return {
+      isHovering: false
+    }
+  },
+  methods: {
+    onMouseOver () {
+      this.isHovering = true
+    },
+    onMouseLeave () {
+      this.isHovering = false
     }
   }
 }
@@ -50,24 +75,8 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
 
 .project-item {
   position: relative;
+  pointer-events: none;
   background: $colorLightGray;
-}
-
-.project-item-link {
-  &::v-deep {
-    .link {
-      position: static;
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-      }
-    }
-  }
 }
 
 .project-item-tags {
@@ -83,11 +92,19 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     }
   }
 }
-.project-item-img {
+.project-item-right {
+  pointer-events: auto;
+}
+.project-item-link {
+  pointer-events: auto;
+}
+.project-item-img-wrapper {
   position: relative;
   display: flex;
   width: 100%;
   max-width: none;
+  pointer-events: auto;
+  overflow: hidden;
 
   &::before {
     content: '';
@@ -100,6 +117,16 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
   }
 }
+.project-item-img {
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform .5s ease;
+
+  .is-hovering & {
+    transform: scale(1.04) translate3d(0,0,0);
+  }
+}
+
 .project-item-title {
   position: relative;
 }
@@ -113,7 +140,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     margin: 0 0 - $offsetMobile;
     grid-row-gap: 0;
   }
-  .project-item-img {
+  .project-item-img-wrapper {
     width: calc(100% + #{$offsetMobile * 2});
     margin: 0 0 - $offsetMobile $rowGapMobile;
     height: 28rem;
@@ -138,9 +165,8 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     margin: 0 0 - $offsetTablet;
     grid-row-gap: 0;
   }
-  .project-item-img {
+  .project-item-img-wrapper {
     width: calc(100% + #{$offsetTablet * 2});
-    // left: - $offsetTablet;
     margin: 0 0 - $offsetTablet $rowGapTablet;
     height: 50rem;
   }
@@ -162,15 +188,6 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   .project-item {
     background: $colorWhite;
   }
-  .project-item-link {
-    &::v-deep {
-      .link {
-        &::before {
-          left: -10rem;
-        }
-      }
-    }
-  }
   .project-item-right {
     grid-column: 9 / span 4;
     padding: $offsetDesktop 0;
@@ -178,7 +195,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   .project-item-tags {
     margin-bottom: $rowGapDesktop;
   }
-  .project-item-img {
+  .project-item-img-wrapper {
     left: -10rem;
     width: calc(100% + 10rem);
     height: 64rem;

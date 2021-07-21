@@ -1,12 +1,13 @@
 <template>
-  <!-- <Layout class="page-index" is-white-header> -->
-  <Layout class="page-index">
+  <Layout class="page-index" is-white-header>
+    <ProjectsHeroCarousel />
     <SectionAbout :data="about" />
     <SectionTeam :data="team" />
   </Layout>
 </template>
 
 <script>
+import ProjectsHeroCarousel from '@/components/projects/ProjectsHeroCarousel'
 import SectionAbout from '@/components/sections/SectionAbout'
 import SectionTeam from '@/components/sections/SectionTeam'
 import { fetchAbout, fetchTeam } from '@/config/api'
@@ -14,6 +15,7 @@ import { fetchAbout, fetchTeam } from '@/config/api'
 export default {
   name: 'PageMain',
   components: {
+    ProjectsHeroCarousel,
     SectionAbout,
     SectionTeam
   },
