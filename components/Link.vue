@@ -4,7 +4,7 @@
     v-bind="{ [isExternal ? 'href' : 'to']: url }"
     class="link"
     :target="isExternal && '_blank'"
-    :class="{ 'is-big': isBig, 'is-gray': isGray, 'is-white': isWhite }"
+    :class="{ 'is-big': isBig, 'is-gray': isGray, 'is-white': isWhite, 'is-disabled': isDisabled }"
   >
     <span class="link-label" :label="label" :class="isBig ? 'text--t1' : 'text--t3'">
       {{ label }}
@@ -24,6 +24,10 @@ export default {
     IconArrow
   },
   props: {
+    isDisabled: {
+      type: Boolean,
+      default: false
+    },
     isBig: {
       type: Boolean,
       default: false
@@ -89,6 +93,12 @@ button.link {
       width: 3.2rem;
       height: 3.2rem;
     }
+  }
+
+  &[disabled] {
+    pointer-events: none;
+    cursor: default;
+    color: $colorGray;
   }
 }
 

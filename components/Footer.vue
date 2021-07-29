@@ -80,6 +80,7 @@ $offsetGap: 10rem;
   .grid {
     grid-template-columns: repeat(2, 1fr);
     grid-row-gap: $offsetGapTablet;
+    grid-column-gap: 2rem;
   }
   .grid-col-title {
     grid-column: 1 / span 1;
@@ -92,6 +93,14 @@ $offsetGap: 10rem;
   }
   .grid-col-bottom {
     grid-column: 1 / span 2;
+  }
+  .footer {
+    &::v-deep {
+      >.section {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+      }
+    }
   }
 }
 
@@ -108,6 +117,14 @@ $offsetGap: 10rem;
     grid-row: 3;
     grid-template-columns: repeat(2, 1fr) 8fr;
     min-height: 8rem;
+  }
+
+  .footer {
+    &::v-deep {
+      >.section {
+        padding-top: 15rem;
+      }
+    }
   }
 
   .footer-copyright {

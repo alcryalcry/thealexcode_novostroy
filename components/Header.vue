@@ -17,7 +17,7 @@
       </Container>
     </Section>
 
-    <HeaderMenu v-bsl:reserveScrollBar="isMenuOpen" @click="closeMenu" />
+    <HeaderMenu :is-open="isMenuOpen" @click="closeMenu" />
   </header>
 </template>
 

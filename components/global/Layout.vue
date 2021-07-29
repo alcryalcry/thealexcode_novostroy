@@ -6,17 +6,16 @@
 
     <main class="page-content">
       <slot />
+      <div ref="fixedEl" class="page-fixed" :style="{ color: currentColor }">
+        <MainInfo />
+      </div>
     </main>
 
-    <div class="page-footer">
-      <Footer ref="footer" />
+    <div ref="footer" class="page-footer">
+      <Footer />
     </div>
 
     <div class="page-overlay" />
-
-    <div class="page-fixed" :style="{ color: currentColor }">
-      <MainInfo ref="fixedEl" />
-    </div>
   </div>
 </template>
 
@@ -122,8 +121,8 @@ export default {
       this.isStickyHeader = window.pageYOffset > 15
     },
     changeColor () {
-      this.footerPosition = this.$refs?.footer?.$el?.getBoundingClientRect()?.top
-      this.fixedElPosition = this.$refs?.fixedEl?.$el?.getBoundingClientRect()?.top
+      this.footerPosition = this.$refs?.footer?.getBoundingClientRect()?.top
+      this.fixedElPosition = this.$refs?.fixedEl?.getBoundingClientRect()?.top
 
       if (this.fixedElPosition > this.footerPosition) {
         this.currentColor = Colors.White
@@ -188,12 +187,10 @@ $zIndexContent: 1;
 
 .page-fixed {
   display: none;
-  .main-info {
-    position: fixed;
-    left: $leftOffset;
-    bottom: $bottomOffset;
-    z-index: $zIndexContent;
-  }
+  position: fixed;
+  left: $leftOffset;
+  bottom: $bottomOffset;
+  z-index: 1;
 }
 
 @include desktop {

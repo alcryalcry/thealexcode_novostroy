@@ -477,7 +477,7 @@ $zIndex3: 3;
   }
 
   .grid-col-title {
-    padding-top: $sectionOffsetDesktop;
+    padding-top: 4.5rem;
   }
   .carousel-bottom {
     bottom: 4.5rem;

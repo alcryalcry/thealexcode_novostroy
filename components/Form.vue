@@ -37,7 +37,9 @@
         <Link
           :label="$locale.form.labelSubmit"
           is-big
-          is-gray
+          is-white
+          :is-disabled="isDisabled"
+          :disabled="isDisabled"
           :is-button="true"
         />
       </div>
@@ -97,6 +99,9 @@ export default {
     },
     hasErrors () {
       return Object.values(this.errors).some(item => !!item) || Object.values(this.serverErrors).some(item => !!item)
+    },
+    isDisabled () {
+      return Object.values(this.formModel).some(item => !item)
     }
   },
   validations: {
