@@ -77,9 +77,14 @@
             </div>
           </div>
           <div v-if="slidesLength" class="carousel-navigation">
+            <button class="carousel-navigation-button prev" type="button" @click.prevent="goToPrev">
+              <i class="icon">
+                <IconArrowCarousel />
+              </i>
+            </button>
             <button class="carousel-navigation-button next" type="button" @click.prevent="goToNext">
               <i class="icon">
-                <IconArrowCarousel :style="{ animationDuration: `${autoplayDuration}ms` }" />
+                <IconArrowCarousel />
               </i>
             </button>
           </div>
@@ -146,7 +151,7 @@ export default {
     }
   },
   mounted () {
-    this.startTimer()
+    // this.startTimer()
   },
   methods: {
     startTimer () {
@@ -292,7 +297,6 @@ $zIndex3: 3;
   left: 4rem;
   color: $colorWhite;
   max-width: 40rem;
-  pointer-events: none;
   z-index: $zIndex2;
 }
 
@@ -320,19 +324,11 @@ $zIndex3: 3;
   }
 }
 
-.slide-img {
-  transform: scale(1);
-  transform-origin: center;
-  transition: transform .5s ease;
-
-  .is-hovering & {
-    transform: scale(1.04) translate3d(0,0,0);
-  }
-}
-
 .carousel-wrapper {
   position: relative;
   display: flex;
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 .slide-wrapper {
@@ -349,18 +345,34 @@ $zIndex3: 3;
 
 .carousel-navigation {
   display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: -10rem;
+  justify-content: space-between;
+  transform: translateY(-50%);
 }
 
 .carousel-navigation-button {
   @include clear-btn();
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  position: relative;
   width: 12rem;
   display: flex;
   align-items: center;
   color: $colorWhite;
   z-index: $zIndex3;
+  opacity: 0;
+  transition: opacity .2s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 50vh;
+    width: 20vw;
+    transform: translateY(-50%);
+  }
 
   .icon {
     width: 3.2rem;
@@ -378,8 +390,11 @@ $zIndex3: 3;
   }
 
   &.next {
-    right: -10rem;
     justify-content: flex-end;
+    &::before {
+      left: auto;
+      right: 0;
+    }
     .icon {
       margin-right: 4rem;
     }
@@ -408,11 +423,6 @@ $zIndex3: 3;
     right: $offsetMobile;
     bottom: 1.5rem;
   }
-  .carousel-wrapper {
-    height: 90vh;
-    max-height: 78rem;
-    min-height: 50rem;
-  }
   .grid {
     grid-row-gap: 0;
   }
@@ -437,11 +447,6 @@ $zIndex3: 3;
   .slide-info {
     top: 13rem;
   }
-  .carousel-wrapper {
-    height: 90vh;
-    max-height: 100rem;
-    min-height: 50rem;
-  }
   .grid {
     grid-row-gap: 0;
   }
@@ -459,13 +464,15 @@ $zIndex3: 3;
 
 @include desktop {
   .carousel-navigation {
-    display: block;
+    display: flex;
+  }
+  .carousel-navigation-button {
+    &:hover {
+      opacity: 1;
+    }
   }
   .carousel-wrapper {
     width: calc(100% + 10rem);
-    height: 90vh;
-    max-height: 83rem;
-    min-height: 40rem;
     max-width: none;
   }
 
@@ -474,6 +481,13 @@ $zIndex3: 3;
   }
   .carousel-bottom {
     bottom: 4.5rem;
+  }
+
+  .slide-img-wrapper {
+    pointer-events: none;
+    &::before {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
+    }
   }
 
   .carousel-navigation-button {

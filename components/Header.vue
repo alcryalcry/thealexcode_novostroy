@@ -23,6 +23,7 @@
 
 <script>
 import { mixin as clickaway } from 'vue-clickaway'
+import { mapMutations } from 'vuex'
 import BurgerButton from '@/components/BurgerButton'
 import MainInfo from '@/components/MainInfo'
 import HeaderMenu from '@/components/HeaderMenu'
@@ -50,12 +51,22 @@ export default {
       isMenuOpen: false
     }
   },
+  watch: {
+    isMenuOpen (val) {
+      this.setHeaderStatus(val)
+    }
+  },
   methods: {
+    ...mapMutations({
+      setHeaderStatus: 'setHeaderStatus'
+    }),
     toggleMenu () {
       this.isMenuOpen = !this.isMenuOpen
+      this.setHeaderStatus(this.isMenuOpen)
     },
     closeMenu () {
       this.isMenuOpen = false
+      this.setHeaderStatus(false)
     }
   }
 }
@@ -156,7 +167,6 @@ $zIndex5: $zLayerPopups;
     top: 0;
     left: 0;
     right: 0;
-    color: $colorWhite;
     &.is-sticky {
       &::v-deep {
         >.section {
@@ -188,6 +198,18 @@ $zIndex5: $zLayerPopups;
   }
 
   .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    &.is-sticky {
+      &::v-deep {
+        >.section {
+          background-color: rgba(#fff, .8);
+          color: $colorBlack;
+        }
+      }
+    }
     &::v-deep {
       >.section {
         padding-top: 3rem;

@@ -14,6 +14,7 @@ export default {
 $containerWidthDesktop: $CONTAINER_WIDTH_DESKTOP;
 $containerWidthTablet: $CONTAINER_WIDTH_TABLET;
 $containerWidthMobile: $CONTAINER_WIDTH_MOBILE;
+$sideOffset: $PAGE_SIDE_OFFSET_DESKTOP;
 
 .container {
   margin-right: auto;
@@ -40,7 +41,7 @@ $containerWidthMobile: $CONTAINER_WIDTH_MOBILE;
 
 @include desktop {
   .container {
-    width: $containerWidthDesktop;
+    padding: 0 $sideOffset;
   }
 }
 </style>

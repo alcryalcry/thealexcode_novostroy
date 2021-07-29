@@ -118,6 +118,12 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   }
 }
 .project-item-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
   transform: scale(1);
   transform-origin: center;
   transition: transform .5s ease;

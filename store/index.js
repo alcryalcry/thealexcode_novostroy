@@ -2,12 +2,20 @@ import { fetchSettings, fetchProjects } from '@/config/api'
 import { AppModelSettings, AppModelProject } from '@/models'
 
 export const state = () => ({
+  popupHoverStatus: false,
+  headerStatus: false,
   mediaSize: '',
   settings: {},
   projects: []
 })
 
 export const getters = {
+  getPopupHoverStatus: (state) => {
+    return state.popupHoverStatus
+  },
+  getHeaderStatus: (state) => {
+    return state.headerStatus
+  },
   getMediaSize: (state) => {
     return state.mediaSize
   },
@@ -20,6 +28,12 @@ export const getters = {
 }
 
 export const mutations = {
+  setPopupHoverStatus (state, value) {
+    state.popupHoverStatus = value
+  },
+  setHeaderStatus (state, value) {
+    state.headerStatus = value
+  },
   setMediaSize (state, value) {
     state.mediaSize = value
   },

@@ -18,7 +18,7 @@
             </div>
             <div class="footer-madeby">
               <span class="gray text--t3">{{ $locale.footer.madeByLabel }}</span>
-              <Link is-white :label="$locale.footer.madeByCompany" :url="$locale.footer.madeByUrl" />
+              <Link is-external is-white :label="$locale.footer.madeByCompany" :url="$locale.footer.madeByUrl" />
             </div>
           </div>
         </div>

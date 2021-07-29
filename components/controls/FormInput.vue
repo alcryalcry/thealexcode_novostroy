@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$colorDefault: var(--color-light-gray);
+$colorDefault: var(--color-dark-gray);
 $colorFilled: var(--color-white);
 $colorInvalid: var(--color-red);
 

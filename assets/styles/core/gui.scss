@@ -3,28 +3,28 @@ $semiBold: $FW_SEMI_BOLD;
 
 
 .title--h1 {
-  @include font(1.5rem, 1.33, $semiBold);
+  @include font(15px, 1.33, $semiBold);
 }
 
 
 .text--t1 {
-  @include font(3.2rem, 1.25, $regular);
+  @include font(32px, 1.25, $regular);
   word-break: break-word;
   &.indent {
-    text-indent: 4.5rem;
+    text-indent: 45px;
   }
 }
 .text--t2 {
-  @include font(2rem, 1.5, $regular);
+  @include font(20px, 1.5, $regular);
 }
 .text--t3 {
-  @include font(1.5rem, 1.33, $regular);
+  @include font(15px, 1.33, $regular);
 }
 
 
 @include mobile {
   .text--t1 {
-    @include font(2.8rem, 1.28, $regular);
+    @include font(28px, 1.28, $regular);
   }
 }
 

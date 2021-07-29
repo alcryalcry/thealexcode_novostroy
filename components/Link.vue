@@ -1,8 +1,9 @@
 <template>
   <component
-    :is="isButton ? 'button' : 'NuxtLink'"
-    :to="isButton ? false : url"
+    :is="isExternal ? 'a' : isButton ? 'button' : 'NuxtLink'"
+    v-bind="{ [isExternal ? 'href' : 'to']: url }"
     class="link"
+    :target="isExternal && '_blank'"
     :class="{ 'is-big': isBig, 'is-gray': isGray, 'is-white': isWhite }"
   >
     <span class="link-label" :label="label" :class="isBig ? 'text--t1' : 'text--t3'">
@@ -24,6 +25,10 @@ export default {
   },
   props: {
     isBig: {
+      type: Boolean,
+      default: false
+    },
+    isExternal: {
       type: Boolean,
       default: false
     },
@@ -80,6 +85,7 @@ button.link {
       margin-right: 1.4rem;
     }
     .link-icon {
+      margin-top: 4px;
       width: 3.2rem;
       height: 3.2rem;
     }
@@ -101,6 +107,7 @@ button.link {
 }
 
 .link-icon {
+  margin-top: 2px;
   width: 1.6rem;
   height: 1.6rem;
 }

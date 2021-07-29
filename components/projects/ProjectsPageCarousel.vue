@@ -17,7 +17,6 @@
                 <picture class="slide-image">
                   <img
                     v-if="slide.img.url"
-                    :style="{ aspectRatio: `${slide.img.width} / ${slide.img.height}` }"
                     :src="slide.img.absoluteUrl"
                     :alt="slide.img.alternativeText"
                   >
@@ -47,7 +46,7 @@
               </div>
             </transition>
           </div>
-          <div class="carousel-bottom-index gray">
+          <div class="carousel-bottom-index gray text--t3">
             <transition name="list-fade" mode="out-in">
               <span
                 :key="currentIndex"
@@ -305,6 +304,9 @@ $zIndexClose: 2;
 }
 
 @include desktop {
+  .projects-page-carousel {
+    padding: 12rem 0;
+  }
   .slide-wrapper {
     .carousel-bottom {
       display: none;
@@ -329,20 +331,12 @@ $zIndexClose: 2;
   }
 
   .carousel-wrapper {
-    width: 108rem;
-    padding: 0 4rem;
+    // width: 108rem;
+    padding: 0 12rem;
   }
 
   .slide-image {
-    height: calc(100vh - 20rem);
-    img {
-      flex: 0;
-      min-height: 0;
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-    }
+    width: 100%;
   }
 
   .carousel-navigation-button {
