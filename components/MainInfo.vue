@@ -1,9 +1,15 @@
 <template>
   <div class="main-info">
     <div class="main-info-title">
-      {{ getSettings.title }}
+      <NuxtLink :to="'/'">
+        {{ getSettings.title }}
+      </NuxtLink>
     </div>
-    <a class="main-info-link" :href="'tel:' + getSettings.phone" target="_blank">{{ getSettings.phone }}</a>
+    <div class="main-info-link">
+      <a :href="'tel:' + getSettings.phone" target="_blank">
+        {{ getSettings.phone }}
+      </a>
+    </div>
   </div>
 </template>
 

@@ -29,7 +29,8 @@ const DEFAULT_SETTINGS = {
   showLabels: false,
   trackBy: 'id',
   label: 'label',
-  placeholder: 'Выбрать'
+  placeholder: 'Выбрать',
+  openDirection: 'below'
 }
 
 export default {
@@ -132,6 +133,7 @@ $selectMaxWidth: 28rem;
       box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
       padding: .5rem 0;
       border-radius: 0;
+      top: 100%;
     }
     .multiselect__content {
       width: 100%;
@@ -193,6 +195,14 @@ $selectMaxWidth: 28rem;
 }
 
 @include tablet {
+  .multiselect {
+    &::v-deep {
+      .multiselect__content-wrapper {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
 }
 
 @include desktop {

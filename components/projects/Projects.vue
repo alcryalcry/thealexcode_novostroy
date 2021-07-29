@@ -156,10 +156,6 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     margin: 0 0 - $offsetMobile;
     border-bottom: 1px solid $colorGray;
 
-    &:last-of-type {
-      padding-bottom: 0;
-    }
-
     & + .projects-group {
       padding-top: 4rem;
     }
@@ -167,6 +163,9 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
 }
 
 @include mobile_tablet {
+  .projects-group {
+    grid-row-gap: 2rem;
+  }
   .projects {
     &::v-deep {
       > .section {
@@ -188,10 +187,6 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     margin: 0 0 - $offsetTablet;
     border-bottom: 1px solid $colorGray;
 
-    &:last-of-type {
-      padding-bottom: 0;
-    }
-
     & + .projects-group {
       padding-top: 8rem;
     }
@@ -203,6 +198,8 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     margin-bottom: 42vh;
   }
   .projects-group {
+    grid-row-gap: 4rem;
+
     & + .projects-group {
       margin-top: 15rem;
     }

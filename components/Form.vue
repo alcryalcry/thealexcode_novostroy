@@ -1,53 +1,53 @@
 <template>
   <div class="form-wrapper">
-    <transition name="list-fade" mode="out-in">
-      <form
-        v-if="!isFormSubmited"
-        class="form"
-        :class="{ 'is-loading': isLoading }"
-        @submit.prevent="onSubmit"
-      >
-        <div class="form-control">
-          <FormInput
-            v-model="formModel.name"
-            :error="errors.name || serverErrors.name"
-            name="name"
-            :placeholder="$locale.form.labelName"
-            @input="clearServerError('name')"
-          />
-        </div>
-        <div class="form-control">
-          <FormInput
-            v-model="formModel.email"
-            :error="errors.email || serverErrors.email"
-            name="email"
-            :placeholder="$locale.form.labelEmail"
-            @input="clearServerError('email')"
-          />
-        </div>
-        <div class="form-control">
-          <FormInput
-            v-model="formModel.phone"
-            v-mask="'+7 (###) ###-##-##'"
-            :error="errors.phone || serverErrors.phone"
-            name="phone"
-            :placeholder="$locale.form.labelPhone"
-            @input="clearServerError('phone')"
-          />
-        </div>
-        <div class="form-control-submit">
-          <Link
-            :label="$locale.form.labelSubmit"
-            is-big
-            is-gray
-            :is-button="true"
-          />
-        </div>
-      </form>
-      <div v-else class="form-result">
-        <vue-markdown :source="$locale.form.successMsg" class="text--t1" />
+    <form
+      class="form form-transition"
+      :class="{ 'is-loading': isLoading, 'is-hide': isFormSubmited }"
+      @submit.prevent="onSubmit"
+    >
+      <div class="form-control">
+        <FormInput
+          v-model="formModel.name"
+          :error="errors.name || serverErrors.name"
+          name="name"
+          :placeholder="$locale.form.labelName"
+          @input="clearServerError('name')"
+        />
       </div>
-    </transition>
+      <div class="form-control">
+        <FormInput
+          v-model="formModel.email"
+          :error="errors.email || serverErrors.email"
+          name="email"
+          :placeholder="$locale.form.labelEmail"
+          @input="clearServerError('email')"
+        />
+      </div>
+      <div class="form-control">
+        <FormInput
+          v-model="formModel.phone"
+          v-mask="'+7 (###) ###-##-##'"
+          :error="errors.phone || serverErrors.phone"
+          name="phone"
+          :placeholder="$locale.form.labelPhone"
+          @input="clearServerError('phone')"
+        />
+      </div>
+      <div class="form-control-submit">
+        <Link
+          :label="$locale.form.labelSubmit"
+          is-big
+          is-gray
+          :is-button="true"
+        />
+      </div>
+    </form>
+    <div
+      class="form-result form-transition"
+      :class="{ 'is-hide': !isFormSubmited }"
+    >
+      <vue-markdown :source="$locale.form.successMsg" class="text--t1" />
+    </div>
   </div>
 </template>
 
@@ -148,6 +148,10 @@ export default {
 $rowGapMobile: 4rem;
 $rowGap: 6rem;
 
+.form-wrapper {
+  position: relative;
+}
+
 .form {
   position: relative;
   top: -0.5rem;
@@ -157,6 +161,26 @@ $rowGap: 6rem;
     opacity: .5;
     pointer-events: none;
   }
+}
+
+.form-transition {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .2s ease, transform .2s ease;
+
+  &.is-hide {
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+.form-result {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .form-control {
