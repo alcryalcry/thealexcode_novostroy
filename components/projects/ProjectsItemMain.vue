@@ -123,7 +123,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 10;
+  z-index: 2;
   transform: scale(1);
   transform-origin: center;
   transition: transform .5s ease;

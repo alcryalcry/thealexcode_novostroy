@@ -69,6 +69,11 @@ export default {
       }
     },
     getPopupHoverStatus (val) {
+      if (this.getMediaSize === WindowBreakpoints.Desktop) {
+        this.isPageDisable = false
+        return
+      }
+
       setTimeout(() => {
         this.isPageDisable = val
       }, 500)
@@ -167,22 +172,18 @@ $zIndexContent: 1;
 
 .page-header {
   position: relative;
-  z-index: $zIndexHeader;
-}
-
-.page-content {
-  position: relative;
-  z-index: $zIndexContent;
+  z-index: 3;
 }
 
 .page-overlay {
+  display: none;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   pointer-events: none;
-  z-index: $zIndexOverlay;
+  z-index: 2;
 }
 
 .page-fixed {
@@ -194,6 +195,9 @@ $zIndexContent: 1;
 }
 
 @include desktop {
+  .page-overlay {
+    display: block;
+  }
   .page-fixed {
     display: block;
   }
