@@ -187,10 +187,12 @@ $zIndexContent: 1;
 
 .page-fixed {
   display: none;
-  position: fixed;
-  left: $leftOffset;
-  bottom: $bottomOffset;
-  z-index: 1;
+  .main-info {
+    position: fixed;
+    left: $leftOffset;
+    bottom: $bottomOffset;
+    z-index: $zIndexContent;
+  }
 }
 
 @include desktop {
