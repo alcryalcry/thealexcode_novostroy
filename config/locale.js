@@ -2,7 +2,7 @@ export default {
   footer: {
     madeByLabel: 'Сделано',
     madeByCompany: 'Think up',
-    madeByUrl: '//https://google.com',
+    madeByUrl: 'https://www.behance.net/NaumovDmitriy',
     contacts: 'Контакты',
     adress: 'Адрес офиса',
     sendRequest: 'Оставить заявку',

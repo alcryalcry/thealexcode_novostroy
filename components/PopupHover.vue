@@ -28,6 +28,7 @@
 
 <script>
 import BurgerButton from '@/components/BurgerButton'
+import { mapMutations } from 'vuex'
 
 import { AppModelPopupHover } from '@/models'
 import IconAbout from '@/assets/svg/about.svg'
@@ -67,11 +68,16 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      setPopupHoverStatus: 'setPopupHoverStatus'
+    }),
     openModal () {
       this.isOpen = true
+      this.setPopupHoverStatus(true)
     },
     closeModal () {
       this.isOpen = false
+      this.setPopupHoverStatus(false)
     }
   }
 }
@@ -85,8 +91,8 @@ $colorContent: var(--color-white);
 $wrapperBg: var(--color-black);
 $easeAnimation: $EASE_IN_OUT_SINE;
 
-$zIndexOpened: $zLayerPopups;
-$zIndexButtonOpened: $zLayerTop;
+$zIndexOpened: $zLayerTopPopupHover;
+$zIndexButtonOpened: $zLayerTopPopupHoverButton;
 $zIndexContent: 2;
 $zIndexWrapper: 3;
 $zIndexClose: 4;
@@ -206,13 +212,13 @@ $zIndexClose: 4;
 
 @keyframes iconMove {
   0% {
-    transform: translateX(-1rem);
+    transform: translateX(-1.5rem);
   }
   50% {
-    transform: translateX(1rem);
+    transform: translateX(1.5rem);
   }
   100% {
-    transform: translateX(-1rem);
+    transform: translateX(-1.5rem);
   }
 }
 

@@ -43,11 +43,6 @@ export const RouteNames = {
 
 export const RouteMap = [
   {
-    label: 'Главная',
-    routeName: RouteNames.Main,
-    anchor: null
-  },
-  {
     label: 'Все проекты',
     routeName: RouteNames.Projects,
     anchor: null

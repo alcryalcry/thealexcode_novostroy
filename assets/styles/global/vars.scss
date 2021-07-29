@@ -55,6 +55,7 @@ $COL_COUNT_DESKTOP: 12;
 $COL_GAP_DESKTOP: 3.5rem;
 $CONTAINER_WIDTH_DESKTOP: 124rem;
 $CONTAINER_SIDE_OFFSET_DESKTOP: 4rem;
+$PAGE_SIDE_OFFSET_DESKTOP: 10rem;
 
 // GRID COLUMNS TABLET
 $COL_COUNT_TABLET: 8;
@@ -81,6 +82,8 @@ $zLayerNav: 9;
 $zLayerOverlay: 10;
 $zLayerPopups: 12;
 $zLayerTop: 15;
+$zLayerTopPopupHover: 16;
+$zLayerTopPopupHoverButton: 17;
 
 
 $EASE_OUT_SINE: cubic-bezier(0.390, 0.575, 0.565, 1.000);

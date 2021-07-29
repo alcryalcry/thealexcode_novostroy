@@ -1,9 +1,14 @@
 <template>
   <nav class="nav">
     <div v-for="item in filteredLinks" :key="item.label" class="nav-item text--t1">
-      <NuxtLink v-bind="item" class="nav-item-link" @click.native="onClick">
+      <component
+        :is="item.component"
+        v-bind="item"
+        class="nav-item-link"
+        v-on="{ [item.eventName]: onClick }"
+      >
         {{ item.label }}
-      </NuxtLink>
+      </component>
     </div>
   </nav>
 </template>
@@ -15,10 +20,14 @@ export default {
   name: 'Navigation',
   computed: {
     filteredLinks () {
-      return RouteMap.filter(item => this.$route.name !== item.routeName).map((item) => {
+      return RouteMap.map((item) => {
+        const isNunkLink = !!item.routeName
         return {
           ...item,
-          to: item.routeName ? { name: item.routeName } : { hash: item.anchor }
+          component: isNunkLink ? 'NuxtLink' : 'a',
+          eventName: isNunkLink ? 'click.native' : 'click',
+          to: { name: item.routeName },
+          href: item.anchor
         }
       })
     }
@@ -42,6 +51,7 @@ export default {
 .nav-item-link {
   position: relative;
   padding-left: 3rem;
+  cursor: pointer;
   &::before {
     content: '';
     position: absolute;
@@ -57,7 +67,8 @@ export default {
     transform: translateX(-4px);
     transition: opacity .2s ease, transform .2s ease;
   }
-  &:active {
+  &.nuxt-link-active {
+    pointer-events: none;
     &::before {
       opacity: 1;
       transform: translateX(0);
