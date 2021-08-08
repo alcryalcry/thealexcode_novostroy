@@ -343,6 +343,7 @@ $zIndex3: 3;
   position: absolute;
   top: $sectionOffsetDesktop;
   left: 4rem;
+  right: 4rem;
   color: $colorWhite;
   max-width: 40rem;
   z-index: $zIndex2;
@@ -459,6 +460,7 @@ $zIndex3: 3;
   .slide-info {
     top: 9rem;
     left: $offsetMobile;
+    right: $offsetMobile;
   }
   .carousel-bottom {
     right: $offsetMobile;

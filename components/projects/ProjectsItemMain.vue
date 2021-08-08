@@ -17,7 +17,7 @@
     <div class="project-item-title text--t3" data-aos="fade-up">
       {{ data.title }}
     </div>
-    <div class="project-item-subtitle text--t2" data-aos="fade-up">
+    <div class="project-item-subtitle text--t1" data-aos="fade-up">
       {{ data.subtitle }}
     </div>
     <div class="project-item-right">
@@ -116,6 +116,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     bottom: 0;
     left: 0;
     pointer-events: none;
+    z-index: 3;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
   }
 }
@@ -161,6 +162,10 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   .project-item-title {
     margin-bottom: .5rem;
   }
+  .project-item-subtitle {
+    font-size: 20px;
+    line-height: 1.5;
+  }
   .project-item-tags {
     position: absolute;
     top: $offsetMobile;
@@ -182,10 +187,15 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     height: 50rem;
   }
   .project-item-right {
-    margin-top: $rowGapTablet;
+    margin-top: 2.5rem;
   }
   .project-item-title {
     margin-bottom: .5rem;
+  }
+  .project-item-subtitle {
+    margin-top: .5rem;
+    font-size: 20px;
+    line-height: 1.5;
   }
   .project-item-tags {
     position: absolute;
@@ -213,7 +223,6 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     height: 64rem;
     grid-row: 1 / auto;
     grid-column: 1 / span 8;
-    margin-bottom: $rowGapDesktop;
   }
   .project-item-title {
     padding: $offsetDesktop 0;
@@ -222,7 +231,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     color: $colorWhite;
   }
   .project-item-subtitle {
-    padding: $offsetDesktop $offsetDesktop $offsetDesktop 0;
+    padding: 3.5rem 5rem $offsetDesktop 0;
     grid-row: 1;
     grid-column: 3 / span 6;
     margin-bottom: $rowGapDesktop;

@@ -96,6 +96,9 @@ $colGapDesktop: $COL_GAP_DESKTOP;
 @include mobile {
   .team-image {
     margin-top: 2rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
+    max-width: calc(100% + 4rem);
   }
 }
 

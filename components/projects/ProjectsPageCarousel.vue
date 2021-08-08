@@ -91,6 +91,10 @@ export default {
     id: {
       type: [Number, null],
       default: null
+    },
+    prevRoute: {
+      type: Object,
+      default: () => {}
     }
   },
   data () {
@@ -109,7 +113,7 @@ export default {
         pagination: false,
         navigation: false,
         slidesOffsetBefore: this.getMediaSize === WindowBreakpoints.Tablet ? 40 : 20,
-        slidesOffsetAfter: this.getMediaSize === WindowBreakpoints.Tablet ? 40 : 20,
+        slidesOffsetAfter: this.getMediaSize === WindowBreakpoints.Tablet ? 100 : 60,
         spaceBetween: 20,
         effect: this.getMediaSize === WindowBreakpoints.Desktop ? 'fade' : 'slide',
         fadeEffect: {
@@ -139,7 +143,8 @@ export default {
       }
     },
     closeModal () {
-      this.$router.push({ name: RouteNames.Projects })
+      const prevRouteName = (this.prevRoute && this.prevRoute.name) || RouteNames.Projects
+      this.$router.push({ name: prevRouteName })
     },
     goToPrev () {
       const swiper = this.getSwiper()
@@ -231,7 +236,7 @@ $zIndex3: 3;
 }
 
 .carousel-bottom-index {
-  display: none;
+  display: flex;
   align-items: center;
   flex-shrink: 0;
 
@@ -334,6 +339,11 @@ $zIndex3: 3;
   .carousel-bottom {
     padding: 0 2rem;
   }
+  .carousel-bottom-index {
+    position: fixed;
+    bottom: 4rem;
+    left: 2rem;
+  }
   .slide-image {
     height: 27vh;
     height: calc(var(--vh, 1vh) * 27);
@@ -352,6 +362,11 @@ $zIndex3: 3;
   .carousel-bottom {
     padding: 0 2rem;
   }
+  .carousel-bottom-index {
+    position: fixed;
+    bottom: 6rem;
+    left: 4rem;
+  }
   .carousel-bottom-info {
     >.title {
       & + .caption {
@@ -368,8 +383,12 @@ $zIndex3: 3;
       padding: 0;
     }
   }
-  .carousel-bottom {
-    display: none;
+  .carousel-wrapper {
+    & > .carousel-bottom {
+      .carousel-bottom-info {
+        display: none;
+      }
+    }
   }
 }
 
@@ -389,9 +408,6 @@ $zIndex3: 3;
         margin-left: 2rem;
       }
     }
-  }
-  .carousel-bottom-index {
-    display: flex;
   }
   .burger-button {
     top: 4vh;

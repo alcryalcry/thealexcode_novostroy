@@ -127,6 +127,7 @@ $offsetGap: 10rem;
     &::v-deep {
       >.section {
         padding-top: 15rem;
+        padding-bottom: 6rem;
       }
     }
   }

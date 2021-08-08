@@ -222,6 +222,13 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
 }
 
 @include desktop {
+  .projects {
+    &::v-deep {
+      & > .section {
+        padding-bottom: 15rem;
+      }
+    }
+  }
   .projects-filters-grid {
     margin-bottom: 42vh;
   }
