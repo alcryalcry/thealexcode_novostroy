@@ -1,22 +1,22 @@
 <template>
   <div class="team">
-    <div class="team-title">
+    <div class="team-title" data-aos="fade-up">
       <h3 v-if="title" class="title--h1">
         {{ title }}
       </h3>
     </div>
-    <div class="team-subtitle">
+    <div class="team-subtitle" data-aos="fade-up" data-aos-delay="200">
       <p v-if="subtitle" class="text--t3">
         {{ subtitle }}
       </p>
     </div>
     <div class="team-body">
-      <vue-markdown v-if="body" :source="body" class="text text--t3" />
+      <vue-markdown v-if="body" :source="body" class="text text--t3" data-aos="fade-up" data-aos-delay="400" />
       <div v-if="alterImg || alterBody" class="team-popup-hover">
         <PopupHover :img="alterImg" :body="alterBody" :type="popupHoverTypes.team" />
       </div>
     </div>
-    <picture class="team-image">
+    <picture class="team-image" data-aos="fade-up" data-aos-delay="400">
       <img
         v-if="img.url"
         :src="img.absoluteUrl"
@@ -96,6 +96,9 @@ $colGapDesktop: $COL_GAP_DESKTOP;
 @include mobile {
   .team-image {
     margin-top: 2rem;
+    margin-left: -2rem;
+    margin-right: -2rem;
+    max-width: calc(100% + 4rem);
   }
 }
 

@@ -8,7 +8,7 @@
               {{ $locale.projects.all }}
             </div>
           </div>
-          <div class="grid-col-body">
+          <div class="grid-col-body" :class="{ 'is-select-open': selectStatus }">
             <client-only>
               <div class="projects-filters">
                 <FormSelect
@@ -17,6 +17,8 @@
                   :settings="{
                     placeholder: $locale.projects.allYears
                   }"
+                  @open="changeSelectStatus(true)"
+                  @close="changeSelectStatus(false)"
                 />
                 <FormSelect
                   v-model="filterModel.inProgress"
@@ -24,28 +26,28 @@
                   :settings="{
                     placeholder: $locale.projects.allStatuses
                   }"
+                  @open="changeSelectStatus(true)"
+                  @close="changeSelectStatus(false)"
                 />
               </div>
             </client-only>
           </div>
         </div>
-        <transition mode="out-in" name="list-fade">
-          <div v-if="isFilterSelected" key="group">
-            <div v-for="group, key in groupedProjectByStatus" :key="key" class="grid projects-group">
-              <div class="grid-col-title">
-                <div class="title--h1 ">
-                  {{ $locale.projects.inProgress[key] ? $locale.projects.inProgress[key].label : '' }}
-                </div>
-              </div>
-              <div class="grid-col-full">
-                <ProjectsGrid :list="group" />
+        <div v-if="isFilterSelected">
+          <div v-for="group, key in groupedProjectByStatus" :key="key" class="grid projects-group">
+            <div class="grid-col-title" data-aos="fade-up">
+              <div class="title--h1 ">
+                {{ $locale.projects.inProgress[key] ? $locale.projects.inProgress[key].label : '' }}
               </div>
             </div>
+            <div class="grid-col-full">
+              <ProjectsGrid :list="group" />
+            </div>
           </div>
-          <div v-else key="filtered">
-            <ProjectsGrid :list="filteredProjects" />
-          </div>
-        </transition>
+        </div>
+        <div v-else>
+          <ProjectsGrid :key="formKey" :list="filteredProjects" />
+        </div>
       </Container>
     </Section>
   </div>
@@ -65,6 +67,8 @@ export default {
   },
   data () {
     return {
+      selectStatus: false,
+      formKey: 0,
       filterModel: {
         year: {},
         inProgress: {}
@@ -100,6 +104,19 @@ export default {
       const all = this.getProjects.map(item => item.year)
       return [...new Set(all)]
     }
+  },
+  watch: {
+    filterModel: {
+      deep: true,
+      handler () {
+        this.formKey++
+      }
+    }
+  },
+  methods: {
+    changeSelectStatus (val) {
+      this.selectStatus = !!val
+    }
   }
 }
 </script>
@@ -117,9 +134,20 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   }
 }
 
+.projects-filters-grid {
+  .grid-col-body {
+    &.is-select-open {
+      position: relative;
+      z-index: 3;
+      pointer-events: none;
+    }
+  }
+}
+
 .projects-filters {
   display: flex;
   align-items: flex-start;
+  pointer-events: auto;
   margin-top: -1.5rem;
 
   > * {
@@ -194,6 +222,13 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
 }
 
 @include desktop {
+  .projects {
+    &::v-deep {
+      & > .section {
+        padding-bottom: 15rem;
+      }
+    }
+  }
   .projects-filters-grid {
     margin-bottom: 42vh;
   }

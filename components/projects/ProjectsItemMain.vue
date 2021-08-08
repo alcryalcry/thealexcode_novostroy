@@ -3,6 +3,7 @@
     <NuxtLink
       class="project-item-img-wrapper"
       :to="data.relativeUrl"
+      data-aos="fade-up"
       @mouseover.native="onMouseOver"
       @mouseleave.native="onMouseLeave"
     >
@@ -13,18 +14,18 @@
         :alt="data.img.alternativeText"
       >
     </NuxtLink>
-    <div class="project-item-title text--t3">
+    <div class="project-item-title text--t3" data-aos="fade-up">
       {{ data.title }}
     </div>
-    <div class="project-item-subtitle text--t2">
+    <div class="project-item-subtitle text--t1" data-aos="fade-up">
       {{ data.subtitle }}
     </div>
     <div class="project-item-right">
-      <div class="project-item-tags">
+      <div class="project-item-tags" data-aos="fade-up">
         <span>{{ data.location }}</span>
         <span>{{ data.year }}</span>
       </div>
-      <div class="project-item-link">
+      <div class="project-item-link" data-aos="fade-up">
         <Link
           :label="$locale.projects.detail"
           :url="data.relativeUrl"
@@ -105,6 +106,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   max-width: none;
   pointer-events: auto;
   overflow: hidden;
+  z-index: 2;
 
   &::before {
     content: '';
@@ -114,6 +116,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     bottom: 0;
     left: 0;
     pointer-events: none;
+    z-index: 3;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
   }
 }
@@ -123,7 +126,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 10;
+  z-index: 2;
   transform: scale(1);
   transform-origin: center;
   transition: transform .5s ease;
@@ -135,9 +138,11 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
 
 .project-item-title {
   position: relative;
+  z-index: 2;
 }
 .project-item-subtitle {
   position: relative;
+  z-index: 2;
 }
 
 @include mobile {
@@ -157,11 +162,16 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   .project-item-title {
     margin-bottom: .5rem;
   }
+  .project-item-subtitle {
+    font-size: 20px;
+    line-height: 1.5;
+  }
   .project-item-tags {
     position: absolute;
     top: $offsetMobile;
     left: $offsetMobile;
     color: $colorWhite;
+    z-index: 2;
   }
 }
 
@@ -177,16 +187,22 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     height: 50rem;
   }
   .project-item-right {
-    margin-top: $rowGapTablet;
+    margin-top: 2.5rem;
   }
   .project-item-title {
     margin-bottom: .5rem;
+  }
+  .project-item-subtitle {
+    margin-top: .5rem;
+    font-size: 20px;
+    line-height: 1.5;
   }
   .project-item-tags {
     position: absolute;
     top: $offsetTablet;
     left: $offsetTablet;
     color: $colorWhite;
+    z-index: 2;
   }
 }
 
@@ -207,7 +223,6 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     height: 64rem;
     grid-row: 1 / auto;
     grid-column: 1 / span 8;
-    margin-bottom: $rowGapDesktop;
   }
   .project-item-title {
     padding: $offsetDesktop 0;
@@ -216,7 +231,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     color: $colorWhite;
   }
   .project-item-subtitle {
-    padding: $offsetDesktop $offsetDesktop $offsetDesktop 0;
+    padding: 3.5rem 5rem $offsetDesktop 0;
     grid-row: 1;
     grid-column: 3 / span 6;
     margin-bottom: $rowGapDesktop;

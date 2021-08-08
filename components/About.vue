@@ -1,9 +1,9 @@
 <template>
   <div class="about">
-    <div class="about-body">
+    <div class="about-body" data-aos="fade-up" data-aos-delay="200">
       <vue-markdown v-if="body" :source="body" class="text--t1 indent" />
     </div>
-    <div class="about-link">
+    <div class="about-link" data-aos="fade-up" data-aos-delay="200">
       <Link :label="$locale.projects.all" :url="url" />
     </div>
     <div class="about-popup-hover">

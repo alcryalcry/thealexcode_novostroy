@@ -16,28 +16,27 @@
         <div class="grid-col-body">
           <div class="carousel-wrapper">
             <client-only>
-              <carousel
-                v-model="currentIndex"
-                v-bind="computedSettings"
+              <Swiper
+                ref="mySwiper"
+                :options="computedSettings"
+                @slideChange="slideChange"
+                @sliderMove="onSliderMove"
               >
-                <slide
-                  v-for="slide, index in getProjects"
+                <SwiperSlide
+                  v-for="slide in getProjects"
                   :key="slide.id"
                   class="slide"
-                  :class="{ 'VueCarousel-slide-active': currentIndex === index, 'is-hovering': isHovering }"
                 >
                   <div class="slide-wrapper">
                     <NuxtLink
                       class="slide-img-wrapper"
-                      :to="currentProject.relativeUrl"
-                      @mouseover.native="onMouseOver"
-                      @mouseleave.native="onMouseLeave"
+                      :to="slide.relativeUrl"
                     >
                       <img
-                        v-if="currentProject.img.url"
+                        v-if="slide.img.url"
                         class="slide-img"
-                        :src="currentProject.img.absoluteUrl"
-                        :alt="currentProject.img.alternativeText"
+                        :src="slide.img.absoluteUrl"
+                        :alt="slide.img.alternativeText"
                       >
                     </NuxtLink>
                     <div class="slide-info">
@@ -56,12 +55,12 @@
                       </div>
                     </div>
                   </div>
-                </slide>
-              </carousel>
+                </SwiperSlide>
+              </Swiper>
             </client-only>
           </div>
           <div class="carousel-bottom">
-            <div class="carousel-bottom-index gray">
+            <div class="carousel-bottom-index gray text--t2">
               <transition name="list-fade" mode="out-in">
                 <span
                   :key="carouselBottomInfo.current"
@@ -70,19 +69,19 @@
               </transition>
               <span class="length">{{ carouselBottomInfo.all }}</span>
             </div>
-            <div class="circle-indicator" :class="{ 'is-animate': !!currentTimer }">
+            <div class="circle-indicator" :class="{ 'is-animate': !!currentTimer, 'is-hide': isTimerDisable }">
               <i class="icon">
                 <IconCircleIndicator />
               </i>
             </div>
           </div>
           <div v-if="slidesLength" class="carousel-navigation">
-            <button class="carousel-navigation-button prev" type="button" @click.prevent="goToPrev">
+            <button class="carousel-navigation-button prev" type="button" @click.prevent="goToPrev(true)">
               <i class="icon">
                 <IconArrowCarousel />
               </i>
             </button>
-            <button class="carousel-navigation-button next" type="button" @click.prevent="goToNext">
+            <button class="carousel-navigation-button next" type="button" @click.prevent="goToNext(true)">
               <i class="icon">
                 <IconArrowCarousel />
               </i>
@@ -97,7 +96,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { AppModelProject } from '@/models'
-import { decimal } from '@/config/constants'
+import { decimal, WindowBreakpoints } from '@/config/constants'
 import IconArrowCarousel from '@/assets/svg/arrowCarousel.svg'
 import IconCircleIndicator from '@/assets/svg/circleIndicator.svg'
 
@@ -117,6 +116,8 @@ export default {
     return {
       currentTimer: null,
       isHovering: false,
+      isTimerDisable: false,
+      touchReleaseOnEdges: true,
       currentIndex: 0
     }
   },
@@ -127,9 +128,15 @@ export default {
     }),
     computedSettings () {
       return {
-        perPage: 1,
-        paginationEnabled: false,
-        navigationEnabled: false
+        slidesPerView: 1,
+        threshold: 10,
+        pagination: false,
+        navigation: false,
+        spaceBetween: 20,
+        effect: this.getMediaSize === WindowBreakpoints.Desktop ? 'fade' : 'slide',
+        fadeEffect: {
+          crossFade: true
+        }
       }
     },
     currentProject () {
@@ -151,15 +158,36 @@ export default {
     }
   },
   mounted () {
-    // this.startTimer()
+    if (process.browser) {
+      this.startTimer()
+    }
   },
   methods: {
+    onSliderMove () {
+      this.stopTimer(true)
+    },
+    slideChange () {
+      this.currentIndex = this.getSwiper()?.realIndex || 0
+      this.resetTimer()
+    },
+    getSwiper () {
+      try {
+        return this.$refs.mySwiper.$swiper
+      } catch (e) {
+      }
+    },
     startTimer () {
+      if (this.isTimerDisable) {
+        return
+      }
       this.currentTimer = setInterval(() => {
         this.goToNext()
       }, this.autoplayDuration)
     },
-    stopTimer () {
+    stopTimer (needDisable = false) {
+      if (needDisable) {
+        this.isTimerDisable = true
+      }
       clearInterval(this.currentTimer)
       this.currentTimer = null
     },
@@ -176,21 +204,37 @@ export default {
       this.isHovering = false
       this.startTimer()
     },
-    goToPrev () {
+    goToPrev (needDisable) {
+      if (needDisable) {
+        this.isTimerDisable = true
+      }
+
+      const swiper = this.getSwiper()
+
+      if (!swiper) {
+        return
+      }
       if (this.currentIndex === 0) {
-        this.currentIndex = this.slidesLength - 1
+        swiper.slideTo(this.slidesLength - 1)
       } else {
-        this.currentIndex--
+        swiper.slidePrev()
       }
-      this.resetTimer()
     },
-    goToNext () {
-      if (this.currentIndex === this.slidesLength - 1) {
-        this.currentIndex = 0
-      } else {
-        this.currentIndex++
+    goToNext (needDisable) {
+      if (needDisable) {
+        this.isTimerDisable = true
       }
-      this.resetTimer()
+
+      const swiper = this.getSwiper()
+
+      if (!swiper) {
+        return
+      }
+      if (this.currentIndex === this.slidesLength - 1) {
+        swiper.slideTo(0)
+      } else {
+        swiper.slideNext()
+      }
     }
   }
 }
@@ -211,10 +255,14 @@ $zIndex3: 3;
   display: flex;
   width: 1.8rem;
   height: 1.8rem;
+  transition: opacity .2s ease;
   &.is-animate {
     svg {
-      animation: offsettozero 5s linear infinite;
+      animation: offsettozero 7s linear infinite;
     }
+  }
+  &.is-hide {
+    opacity: 0;
   }
   &::before {
     content: '';
@@ -295,6 +343,7 @@ $zIndex3: 3;
   position: absolute;
   top: $sectionOffsetDesktop;
   left: 4rem;
+  right: 4rem;
   color: $colorWhite;
   max-width: 40rem;
   z-index: $zIndex2;
@@ -327,8 +376,12 @@ $zIndex3: 3;
 .carousel-wrapper {
   position: relative;
   display: flex;
+  width: 100%;
   height: 100vh; /* Fallback for browsers that do not support Custom Properties */
   height: calc(var(--vh, 1vh) * 100);
+}
+.swiper-container {
+  width: 100%;
 }
 
 .slide-wrapper {
@@ -340,6 +393,7 @@ $zIndex3: 3;
   right: 0;
   display: flex;
   align-items: center;
+  z-index: 1;
   color: $colorWhite;
 }
 
@@ -348,6 +402,7 @@ $zIndex3: 3;
   position: absolute;
   top: 50%;
   left: 0;
+  z-index: 1;
   right: -10rem;
   justify-content: space-between;
   transform: translateY(-50%);
@@ -401,23 +456,11 @@ $zIndex3: 3;
   }
 }
 
-.VueCarousel {
-  flex: 1;
-  &::v-deep {
-    .VueCarousel-wrapper {
-      flex: 1;
-    }
-    .VueCarousel-inner {
-      flex: 1;
-      height: 100% !important;
-    }
-  }
-}
-
 @include mobile {
   .slide-info {
     top: 9rem;
     left: $offsetMobile;
+    right: $offsetMobile;
   }
   .carousel-bottom {
     right: $offsetMobile;
@@ -436,6 +479,16 @@ $zIndex3: 3;
     &::before {
       background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
     }
+  }
+}
+@include mobile_tablet {
+  .grid {
+    display: flex;
+    width: 100%;
+  }
+  .grid-col-body {
+    display: flex;
+    width: 100%;
   }
 }
 @include tablet {
@@ -466,18 +519,13 @@ $zIndex3: 3;
   .carousel-navigation {
     display: flex;
   }
-  .carousel-navigation-button {
-    &:hover {
-      opacity: 1;
-    }
-  }
   .carousel-wrapper {
     width: calc(100% + 10rem);
     max-width: none;
   }
 
   .grid-col-title {
-    padding-top: $sectionOffsetDesktop;
+    padding-top: 4.5rem;
   }
   .carousel-bottom {
     bottom: 4.5rem;
@@ -492,28 +540,22 @@ $zIndex3: 3;
 
   .carousel-navigation-button {
     &:hover {
+      opacity: 1;
+
+      &:active {
+        &.next .icon {
+          transform: translateX(1rem);
+        }
+        &.prev .icon {
+          transform: rotate(180deg) translateX(1rem);
+        }
+      }
+
       &.next .icon {
         transform: translateX(.5rem);
       }
       &.prev .icon {
         transform: rotate(180deg) translateX(.5rem);
-      }
-    }
-  }
-  .VueCarousel {
-    &::v-deep {
-      .VueCarousel-inner {
-        transition: none !important;
-      }
-
-      .VueCarousel-slide {
-        transition: opacity .75s ease !important;
-        opacity: 0 !important;
-      }
-
-      .VueCarousel-slide-active {
-        transition: opacity .75s ease !important;
-        opacity: 1 !important;
       }
     }
   }

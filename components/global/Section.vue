@@ -47,7 +47,7 @@ $containerSideOffsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
 
 @include desktop {
   .section {
-    padding: 6rem 0;
+    padding: 7rem 0;
   }
 }
 </style>

@@ -3,13 +3,13 @@
     <Section is-black>
       <Container>
         <div class="grid">
-          <div class="grid-col-title">
+          <div class="grid-col-title" data-aos="fade-up">
             <WrapperTitle :title="$locale.footer.sendRequest" :body="$locale.footer.responseDelayDescription" />
           </div>
-          <div class="grid-col-body">
+          <div class="grid-col-body" data-aos="fade-up" data-aos-delay="200">
             <AppForm />
           </div>
-          <div class="grid-col-title grid-col-info">
+          <div class="grid-col-title grid-col-info" data-aos="fade-up" data-aos-delay="400">
             <ContactsInfo />
           </div>
           <div class="grid-col-bottom">
@@ -55,6 +55,10 @@ $offsetGapMobile: 4rem;
 $offsetGapTablet: 8rem;
 $offsetGap: 10rem;
 
+.footer {
+  overflow: hidden;
+}
+
 .gray {
   color: $colorDarkGray;
 }
@@ -80,6 +84,7 @@ $offsetGap: 10rem;
   .grid {
     grid-template-columns: repeat(2, 1fr);
     grid-row-gap: $offsetGapTablet;
+    grid-column-gap: 2rem;
   }
   .grid-col-title {
     grid-column: 1 / span 1;
@@ -92,6 +97,14 @@ $offsetGap: 10rem;
   }
   .grid-col-bottom {
     grid-column: 1 / span 2;
+  }
+  .footer {
+    &::v-deep {
+      >.section {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+      }
+    }
   }
 }
 
@@ -108,6 +121,15 @@ $offsetGap: 10rem;
     grid-row: 3;
     grid-template-columns: repeat(2, 1fr) 8fr;
     min-height: 8rem;
+  }
+
+  .footer {
+    &::v-deep {
+      >.section {
+        padding-top: 15rem;
+        padding-bottom: 6rem;
+      }
+    }
   }
 
   .footer-copyright {

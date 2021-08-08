@@ -4,7 +4,8 @@ export default {
   store: true,
   head,
   css: [
-    '~assets/styles/app.scss'
+    '~assets/styles/app.scss',
+    'aos/dist/aos.css'
   ],
   styleResources: {
     scss: [
@@ -16,6 +17,10 @@ export default {
     {
       src: '~plugins/globalComponents.js',
       ssr: true
+    },
+    {
+      src: '~plugins/aos.js',
+      ssr: false
     },
     {
       src: '~plugins/localePlugin.js',
@@ -30,7 +35,7 @@ export default {
       ssr: false
     },
     {
-      src: '~plugins/vueCarousel.js',
+      src: '~plugins/vueAwesomeSwiper.js',
       ssr: false
     },
     {
@@ -70,6 +75,9 @@ export default {
         loader: 'vue-svg-loader'
       })
     }
+  },
+  server: {
+    host: '0.0.0.0'
   },
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',

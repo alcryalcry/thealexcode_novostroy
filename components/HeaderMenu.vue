@@ -2,7 +2,7 @@
   <div class="header-menu">
     <Section is-black>
       <Container>
-        <div class="grid">
+        <div v-bsl:reserveScrollBarGap="isOpen" class="grid">
           <div class="grid-col-title grid-col-info">
             <ContactsInfo />
           </div>
@@ -24,6 +24,12 @@ export default {
   components: {
     ContactsInfo,
     Navigation
+  },
+  props: {
+    isOpen: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>

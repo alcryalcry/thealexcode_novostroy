@@ -101,11 +101,11 @@ $zIndexClose: 4;
   display: flex;
 
   &.is-open {
-    z-index: $zIndexOpened;
     .animate {
       animation-play-state: paused;
     }
     .popup-hover-wrapper {
+      z-index: $zIndexOpened;
       opacity: 1;
       transition-delay: 0.25s;
     }

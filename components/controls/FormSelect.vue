@@ -6,6 +6,8 @@
       v-bind="computedSettings"
       :options="mappedOptions"
       @select="onSelect"
+      @open="$emit('open')"
+      @close="$emit('close')"
     >
       <template #placeholder>
         <span class="multiselect__placeholder">

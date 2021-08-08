@@ -2,7 +2,7 @@
   <main>
     <div class="page">
       <div class="page-projects-one">
-        <ProjectsPageCarousel :id="projectId" />
+        <ProjectsPageCarousel :id="projectId" :prev-route="prevRoute" />
       </div>
     </div>
   </main>
@@ -15,6 +15,16 @@ export default {
   name: 'PageProjectsOne',
   components: {
     ProjectsPageCarousel
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.prevRoute = from
+    })
+  },
+  data () {
+    return {
+      prevRoute: null
+    }
   },
   computed: {
     projectId () {
