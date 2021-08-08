@@ -13,13 +13,13 @@
         :alt="data.img.alternativeText"
       >
     </NuxtLink>
-    <div class="project-item-title text--t3">
+    <div class="project-item-title text--t3" data-aos="fade-up">
       {{ data.title }}
     </div>
-    <div class="project-item-subtitle text--t2">
+    <div class="project-item-subtitle text--t2" data-aos="fade-up">
       {{ data.subtitle }}
     </div>
-    <div class="project-item-right">
+    <div class="project-item-right" data-aos="fade-up">
       <div class="project-item-tags">
         <span>{{ data.location }}</span>
         <span>{{ data.year }}</span>
@@ -135,9 +135,11 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
 
 .project-item-title {
   position: relative;
+  z-index: 2;
 }
 .project-item-subtitle {
   position: relative;
+  z-index: 2;
 }
 
 @include mobile {

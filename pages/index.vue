@@ -1,6 +1,6 @@
 <template>
-  <Layout class="page-index" is-white-header>
-    <ProjectsHeroCarousel />
+  <Layout class="page-index">
+    <ProjectsHeroCarousel class="js-dark-section" />
     <SectionAbout :data="about" />
     <SectionTeam :data="team" />
     <SectionPartners :data="partners" />

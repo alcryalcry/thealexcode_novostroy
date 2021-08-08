@@ -2,7 +2,7 @@
   <Section class="section-about">
     <Container>
       <div class="grid">
-        <div class="grid-col-title">
+        <div class="grid-col-title" data-aos="fade-up">
           <WrapperTitle :title="currentData.title" />
         </div>
         <div class="grid-col-body">

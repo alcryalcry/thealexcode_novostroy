@@ -21,7 +21,7 @@
                 v-bind="computedSettings"
               >
                 <slide
-                  v-for="slide, index in getProjects"
+                  v-for="slide in getProjects"
                   :key="slide.id"
                   class="slide"
                   :class="{ 'VueCarousel-slide-active': currentIndex === index, 'is-hovering': isHovering }"
@@ -500,23 +500,23 @@ $zIndex3: 3;
       }
     }
   }
-  .VueCarousel {
-    &::v-deep {
-      .VueCarousel-inner {
-        transition: none !important;
-      }
+  // .VueCarousel {
+  //   &::v-deep {
+  //     .VueCarousel-inner {
+  //       transition: none !important;
+  //     }
 
-      .VueCarousel-slide {
-        transition: opacity .75s ease !important;
-        opacity: 0 !important;
-      }
+  //     .VueCarousel-slide {
+  //       transition: opacity .75s ease !important;
+  //       opacity: 0 !important;
+  //     }
 
-      .VueCarousel-slide-active {
-        transition: opacity .75s ease !important;
-        opacity: 1 !important;
-      }
-    }
-  }
+  //     .VueCarousel-slide-active {
+  //       transition: opacity .75s ease !important;
+  //       opacity: 1 !important;
+  //     }
+  //   }
+  // }
 }
 
 @keyframes offsettozero {

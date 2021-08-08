@@ -1,16 +1,28 @@
 <template>
-  <div class="grid">
-    <div class="grid-col-full">
-      <ProjectsItemMain v-if="mappedList[0]" :data="mappedList[0]" />
+  <transition name="list-fade" mode="out-in">
+    <div v-if="!mappedList.length && isReady" key="1" class="grid">
+      <div class="grid-col-full">
+        <div class="title--h1">
+          {{ $locale.projects.nothing }}
+        </div>
+      </div>
     </div>
-    <div v-if="mappedList.slice(1).length" class="grid-col-body">
-      <ProjectsItem
-        v-for="item in mappedList.slice(1)"
-        :key="item.id"
-        :data="item"
-      />
+    <div v-else key="2" class="grid">
+      <div class="grid-col-full">
+        <ProjectsItemMain v-if="mappedList[0]" :data="mappedList[0]" />
+      </div>
+      <div v-if="mappedList.slice(1).length" class="grid-col-body">
+        <div
+          v-for="item, index in mappedList.slice(1)"
+          :key="item.id"
+          data-aos="fade-up"
+          :data-aos-delay="100 * (index + 1)"
+        >
+          <ProjectsItem :data="item" />
+        </div>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -29,6 +41,11 @@ export default {
       default: () => []
     }
   },
+  data () {
+    return {
+      isReady: false
+    }
+  },
   computed: {
     mappedList () {
       return this.list.map((item, index) => {
@@ -37,6 +54,11 @@ export default {
           isMain: index === 0
         }
       })
+    }
+  },
+  mounted () {
+    if (process.browser) {
+      this.isReady = true
     }
   }
 }

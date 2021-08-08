@@ -21,6 +21,7 @@ export default {
   projects: {
     all: 'Все проекты',
     detail: 'Подробнее',
+    nothing: 'Проекты не найдены',
     allYears: 'Все года',
     allStatuses: 'Все этапы',
     inProgress: {

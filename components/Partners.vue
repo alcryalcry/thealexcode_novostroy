@@ -1,18 +1,22 @@
 <template>
   <div class="partners">
     <div class="grid">
-      <div class="grid-col-title">
+      <div class="grid-col-title" data-aos="fade-up">
         <h3 v-if="title" class="title--h1">
           {{ title }}
         </h3>
       </div>
       <div class="grid-col-body">
-        <vue-markdown v-if="body" :source="body" class="body text--t1 indent" />
+        <div data-aos="fade-up" data-aos-delay="200">
+          <vue-markdown v-if="body" :source="body" class="body text--t1 indent" />
+        </div>
         <div class="partners-list">
           <div
-            v-for="img in imgs"
+            v-for="img, index in imgs"
             :key="img.id"
             class="partners-list-item"
+            data-aos="fade-up"
+            :data-aos-delay="100 * (index + 1)"
           >
             <picture class="partners-item">
               <img

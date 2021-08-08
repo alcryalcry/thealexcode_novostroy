@@ -2,7 +2,8 @@
   <header
     v-on-clickaway="closeMenu"
     class="header"
-    :class="{ 'is-menu-open': isMenuOpen, 'is-white': isWhite, 'is-sticky': isSticky }"
+    :class="{ 'is-menu-open': isMenuOpen, 'is-sticky': isSticky }"
+    :style="{ color: currentColor }"
   >
     <Section>
       <Container>
@@ -11,7 +12,7 @@
             <MainInfo />
           </div>
           <div class="header-row-burger">
-            <BurgerButton :is-active="isMenuOpen" @toggle="toggleMenu" />
+            <BurgerButton class="js-burger" :is-active="isMenuOpen" @toggle="toggleMenu" />
           </div>
         </div>
       </Container>
@@ -28,6 +29,11 @@ import BurgerButton from '@/components/BurgerButton'
 import MainInfo from '@/components/MainInfo'
 import HeaderMenu from '@/components/HeaderMenu'
 
+const Colors = {
+  White: 'var(--color-white)',
+  Black: 'var(--color-black)'
+}
+
 export default {
   name: 'Header',
   components: {
@@ -37,9 +43,9 @@ export default {
   },
   mixins: [clickaway],
   props: {
-    isWhite: {
-      type: Boolean,
-      default: false
+    currentColor: {
+      type: String,
+      default: Colors.Black
     },
     isSticky: {
       type: Boolean,
@@ -84,7 +90,7 @@ $zIndex4: $zLayerSubInfo;
 $zIndex5: $zLayerPopups;
 
 .header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -105,10 +111,6 @@ $zIndex5: $zLayerPopups;
     opacity: 0;
     transition: opacity .2s ease;
     z-index: $zIndex4;
-  }
-
-  &.is-white {
-    color: $colorWhite;
   }
 
   &.is-menu-open {
@@ -163,24 +165,6 @@ $zIndex5: $zLayerPopups;
 
 @include mobile {
   .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    &.is-sticky {
-      &::v-deep {
-        >.section {
-          background-color: rgba(#fff, .8);
-          color: $colorBlack;
-        }
-      }
-    }
-  }
-  .header-menu {
-    position: fixed;
-    bottom: 0;
-  }
-  .header {
     &::v-deep {
       >.section {
         padding-top: 1rem;
@@ -188,20 +172,6 @@ $zIndex5: $zLayerPopups;
         transition: background-color .2s ease, color .2s ease;
       }
     }
-  }
-}
-
-@include tablet {
-  .header-menu {
-    position: fixed;
-    bottom: 0;
-  }
-
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     &.is-sticky {
       &::v-deep {
         >.section {
@@ -210,12 +180,34 @@ $zIndex5: $zLayerPopups;
         }
       }
     }
+  }
+  .header-menu {
+    position: fixed;
+    bottom: 0;
+  }
+}
+
+@include tablet {
+  .header {
     &::v-deep {
       >.section {
         padding-top: 3rem;
         padding-bottom: 3rem;
       }
+      &.is-sticky {
+        &::v-deep {
+          >.section {
+            background-color: rgba(#fff, .8);
+            color: $colorBlack;
+          }
+        }
+      }
     }
+  }
+
+  .header-menu {
+    position: fixed;
+    bottom: 0;
   }
 }
 

@@ -3,13 +3,13 @@
     <Section is-black>
       <Container>
         <div class="grid">
-          <div class="grid-col-title">
+          <div class="grid-col-title" data-aos="fade-up">
             <WrapperTitle :title="$locale.footer.sendRequest" :body="$locale.footer.responseDelayDescription" />
           </div>
-          <div class="grid-col-body">
+          <div class="grid-col-body" data-aos="fade-up" data-aos-delay="200">
             <AppForm />
           </div>
-          <div class="grid-col-title grid-col-info">
+          <div class="grid-col-title grid-col-info" data-aos="fade-up" data-aos-delay="400">
             <ContactsInfo />
           </div>
           <div class="grid-col-bottom">
@@ -54,6 +54,10 @@ $colorDarkGray: var(--color-dark-gray);
 $offsetGapMobile: 4rem;
 $offsetGapTablet: 8rem;
 $offsetGap: 10rem;
+
+.footer {
+  overflow: hidden;
+}
 
 .gray {
   color: $colorDarkGray;
