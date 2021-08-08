@@ -1,7 +1,7 @@
 <template>
   <div class="page" :class="{ 'is-menu-open': getHeaderStatus, 'is-page-disable': isPageDisable }">
     <div class="page-header">
-      <Header :current-color="currentColors.header" :is-sticky="isStickyHeader" />
+      <Header :current-color="currentColors.header" :is-white="isWhiteHeader" :is-sticky="isStickyHeader" />
     </div>
 
     <main class="page-content">
@@ -39,8 +39,15 @@ export default {
     Footer,
     MainInfo
   },
+  props: {
+    isWhiteHeader: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
+      windowWidthOld: 0,
       headerPosTop: 0,
       headerPosBottom: 0,
       sectionsPosition: [],
@@ -95,8 +102,15 @@ export default {
       setHeaderStatus: 'setHeaderStatus'
     }),
     initEvents () {
-      this.resizeEvent = throttle(150, () => this.setViewBoxHeight())
-      window.addEventListener(WindowEvents.Resize, this.setViewBoxHeight, false)
+      this.windowWidthOld = window.innerWidth
+
+      this.resizeEvent = throttle(150, () => {
+        if (this.windowWidthOld !== window.innerWidth) {
+          this.setViewBoxHeight()
+          this.windowWidthOld = window.innerWidth
+        }
+      })
+      window.addEventListener(WindowEvents.Resize, this.resizeEvent, false)
 
       this.setViewBoxHeight()
 

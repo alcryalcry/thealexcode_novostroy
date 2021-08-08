@@ -1,5 +1,5 @@
 <template>
-  <Layout class="page-index">
+  <Layout class="page-index" is-white-header>
     <ProjectsHeroCarousel class="js-dark-section" />
     <SectionAbout :data="about" />
     <SectionTeam :data="team" />

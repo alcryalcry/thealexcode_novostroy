@@ -33,25 +33,21 @@
             </client-only>
           </div>
         </div>
-        <transition mode="out-in" name="list-fade">
-          <div v-if="isFilterSelected" key="default">
-            <div v-for="group, key in groupedProjectByStatus" :key="key" class="grid projects-group">
-              <div class="grid-col-title" data-aos="fade-up">
-                <div class="title--h1 ">
-                  {{ $locale.projects.inProgress[key] ? $locale.projects.inProgress[key].label : '' }}
-                </div>
-              </div>
-              <div class="grid-col-full">
-                <ProjectsGrid :list="group" />
+        <div v-if="isFilterSelected">
+          <div v-for="group, key in groupedProjectByStatus" :key="key" class="grid projects-group">
+            <div class="grid-col-title" data-aos="fade-up">
+              <div class="title--h1 ">
+                {{ $locale.projects.inProgress[key] ? $locale.projects.inProgress[key].label : '' }}
               </div>
             </div>
+            <div class="grid-col-full">
+              <ProjectsGrid :list="group" />
+            </div>
           </div>
-          <div v-else key="filtered">
-            <transition mode="out-in" name="list-fade">
-              <ProjectsGrid :key="formKey" :list="filteredProjects" />
-            </transition>
-          </div>
-        </transition>
+        </div>
+        <div v-else>
+          <ProjectsGrid :key="formKey" :list="filteredProjects" />
+        </div>
       </Container>
     </Section>
   </div>

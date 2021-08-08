@@ -35,6 +35,10 @@ export default {
       ssr: false
     },
     {
+      src: '~plugins/vueAwesomeSwiper.js',
+      ssr: false
+    },
+    {
       src: '~plugins/vueCarousel.js',
       ssr: false
     },

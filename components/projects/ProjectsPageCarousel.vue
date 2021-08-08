@@ -3,15 +3,15 @@
     <Container>
       <div v-if="slidesLength" class="carousel-wrapper">
         <client-only>
-          <carousel
-            v-model="currentIndex"
-            v-bind="computedSettings"
+          <Swiper
+            ref="mySwiper"
+            :options="computedSettings"
+            @slideChange="slideChange"
           >
-            <slide
-              v-for="slide, index in currentProject.slides"
+            <SwiperSlide
+              v-for="slide in currentProject.slides"
               :key="slide.id"
               class="slide"
-              :class="{ 'VueCarousel-slide-active': currentIndex === index }"
             >
               <div class="slide-wrapper">
                 <picture class="slide-image">
@@ -32,8 +32,8 @@
                   </div>
                 </div>
               </div>
-            </slide>
-          </carousel>
+            </SwiperSlide>
+          </Swiper>
         </client-only>
         <div class="carousel-bottom">
           <div class="carousel-bottom-info">
@@ -105,10 +105,16 @@ export default {
     }),
     computedSettings () {
       return {
-        perPage: this.getMediaSize === WindowBreakpoints.Desktop ? 1 : 1.1,
-        scrollPerPage: !!this.getMediaSize === WindowBreakpoints.Desktop,
-        paginationEnabled: false,
-        navigationEnabled: false
+        slidesPerView: this.getMediaSize === WindowBreakpoints.Desktop ? 1 : 1.2,
+        pagination: false,
+        navigation: false,
+        slidesOffsetBefore: this.getMediaSize === WindowBreakpoints.Tablet ? 40 : 20,
+        slidesOffsetAfter: this.getMediaSize === WindowBreakpoints.Tablet ? 40 : 20,
+        spaceBetween: 20,
+        effect: this.getMediaSize === WindowBreakpoints.Desktop ? 'fade' : 'slide',
+        fadeEffect: {
+          crossFade: true
+        }
       }
     },
     currentProject () {
@@ -122,21 +128,41 @@ export default {
     }
   },
   methods: {
+    slideChange () {
+      this.currentIndex = this.getSwiper()?.realIndex || 0
+    },
+    getSwiper () {
+      try {
+        return this.$refs.mySwiper.$swiper
+      } catch (e) {
+        console.warn('swiper doesnt init')
+      }
+    },
     closeModal () {
       this.$router.push({ name: RouteNames.Projects })
     },
     goToPrev () {
+      const swiper = this.getSwiper()
+
+      if (!swiper) {
+        return
+      }
       if (this.currentIndex === 0) {
-        this.currentIndex = this.slidesLength - 1
+        swiper.slideTo(this.slidesLength - 1)
       } else {
-        this.currentIndex--
+        swiper.slidePrev()
       }
     },
     goToNext () {
+      const swiper = this.getSwiper()
+
+      if (!swiper) {
+        return
+      }
       if (this.currentIndex === this.slidesLength - 1) {
-        this.currentIndex = 0
+        swiper.slideTo(0)
       } else {
-        this.currentIndex++
+        swiper.slideNext()
       }
     }
   }
@@ -144,12 +170,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$colorWhite: var(--color-white);
 $colorDarkGray: var(--color-dark-gray);
 $zIndexNavigation: 1;
 $zIndexClose: 2;
+$zIndex3: 3;
+
+.swiper-container {
+  width: 100%;
+}
 
 .projects-page-carousel {
-  padding: 4rem 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
 }
 
 .burger-button {
@@ -162,10 +201,17 @@ $zIndexClose: 2;
   color: $colorDarkGray;
 }
 
-.carousel-wrapper {
+.container {
   display: flex;
   flex-flow: column nowrap;
-  margin: 0 auto;
+  flex: 1;
+  width: 100%;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.carousel-wrapper {
+  margin: auto 0;
 }
 
 .carousel-bottom {
@@ -199,18 +245,34 @@ $zIndexClose: 2;
 
 .carousel-navigation {
   display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  justify-content: space-between;
+  transform: translateY(-50%);
 }
 
 .carousel-navigation-button {
   @include clear-btn();
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  position: relative;
   width: 12rem;
   display: flex;
   align-items: center;
   color: $colorDarkGray;
-  z-index: $zIndexNavigation;
+  z-index: $zIndex3;
+  opacity: 0;
+  transition: opacity .2s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 70vh;
+    width: 30vw;
+    transform: translateY(-50%);
+  }
 
   .icon {
     width: 3.2rem;
@@ -228,18 +290,32 @@ $zIndexClose: 2;
   }
 
   &.next {
-    right: 0;
     justify-content: flex-end;
+    &::before {
+      left: auto;
+      right: 0;
+    }
     .icon {
       margin-right: 4rem;
     }
   }
 }
 
+.slide {
+  display: flex;
+}
+
+.slide-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
+}
+
 .slide-image {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 @include mobile {
@@ -251,13 +327,6 @@ $zIndexClose: 2;
       }
     }
   }
-  .VueCarousel {
-    &::v-deep {
-      .VueCarousel-slide {
-        padding: 0 1rem;
-      }
-    }
-  }
   .burger-button {
     top: 2rem;
     right: 2rem;
@@ -265,15 +334,16 @@ $zIndexClose: 2;
   .carousel-bottom {
     padding: 0 2rem;
   }
+  .slide-image {
+    height: 27vh;
+    height: calc(var(--vh, 1vh) * 27);
+  }
 }
 
 @include tablet {
-  .VueCarousel {
-    &::v-deep {
-      .VueCarousel-slide {
-        padding: 0 1rem;
-      }
-    }
+  .slide-image {
+    height: 40vh;
+    height: calc(var(--vh, 1vh) * 40);
   }
   .burger-button {
     top: 4rem;
@@ -305,7 +375,8 @@ $zIndexClose: 2;
 
 @include desktop {
   .projects-page-carousel {
-    padding: 12rem 0;
+    padding: 12vh 0;
+    padding: calc(var(--vh, 1vh) * 12) 0;
   }
   .slide-wrapper {
     .carousel-bottom {
@@ -323,15 +394,21 @@ $zIndexClose: 2;
     display: flex;
   }
   .burger-button {
-    top: 4rem;
+    top: 4vh;
+    top: calc(var(--vh, 1vh) * 4);
     right: 10rem;
   }
   .carousel-navigation {
-    display: block;
+    display: flex;
+    z-index: 1;
+  }
+
+  .swiper-container {
+    height: 67vh;
+    height: calc(var(--vh, 1vh) * 67);
   }
 
   .carousel-wrapper {
-    // width: 108rem;
     padding: 0 12rem;
   }
 
@@ -341,6 +418,17 @@ $zIndexClose: 2;
 
   .carousel-navigation-button {
     &:hover {
+      opacity: 1;
+
+      &:active {
+        &.next .icon {
+          transform: translateX(1rem);
+        }
+        &.prev .icon {
+          transform: rotate(180deg) translateX(1rem);
+        }
+      }
+
       &.next .icon {
         transform: translateX(.5rem);
       }
@@ -350,22 +438,5 @@ $zIndexClose: 2;
     }
   }
 
-  .VueCarousel {
-    &::v-deep {
-      .VueCarousel-inner {
-        transition: none !important;
-      }
-
-      .VueCarousel-slide {
-        transition: opacity .75s ease !important;
-        opacity: 0 !important;
-      }
-
-      .VueCarousel-slide-active {
-        transition: opacity .75s ease !important;
-        opacity: 1 !important;
-      }
-    }
-  }
 }
 </style>

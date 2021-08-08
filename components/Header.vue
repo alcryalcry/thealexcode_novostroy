@@ -2,7 +2,7 @@
   <header
     v-on-clickaway="closeMenu"
     class="header"
-    :class="{ 'is-menu-open': isMenuOpen, 'is-sticky': isSticky }"
+    :class="{ 'is-menu-open': isMenuOpen, 'is-sticky': isSticky, 'is-white': isWhite }"
     :style="{ color: currentColor }"
   >
     <Section>
@@ -43,6 +43,10 @@ export default {
   },
   mixins: [clickaway],
   props: {
+    isWhite: {
+      type: Boolean,
+      default: false
+    },
     currentColor: {
       type: String,
       default: Colors.Black
@@ -161,6 +165,14 @@ $zIndex5: $zLayerPopups;
   overflow: hidden;
   z-index: $zIndex5;
   pointer-events: auto;
+}
+
+@include mobile_tablet {
+  .header {
+    &.is-white:not(.is-sticky) {
+      color: $colorWhite !important;
+    }
+  }
 }
 
 @include mobile {

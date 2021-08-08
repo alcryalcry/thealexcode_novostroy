@@ -3,6 +3,7 @@
     <NuxtLink
       class="project-item-img-wrapper"
       :to="data.relativeUrl"
+      data-aos="fade-up"
       @mouseover.native="onMouseOver"
       @mouseleave.native="onMouseLeave"
     >
@@ -19,12 +20,12 @@
     <div class="project-item-subtitle text--t2" data-aos="fade-up">
       {{ data.subtitle }}
     </div>
-    <div class="project-item-right" data-aos="fade-up">
-      <div class="project-item-tags">
+    <div class="project-item-right">
+      <div class="project-item-tags" data-aos="fade-up">
         <span>{{ data.location }}</span>
         <span>{{ data.year }}</span>
       </div>
-      <div class="project-item-link">
+      <div class="project-item-link" data-aos="fade-up">
         <Link
           :label="$locale.projects.detail"
           :url="data.relativeUrl"
@@ -105,6 +106,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
   max-width: none;
   pointer-events: auto;
   overflow: hidden;
+  z-index: 2;
 
   &::before {
     content: '';
@@ -164,6 +166,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     top: $offsetMobile;
     left: $offsetMobile;
     color: $colorWhite;
+    z-index: 2;
   }
 }
 
@@ -189,6 +192,7 @@ $offsetMobile: $CONTAINER_SIDE_OFFSET_MOBILE;
     top: $offsetTablet;
     left: $offsetTablet;
     color: $colorWhite;
+    z-index: 2;
   }
 }
 
