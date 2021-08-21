@@ -11,6 +11,7 @@ deploy-stage:
     - stage
   script:
     - docker build -t nvstr --build-arg APP_ENV="$APP_ENV" . --no-cache
+    - (docker stop nvstr-front-${CI_JOB_ID} || true)
     - docker run -d -p 4444:4444 --restart always --name nvstr-front-${CI_JOB_ID} nvstr
   tags:
     - build_docker
