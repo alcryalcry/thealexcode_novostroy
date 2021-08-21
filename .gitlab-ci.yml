@@ -10,8 +10,9 @@ deploy-stage:
   only:
     - stage
   script:
+    - docker kill nvstr-front
+    - docker rm nvstr-front
     - docker build -t nvstr --build-arg APP_ENV="$APP_ENV" . --no-cache
-    - (docker stop nvstr-front-${CI_JOB_ID} || true)
-    - docker run -d -p 4444:4444 --restart always --name nvstr-front-${CI_JOB_ID} nvstr
+    - docker run -d -p 4444:4444 --restart always --name nvstr-front nvstr
   tags:
     - build_docker
