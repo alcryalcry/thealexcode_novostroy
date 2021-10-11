@@ -49,11 +49,11 @@ export default class AppModelSettings extends AppModel {
       addressName,
       contactList: mappedContactList,
       addressList: mappedAddressList,
-      seoMainTitle,
+      seoMainTitle: `${seoMainTitle} | ${title}`,
       seoMainDescription,
-      seoProjectsTitle,
+      seoProjectsTitle: `${seoProjectsTitle} | ${title}`,
       seoProjectsDescription,
-      seoImage: AppModelImage.createFromRaw(seoImage)
+      seoImage: AppModelImage.createFromRaw(seoImage).absoluteUrl
     })
   }
 }

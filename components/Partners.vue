@@ -75,7 +75,7 @@ $rowGap: 2rem;
   align-items: center;
   height: 10rem;
   img {
-    width: auto;
+    width: 100%;
     height: auto;
   }
 }
