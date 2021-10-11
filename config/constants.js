@@ -1,5 +1,3 @@
-export const SITE_TITLE = 'nvstr-frontend'
-
 export const THEME_COLOR = '#000000'
 
 export const API_ROOT = process.env.apiRoot || 'http://localhost:3000'
@@ -53,3 +51,36 @@ export const RouteMap = [
     anchor: '#form'
   }
 ]
+
+export const pageHead = (title = '', description = '', image = '') => {
+  return {
+    title,
+    meta: [
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: title
+      },
+      {
+        hid: 'twitter:title',
+        property: 'twitter:title',
+        content: title
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: description
+      },
+      {
+        hid: 'twitter:description',
+        property: 'twitter:description',
+        content: description
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: image
+      }
+    ]
+  }
+}

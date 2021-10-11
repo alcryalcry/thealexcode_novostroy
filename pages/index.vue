@@ -8,11 +8,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ProjectsHeroCarousel from '@/components/projects/ProjectsHeroCarousel'
 import SectionAbout from '@/components/sections/SectionAbout'
 import SectionTeam from '@/components/sections/SectionTeam'
 import SectionPartners from '@/components/sections/SectionPartners'
 import { fetchAbout, fetchPartners, fetchTeam } from '@/config/api'
+import { pageHead } from '@/config/constants'
 
 export default {
   name: 'PageMain',
@@ -25,7 +27,8 @@ export default {
   async asyncData () {
     const res = {
       about: {},
-      team: {}
+      team: {},
+      partners: {}
     }
 
     try {
@@ -47,6 +50,20 @@ export default {
     }
 
     return res
+  },
+  head () {
+    const title = this.getSettings.seoMainTitle
+    const description = this.getSettings.seoMainDescription
+    const image = this.getSettings.seoImage
+
+    return {
+      ...pageHead(title, description, image)
+    }
+  },
+  computed: {
+    ...mapGetters({
+      getSettings: 'getSettings'
+    })
   }
 }
 </script>

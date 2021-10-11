@@ -9,7 +9,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ProjectsPageCarousel from '@/components/projects/ProjectsPageCarousel'
+import { pageHead } from '@/config/constants'
 
 export default {
   name: 'PageProjectsOne',
@@ -26,7 +28,19 @@ export default {
       prevRoute: null
     }
   },
+  head () {
+    const title = this.getSettings.seoProjectsTitle
+    const description = this.getSettings.seoProjectsDescription
+    const image = this.getSettings.seoImage
+
+    return {
+      ...pageHead(title, description, image)
+    }
+  },
   computed: {
+    ...mapGetters({
+      getSettings: 'getSettings'
+    }),
     projectId () {
       return Number(this.$route?.params?.id)
     }

@@ -1,10 +1,9 @@
 import {
-  SITE_TITLE,
   THEME_COLOR
 } from './constants'
 
 export const head = {
-  titleTemplate: `%s | ${SITE_TITLE}`,
+  titleTemplate: '%s',
   meta: [
     {
       charset: 'utf-8'
