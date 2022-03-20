@@ -1,0 +1,22 @@
+$colGapDesktop: $COL_GAP_DESKTOP;
+
+.grid {
+  display: grid;
+  grid-row-gap: 2rem;
+}
+
+@include desktop {
+  .grid {
+    grid-column-gap: $colGapDesktop;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .grid-col-title {
+    grid-column: 1 / span 4;
+  }
+  .grid-col-body {
+    grid-column: 5 / span 8;
+  }
+  .grid-col-full {
+    grid-column: 1 / span 12;
+  }
+}

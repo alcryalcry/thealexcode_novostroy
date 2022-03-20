@@ -1,0 +1,94 @@
+$COLOR_WHITE: #ffffff;
+$COLOR_BLACK: #000000;
+$COLOR_LIGHT_GRAY: #F0F1F5;
+$COLOR_GRAY: #CCD0DC;
+$COLOR_DARK_GRAY: #82868E;
+$COLOR_GREEN: #7C8D66;
+$COLOR_RED: #9C4E4E;
+
+:root {
+  --color-white: #{$COLOR_WHITE};
+  --color-black: #{$COLOR_BLACK};
+  --color-light-gray: #{$COLOR_LIGHT_GRAY};
+  --color-gray: #{$COLOR_GRAY};
+  --color-dark-gray: #{$COLOR_DARK_GRAY};
+  --color-green: #{$COLOR_GREEN};
+  --color-red: #{$COLOR_RED};
+}
+
+
+// BREAKPOINTS
+$TABLET_WIDTH: 768px;
+$DESKTOP_WIDTH: 1024px;
+
+$MOBILE: 'screen and (max-width: 767px)';
+$TABLET: 'screen and (min-width: 768px) and (max-width: 1023px)';
+$MOBILE_TABLET: 'screen and (max-width: 1023px)';
+$TABLET_DESKTOP: 'screen and (min-width: 768px)';
+$DESKTOP: 'screen and (min-width: 1024px)';
+$DESKTOP_LARGE: 'screen and (min-width: 1600px)';
+$DESKTOP_SMALL: 'screen and (min-width: 1024px) and (max-width: 1360px)';
+
+
+// FONT WEIGHT
+$FW_THIN: 100;
+$FW_EXTRA_LIGHT: 200;
+$FW_ULTRA_LIGHT: 200;
+$FW_LIGHT: 300;
+$FW_REGULAR: 400;
+$FW_NORMAL: 400;
+$FW_MEDIUM: 500;
+$FW_SEMI_BOLD: 600;
+$FW_DEMI_BOLD: 600;
+$FW_BOLD: 700;
+$FW_EXTRA_BOLD: 800;
+$FW_ULTRA_BOLD: 800;
+$FW_BLACK: 900;
+$FW_HEAVY: 900;
+
+// FONT STYLES
+$FONT_FAMILY: 'Montserrat', sans-serif;
+$FONT_ITALIC: italic;
+
+// GRID COLUMNS DESKTOP
+$COL_COUNT_DESKTOP: 12;
+$COL_GAP_DESKTOP: 3.5rem;
+$CONTAINER_WIDTH_DESKTOP: 124rem;
+$CONTAINER_SIDE_OFFSET_DESKTOP: 4rem;
+$PAGE_SIDE_OFFSET_DESKTOP: 10rem;
+
+// GRID COLUMNS TABLET
+$COL_COUNT_TABLET: 8;
+$COL_GAP_TABLET: 2rem;
+$CONTAINER_WIDTH_TABLET: auto;
+$CONTAINER_SIDE_OFFSET_TABLET: 4rem;
+
+// GRID COLUMNS MOBILE
+$COL_COUNT_MOBILE: 4;
+$COL_GAP_MOBILE: 1rem;
+$CONTAINER_WIDTH_MOBILE: auto;
+$CONTAINER_SIDE_OFFSET_MOBILE: 2rem;
+
+// LAYERS
+$zLayerHide: -1;
+$zLayerBack: 0;
+$zLayerContent: 3;
+$zLayerTags: 4;
+$zLayerDecor1: 5;
+$zLayerDecor2: 6;
+$zLayerSubNav: 7;
+$zLayerSubInfo: 8;
+$zLayerNav: 9;
+$zLayerOverlay: 10;
+$zLayerPopups: 12;
+$zLayerTop: 15;
+$zLayerTopPopupHover: 16;
+$zLayerTopPopupHoverButton: 17;
+
+
+$EASE_OUT_SINE: cubic-bezier(0.390, 0.575, 0.565, 1.000);
+$EASE_IN_OUT_SINE: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+$EASE_OUT_EXPO: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+$EASE_IN_OUT_EXPO: cubic-bezier(1.000, 0.000, 0.000, 1.000);
+$EASE_IN_OUT_CIRC: cubic-bezier(0.77, 0, 0.175, 1);
+$ELASTIC: cubic-bezier(0, 1.4, 1, 1);

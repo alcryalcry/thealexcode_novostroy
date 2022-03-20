@@ -1,42 +1,87 @@
+import { head } from './config'
+
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
-  head: {
-    title: 'nvstr-frontend',
-    htmlAttrs: {
-      lang: 'en'
-    },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+  store: true,
+  head,
+  css: [
+    '~assets/styles/app.scss',
+    'aos/dist/aos.css'
+  ],
+  styleResources: {
+    scss: [
+      'assets/styles/global/vars.scss',
+      'assets/styles/global/mixins.scss'
     ]
   },
-
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-  ],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    {
+      src: '~plugins/globalComponents.js',
+      ssr: true
+    },
+    {
+      src: '~plugins/aos.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/localePlugin.js',
+      ssr: true
+    },
+    {
+      src: '~plugins/vueMarkdown.js',
+      ssr: true
+    },
+    {
+      src: '~plugins/vMask.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vueAwesomeSwiper.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vueClickaway.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vuelidate.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vBodyScrollLock.js',
+      ssr: false
+    },
+    {
+      src: '~plugins/vueMultiselect',
+      ssr: false
+    }
   ],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
   ],
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend (config) {
+      // SVG Loader
+      config.module.rules
+        .filter(r => r.test.toString().includes('svg'))
+        .forEach((r) => {
+          r.test = /\.(png|jpe?g|gif)$/
+        })
+      config.module.rules.push({
+        test: /\.svg$/,
+        loader: 'vue-svg-loader'
+      })
+    }
+  },
+  server: {
+    host: '0.0.0.0',
+    port: 4444
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:4444',
+    apiRoot: process.env.API_ROOT || 'http://localhost:4444'
   }
 }

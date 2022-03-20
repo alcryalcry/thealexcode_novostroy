@@ -1,0 +1,169 @@
+$widthTablet: $TABLET_WIDTH;
+$widthDesktop: $DESKTOP_WIDTH;
+$fontFamily: $FONT_FAMILY;
+
+@mixin mobile {
+  @media (max-width: #{$widthTablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile_tablet {
+  @media (max-width: #{$widthDesktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobileTablet {
+  @media (max-width: #{$widthDesktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$widthTablet}) and (max-width: #{$widthDesktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet_desktop {
+  @media (min-width: #{$widthTablet}) {
+    @content;
+  }
+}
+
+@mixin tabletDesktop {
+  @media (min-width: #{$widthTablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$widthDesktop}) {
+    @content;
+  }
+}
+
+@mixin font($fontSize, $lineHeight: 'normal', $fontWeight: 500, $letterSpacing: 0, $fontFamily: $fontFamily) {
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  font-weight: $fontWeight;
+  font-family: $fontFamily;
+  letter-spacing: $letterSpacing;
+}
+
+@mixin list($position: outside) {
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  list-style: none;
+  list-style-position: $position;
+}
+
+@mixin img() {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@mixin transOp($opacity) {
+  opacity: $opacity;
+  transition: opacity 0.2s ease;
+}
+
+@mixin out() {
+  &:active, &:focus {
+    outline: none;
+    color: black;
+  }
+}
+
+@mixin centerY() {
+  top: 50%;
+  transform: translatey(-50%);
+}
+
+@mixin centerX() {
+  left: 50%;
+  transform: translatex(-50%);
+}
+
+@mixin user-select() {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+
+@mixin bgi($size) {
+  background-position: 50% 50%;
+  background-size: $size;
+  background-repeat: no-repeat;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin center() {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+@mixin pseudo($content: '') {
+  content: $content;
+  position: absolute;
+  display: block;
+}
+
+@mixin obj-fit() {
+  object-fit: cover;
+  object-position: top;
+  font-family: 'object-fit: cover; object-position: top;';
+  width: 100%;
+  display: block;
+}
+
+@mixin clear-btn() {
+  appearance: none;
+  border: none;
+  background: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+
+@function pow($x, $n) {
+  $ret: 1;
+
+  @if $n >= 0 {
+    @for $i from 1 through $n {
+      $ret: $ret * $x;
+    }
+  } @else {
+    @for $i from $n to 0 {
+      $ret: $ret / $x;
+    }
+  }
+
+  @return $ret;
+}
+
+@function to-fixed($float, $digits: 2) {
+  $sass-precision: 5;
+
+  $pow: pow(10, $digits);
+  @return round($float * $pow) / $pow;
+}
