@@ -1,32 +1,19 @@
-FROM node:14
+FROM node:12.16.3-alpine3.9
 
-#args
-ARG APP_ENV
+RUN mkdir -p /var/www/dockerize-nuxt/novostroy
+WORKDIR /var/www/dockerize-nuxt/novostroy
 
-RUN echo $APP_ENV
+COPY package*.json ./
+RUN npm install
 
-# create destination directory
-RUN mkdir -p /usr/src/nvstr-app
-WORKDIR /usr/src/nvstr-app
+COPY . .
 
-# copy the app, note .dockerignore
-COPY . /usr/src/nvstr-app/
-RUN yarn
+RUN npm run build
 
-# env
-RUN echo $APP_ENV > .env
+EXPOSE 3002
 
-# build necessary, even if no static files are needed,
-# since it builds the server as well
-RUN yarn build
-
-# expose 4444 on container
-EXPOSE 4444
-
-# set app serving to permissive / assigned
 ENV NUXT_HOST=0.0.0.0
-# set app port
-ENV NUXT_PORT=4444
 
-# start the app
-CMD [ "yarn", "start" ]
+ENV NUXT_PORT=3000
+
+CMD [ "npm", "start" ]

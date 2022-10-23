@@ -77,11 +77,11 @@ export default {
     }
   },
   server: {
-    host: '0.0.0.0',
-    port: 4444
+    host: process.env.NUXT_HOST,
+    port: process.env.NUXT_PORT
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:4444',
-    apiRoot: process.env.API_ROOT || 'http://localhost:4444'
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    apiRoot: process.env.API_ROOT || 'http://localhost:3000'
   }
 }

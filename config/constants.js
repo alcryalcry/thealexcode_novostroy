@@ -25,15 +25,6 @@ export const WindowBreakpoints = {
   Mobile: 'mobile'
 }
 
-export const ApiRoutes = {
-  About: 'about',
-  Partners: 'partners',
-  Projects: 'projects',
-  Team: 'team',
-  Settings: 'settings',
-  Feedback: 'feedbacks'
-}
-
 export const RouteNames = {
   Main: 'index',
   Projects: 'projects'
