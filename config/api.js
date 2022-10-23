@@ -1,33 +1,32 @@
 import axios from '@/plugins/axios'
-import { ApiRoutes } from '@/config/constants'
 import { rawObject } from '@/utils'
 
 export async function fetchSettings () {
-  const res = await axios.get(ApiRoutes.Settings)
+  const res = await axios.get('settings')
   return rawObject(res).data
 }
 
 export async function fetchAbout () {
-  const res = await axios.get(ApiRoutes.About)
+  const res = await axios.get('about')
   return rawObject(res).data
 }
 
 export async function fetchPartners () {
-  const res = await axios.get(ApiRoutes.Partners)
+  const res = await axios.get('partners')
   return rawObject(res).data
 }
 
 export async function fetchProjects () {
-  const res = await axios.get(ApiRoutes.Projects)
+  const res = await axios.get('projects')
   return rawObject(res).data
 }
 
 export async function fetchTeam () {
-  const res = await axios.get(ApiRoutes.Team)
+  const res = await axios.get('team')
   return rawObject(res).data
 }
 
 export async function sendFeedback (data) {
-  const res = await axios.post(ApiRoutes.Feedback, data)
+  const res = await axios.post('feedback', data)
   return rawObject(res)
 }
