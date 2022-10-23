@@ -9,8 +9,8 @@ export default class AppModelSettings extends AppModel {
       copyright = '',
       contactName = '',
       addressName = '',
-      contactList = [],
-      addressList = [],
+      contacts = [],
+      addresses = [],
       seoMainTitle = '',
       seoMainDescription = '',
       seoProjectsTitle = '',
@@ -18,7 +18,7 @@ export default class AppModelSettings extends AppModel {
       seoImage = {}
     } = rawObject(raw)
 
-    const mappedContactList = rawArray(contactList).map((item) => {
+    const mappedContactList = rawArray(contacts).map((item) => {
       const {
         id = '',
         text = ''
@@ -29,7 +29,7 @@ export default class AppModelSettings extends AppModel {
       }
     })
 
-    const mappedAddressList = rawArray(addressList).map((item) => {
+    const mappedAddressList = rawArray(addresses).map((item) => {
       const {
         id = '',
         text = ''

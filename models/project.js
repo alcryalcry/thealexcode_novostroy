@@ -34,13 +34,12 @@ export default class AppModelProject extends AppModel {
 
   static createSlideFromRaw (raw, index = 1) {
     const {
-      img: slideImg = {},
       caption = ''
     } = rawObject(raw)
 
     return {
       id: index,
-      img: AppModelImage.createFromRaw(slideImg),
+      img: AppModelImage.createFromRaw(raw),
       caption
     }
   }
