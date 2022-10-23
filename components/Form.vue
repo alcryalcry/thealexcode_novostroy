@@ -54,9 +54,9 @@
 </template>
 
 <script>
+import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
 import FormInput from '@/components/controls/FormInput.vue'
 import Link from '@/components/Link.vue'
-import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
 import { sendFeedback } from '@/config/api'
 import { AppModelFormPost } from '@/models'
 
@@ -107,7 +107,8 @@ export default {
   validations: {
     formModel: {
       name: {
-        required
+        required,
+        minLength: minLength(3)
       },
       email: {
         required,

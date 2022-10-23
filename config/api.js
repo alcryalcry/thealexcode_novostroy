@@ -27,6 +27,6 @@ export async function fetchTeam () {
 }
 
 export async function sendFeedback (data) {
-  const res = await axios.post('feedback', data)
+  const res = await axios.post('api/feedbacks', data)
   return rawObject(res)
 }

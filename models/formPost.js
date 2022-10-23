@@ -1,5 +1,5 @@
 import { AppModel } from '@/models'
-import { rawObject, rawArray } from '@/utils'
+import { rawObject } from '@/utils'
 
 export default class AppModelFormPost extends AppModel {
   static createErrorsFromRaw (raw) {
@@ -12,23 +12,20 @@ export default class AppModelFormPost extends AppModel {
     } = rawObject(response)
 
     const {
-      data: dataErrors = {}
+      error = {}
     } = rawObject(data)
 
     const {
-      errors = {}
-    } = rawObject(dataErrors)
+      details = {}
+    } = rawObject(error)
 
     const {
-      name = [],
-      phone = [],
-      email = []
-    } = rawObject(errors)
+      errors: detailErrors = []
+    } = rawObject(details)
 
-    return Object.assign(new AppModelFormPost(), {
-      name: rawArray(name)[0],
-      email: rawArray(email)[0],
-      phone: rawArray(phone)[0]
-    })
+    return detailErrors.reduce((acc, item) => {
+      acc[item?.path[0]] = item.message
+      return acc
+    }, {})
   }
 }
